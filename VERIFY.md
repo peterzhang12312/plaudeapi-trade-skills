@@ -48,16 +48,17 @@ curl -sS -o /dev/null -w 'timeline http %{http_code} (expect 200)\n' https://pla
 # 1e. the version in SKILL.md Metadata equals cases.yaml skill_version
 V1=$(grep -oE '^version: [0-9.]+' skills/us-import-risk-screen/SKILL.md | cut -d' ' -f2); V2=$(grep -oE '^skill_version: [0-9.]+' conformance/cases.yaml | cut -d' ' -f2); [ "$V1" = "$V2" ] && echo "1e versions match ($V1)" || echo "1e VERSION MISMATCH skill=$V1 fixtures=$V2"
 ```
-Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d prints `http 200` with title hits ≥ 1 and `timeline http 200`, 1e prints `versions match`. (Path existence is proven by Tier 2: `git hash-object` fails on a missing path.)
+Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d prints `http 200` with title hits ≥ 1 and `timeline http 200`, 1e prints `versions match`. (Path existence is proven by Tier 2: `git rev-parse master:<path>` fails on a missing path and Tier 2 exits non-zero.)
 
 ## Tier 2 — alignment-pin verification (maintainer only; the repo is private)
 ```bash
 KP="${KP:-../knowledge-pop}"          # path to your private knowledge-pop checkout (override with KP=...)
 echo "knowledge-pop master: $(git -C "$KP" rev-parse master)   (informational; the pin is by content hash, not by commit)"
-# the file list is read from the Metadata block so SKILL.md stays the only list; a missing path fails here (that is check 1e)
+# the file list is read from the Metadata block so SKILL.md stays the only list; a missing path makes rev-parse fail and the loop exit 1
 grep -oE '^    (src|scripts|content|public)/[^:]+' skills/us-import-risk-screen/SKILL.md | tr -d ' ' | grep . | while read -r f; do
-  echo "$(git -C "$KP" rev-parse "master:$f")  $f"   # committed blob id: independent of core.autocrlf rewriting the working tree (git hash-object on a CRLF-converted checkout would differ)
-done
+  hash=$(git -C "$KP" rev-parse --verify --quiet "master:$f") || { echo "MISSING IN PRODUCTION: $f"; exit 1; }
+  echo "$hash  $f"   # committed blob id: independent of core.autocrlf rewriting the working tree (git hash-object on a CRLF-converted checkout would differ)
+done || exit 1
 ```
 Compare each hash with `aligned_with_production` in SKILL.md → Metadata. Any mismatch = **DRIFT CANDIDATE**: the skill is not wrong yet, but it is no longer aligned at a known baseline. Action: read the diff of the changed file(s), replay Tier 3, then either re-pin (update the hashes, bump `version`, add a `conformance/RUNS.md` entry) or mark the skill `STALE — DO NOT RELY` in its metadata until fixed. A new `public/data/trade/latest.json` vintage is a `revalidate_on_event` trigger even if the compiled files are unchanged.
 
