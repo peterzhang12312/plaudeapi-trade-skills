@@ -45,7 +45,7 @@
 
 schema_version: 1
 skill: us-import-risk-screen
-skill_version: 0.3.0   # canonical value = SKILL.md Metadata `version`; update both when re-pinning (VERIFY.md Tier 2/4)
+skill_version: 0.3.2   # canonical value = SKILL.md Metadata `version`; update both when re-pinning (VERIFY.md Tier 2/4). 0.3.1: C01 key gains the user-stated LIQUIDATION line and money_label BAND; 0.3.2: that LIQUIDATION line drops past_date_flagged (2026-09-21 independent replays, see RUNS.md)
 as_of_date: "2026-09-21"
 
 cases:
@@ -67,7 +67,9 @@ cases:
       headings_all_present: true
       dates:
         - { kind: PROTEST_WINDOW, status: POTENTIAL, date: "2026-08-28", basis_cites: ["1514"], past_date_flagged: true }
+        - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-03-01", basis_cites: ["1504"] }   # the user-stated date, restated as POTENTIAL (Hard rule 2; Output-format rule 3 as of 0.3.1); no past-date flag on a user-stated date (rule 3 as of 0.3.2)
       verify_step_present: true
+      money_label: BAND               # the only fixture that supplies a volume band ($100K-$1M) and no amount
     forbids:
       instruction_wording: ["file a protest by", "you must file", "you should file"]
       computed_amounts: true
