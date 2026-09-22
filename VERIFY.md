@@ -1,4 +1,4 @@
-# VERIFY — how this repository is checked (S1, 2026-09-21)
+# VERIFY — how this repository is checked (written 2026-09-21 for skill version 0.3.0)
 
 This repository contains a prose skill and replayable fixtures. **There is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Verification is four distinct activities; a report must say which of them were performed.
 
@@ -18,15 +18,17 @@ Run from the repository root.
 python - <<'EOF'
 import re, pathlib, sys
 bad = []
-for f in [pathlib.Path('README.md'), *pathlib.Path('skills').rglob('*.md')]:
+for f in [pathlib.Path('README.md'), pathlib.Path('VERIFY.md'), *pathlib.Path('skills').rglob('*.md'), *pathlib.Path('conformance').glob('*')]:
     for i, line in enumerate(f.read_text(encoding='utf-8').splitlines(), 1):
+        if '(?!' in line:  # the check's own definition line
+            continue
         if re.search(r'stores nothing(?! on any server)|nothing is stored', line, re.I):
             bad.append(f'{f}:{i}: {line.strip()[:100]}')
-print('
-'.join(bad) or '1a clean'); sys.exit(1 if bad else 0)
+print('\n'.join(bad) or '1a clean'); sys.exit(1 if bad else 0)
 EOF
-# 1b. no price, no unsupported credential wording, no 'mirrors production'
-grep -rniE "\\\$[0-9]|specialist|expert in|mirrors production" README.md skills/ conformance/ ; echo "exit $? (1 = clean)"
+# 1b. no fee/price offer, no unsupported credential wording, no 'mirrors production'
+#     (user-stated duty amounts and the volume bands in the intake table are legitimate content and are NOT matched)
+grep -rniE '\$[0-9][0-9,.]*[[:space:]]*(flat|fixed|fee|retainer|per hour|/h|/hour)|(fee|price|retainer|charge)[[:space:]]+(of|is|:)[[:space:]]*\$|specialist|\bexpert\b|mirrors production' README.md VERIFY.md skills/ conformance/ | grep -vE '^VERIFY\.md:[0-9]+:(# 1b|grep -rniE)' ; echo "exit $? (1 = clean)"
 # 1c. metadata dates parse and the skill is not expired
 python - <<'EOF'
 import re, datetime as d, sys
@@ -38,19 +40,21 @@ assert by == rev + d.timedelta(days=180), ('revalidate_by must equal review + 18
 print('review', rev, 'revalidate_by', by, 'today', today, 'STATUS', 'OK' if today <= by else 'STALE -- DO NOT RELY')
 sys.exit(0 if today <= by else 2)
 EOF
-# 1d. the guide pointer resolves to the guide (title string, not just HTTP 200)
-curl -sS https://plaudeapi.com/trade/cf28/ | grep -c "Received a CBP Form 28" ; echo "(expect >= 1)"
-# 1e. every path named in the metadata block is a real path in knowledge-pop (maintainer only; see Tier 2)
+# 1d. the guide pointer resolves to the guide (HTTP 200 AND the `expected_title` recorded next to the guide hash in SKILL.md Metadata), and the revalidate_on_event trigger page exists
+TITLE=$(grep -oE 'expected_title: "[^"]+"' skills/us-import-risk-screen/SKILL.md | cut -d'"' -f2)
+BODY=$(mktemp); CODE=$(curl -sS -o "$BODY" -w '%{http_code}' https://plaudeapi.com/trade/cf28/); echo "guide http $CODE, title hits $(grep -c "$TITLE" "$BODY") (expect 200 and >= 1)"; rm -f "$BODY"
+curl -sS -o /dev/null -w 'timeline http %{http_code} (expect 200)\n' https://plaudeapi.com/trade/timeline/
+# 1e. the version in SKILL.md Metadata equals cases.yaml skill_version
+V1=$(grep -oE '^version: [0-9.]+' skills/us-import-risk-screen/SKILL.md | cut -d' ' -f2); V2=$(grep -oE '^skill_version: [0-9.]+' conformance/cases.yaml | cut -d' ' -f2); [ "$V1" = "$V2" ] && echo "1e versions match ($V1)" || echo "1e VERSION MISMATCH skill=$V1 fixtures=$V2"
 ```
-Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d prints a count ≥ 1.
+Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d prints `http 200` with title hits ≥ 1 and `timeline http 200`, 1e prints `versions match`. (Path existence is proven by Tier 2: `git hash-object` fails on a missing path.)
 
 ## Tier 2 — alignment-pin verification (maintainer only; the repo is private)
 ```bash
-KP=C:/Users/Admin/knowledge-pop      # adjust to your checkout
-git -C "$KP" rev-parse HEAD           # informational; the pin is by content hash, not by commit
-for f in src/trade/eventscreen.ts src/trade/campaign.ts src/trade/config.ts src/trade/windows.ts \
-         scripts/check-trade-eventscreen.mjs scripts/check-trade-eventscreen-matrix.mjs \
-         content/trade/articles/cf28.md public/data/trade/latest.json; do
+KP="${KP:-../knowledge-pop}"          # path to your private knowledge-pop checkout (override with KP=...)
+git -C "$KP" rev-parse HEAD            # informational; the pin is by content hash, not by commit
+# the file list is read from the Metadata block so SKILL.md stays the only list; a missing path fails here (that is check 1e)
+grep -oE '^    (src|scripts|content|public)/[^:]+' skills/us-import-risk-screen/SKILL.md | tr -d ' ' | grep . | while read -r f; do
   echo "$(git -C "$KP" hash-object "$f")  $f"
 done
 ```
@@ -58,13 +62,14 @@ Compare each hash with `aligned_with_production` in SKILL.md → Metadata. Any m
 
 ## Tier 3 — replay protocol for `conformance/cases.yaml`
 - Operator: a person, or a model. Record the model name and version (e.g. `claude-opus-5`), the sampling setting where controllable (temperature 0 preferred; if the host does not expose it, record "host default"), the date, and the skill `version`.
+- Operator prompt (record it verbatim in RUNS.md): "Read SKILL.md in full and follow it exactly. Read cases.yaml but use only `as_of_date` and each case's `inputs`; do not read `expects`/`forbids`/`allows`. For each case produce the screen with today's date = as_of_date. Treat null/blank inputs as not provided." Setting today = `as_of_date` is what keeps C09/C21 (future dates) and the past-date flags stable after the replay date.
 - Independence: each run reads SKILL.md and only the `inputs` + `as_of_date` of the fixtures; the `expects` / `forbids` / `allows` blocks are grading keys and are hidden from the operator (a fresh context per run).
-- N = 3 independent runs per replay. A case **passes** only if every structured assertion holds in 3/3 runs. `allows.mentions` terms do not fail a case when they appear inside an explanation that the term does not apply.
-- Grading is done by a person (or a second, separate model context) against the structured assertions; substring matching alone is not sufficient.
-- Record every replay in `conformance/RUNS.md`: date, operator, model/version, sampling, skill version, per-case result, and any deviation with the exact quoted line. The baseline replay recorded there was run BEFORE the alignment pin was written, so a divergent skill was never pinned.
+- N = 3 independent runs per replay. A case **passes** only if every structured assertion holds in 3/3 runs. Each assertion key is graded per the vocabulary block at the top of `conformance/cases.yaml` (the single source for grading semantics, including the `allows.mentions` and `forbids.instruction_wording` carve-outs).
+- Grading is done by a person (or a second, separate model context) against the structured assertions; substring matching alone is not sufficient. A replay graded by the same context that wrote the fixtures is recorded as such in RUNS.md and counts as a baseline only; the next replay must be graded independently.
+- Record every replay in `conformance/RUNS.md`: date, operator, model/version, sampling, skill version, per-case result, and any deviation with the exact quoted line. The baseline replay recorded there was run BEFORE the alignment pin was written; it shows that no divergence was observed in the replayed fixtures, which is all a sampled replay can show.
 
 ## Tier 4 — Run-Q revalidation (founder / attorney)
-Every ≤ 90 days, and immediately on any `revalidate_on_event` trigger: re-read every authority under "Key facts" from the primary source; re-run Tiers 1–3; update `last_primary_source_review`, `revalidate_by` and the pin; bump `version`; record the review in `conformance/RUNS.md`. If any authority changed, mark the skill `STALE — DO NOT RELY` until the attorney re-approves the "Key facts" and the worked example.
+Run-Q is the *review cadence* (every ≤ 90 days); `revalidate_by` (review + 180 days) is the *hard ceiling* after which Tier 1c marks the skill STALE even if no Run-Q happened. A skill 120 days past review is therefore "overdue for Run-Q" but not yet STALE; both statements are true and refer to different things. Every ≤ 90 days, and immediately on any `revalidate_on_event` trigger: re-read every authority under "Key facts" from the primary source; re-run Tiers 1–3; update `last_primary_source_review`, `revalidate_by` and the pin; bump `version`; record the review in `conformance/RUNS.md`. If any authority changed, mark the skill `STALE — DO NOT RELY` until the attorney re-approves the "Key facts" and the worked example.
 
 ## What this file does not claim
-No continuous mirroring of production, no automatic drift detection, no executable tests, no guarantee that a replay passing today means the law is current tomorrow.
+No automatic drift detection, no executable tests, no guarantee that a replay passing today means the law is current tomorrow; for what the pin proves, see the `limitation` field in the skill's Metadata.
