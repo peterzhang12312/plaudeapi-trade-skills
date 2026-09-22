@@ -1,6 +1,6 @@
 # VERIFY — how this repository is checked (written 2026-09-21 for skill version 0.3.0)
 
-This repository contains a prose skill and replayable fixtures. **There is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Verification is four distinct activities; a report must say which of them were performed.
+This repository contains a prose skill and replayable fixtures. **There is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Tier 1 uses only a POSIX shell, `git`, `curl` and a Python 3 interpreter on PATH (`python3` or `python`); nothing is installed. Verification is four distinct activities; a report must say which of them were performed.
 
 | Tier | What it proves | Who / how | Automatic? |
 |---|---|---|---|
@@ -14,8 +14,9 @@ A pin that matches proves nothing about behaviour; a replay that passes proves n
 ## Tier 1 — static metadata checks
 Run from the repository root.
 ```bash
+PY=$(command -v python3 || command -v python) || { echo "python3/python not on PATH -- Tier 1a/1c need a Python 3 interpreter"; exit 2; }
 # 1a. wording: no unqualified storage claim anywhere in the repo
-python - <<'EOF'
+"$PY" - <<'EOF'
 import re, pathlib, sys
 bad = []
 for f in [pathlib.Path('README.md'), pathlib.Path('VERIFY.md'), *pathlib.Path('skills').rglob('*.md'), *pathlib.Path('conformance').glob('*')]:
@@ -30,7 +31,7 @@ EOF
 #     (user-stated duty amounts and the volume bands in the intake table are legitimate content and are NOT matched)
 grep -rniE '\$[0-9][0-9,.]*[[:space:]]*(flat|fixed|fee|retainer|per hour|/h|/hour)|(fee|price|retainer|charge)[[:space:]]+(of|is|:)[[:space:]]*\$|specialist|\bexpert\b|mirrors production' README.md VERIFY.md skills/ conformance/ | grep -vE '^VERIFY\.md:[0-9]+:(# 1b|grep -rniE)' ; echo "exit $? (1 = clean)"
 # 1c. metadata dates parse and the skill is not expired
-python - <<'EOF'
+"$PY" - <<'EOF'
 import re, datetime as d, sys
 s = open('skills/us-import-risk-screen/SKILL.md', encoding='utf-8').read()
 rev = d.date.fromisoformat(re.search(r'last_primary_source_review:\s*(\S+)', s).group(1))

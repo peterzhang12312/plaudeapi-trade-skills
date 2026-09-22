@@ -317,8 +317,7 @@ cases:
 
   - id: C13_no_us_import_no_entry_timing
     invariant: "no U.S. sale or import means no U.S. entry (Hard rule 6)"
-    source: production_check
-    production_check_ref: "check-trade-eventscreen.mjs: C4"
+    source: skill_rule   # production check C4 covers only the recovery-opportunity wording for sells_to_us NO; the no-entry-timing rule is Hard rule 6
     inputs:
       issue_family: general import risk
       sells_or_imports_into_us: "no"
