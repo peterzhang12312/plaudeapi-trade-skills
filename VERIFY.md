@@ -53,10 +53,10 @@ Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d print
 ## Tier 2 — alignment-pin verification (maintainer only; the repo is private)
 ```bash
 KP="${KP:-../knowledge-pop}"          # path to your private knowledge-pop checkout (override with KP=...)
-git -C "$KP" rev-parse HEAD            # informational; the pin is by content hash, not by commit
+echo "knowledge-pop master: $(git -C "$KP" rev-parse master)   (informational; the pin is by content hash, not by commit)"
 # the file list is read from the Metadata block so SKILL.md stays the only list; a missing path fails here (that is check 1e)
 grep -oE '^    (src|scripts|content|public)/[^:]+' skills/us-import-risk-screen/SKILL.md | tr -d ' ' | grep . | while read -r f; do
-  echo "$(git -C "$KP" hash-object "$f")  $f"
+  echo "$(git -C "$KP" rev-parse "master:$f")  $f"   # committed blob id: independent of core.autocrlf rewriting the working tree (git hash-object on a CRLF-converted checkout would differ)
 done
 ```
 Compare each hash with `aligned_with_production` in SKILL.md → Metadata. Any mismatch = **DRIFT CANDIDATE**: the skill is not wrong yet, but it is no longer aligned at a known baseline. Action: read the diff of the changed file(s), replay Tier 3, then either re-pin (update the hashes, bump `version`, add a `conformance/RUNS.md` entry) or mark the skill `STALE — DO NOT RELY` in its metadata until fixed. A new `public/data/trade/latest.json` vintage is a `revalidate_on_event` trigger even if the compiled files are unchanged.

@@ -34,7 +34,7 @@ aligned_with_production:                  # "aligned with production at the reco
   storage_wording_source: "CF-28 guide section 9 / site disclosure: the browser-side check 'asks for no documents, uploads nothing, and stores nothing on any server'"
   runtime_data_bundle:
     public/data/trade/latest.json: ec4eb3d6f63853b7715e74401bc009bad57b2936   # as_of 2026-09-18; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
-  hash_method: git hash-object <path> in the knowledge-pop working tree at the recorded commit
+  hash_method: committed blob id -- git rev-parse <commit>:<path> in knowledge-pop (equals git hash-object of an LF checkout; a CRLF-converted working copy would hash differently)
   baseline_replay: https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/conformance/RUNS.md (run before this pin was written)
   limitation: byte-identical pinned files do not prove behavioural equivalence between this prose and the TypeScript screen; the skill does not continuously mirror the browser code; production enforces checks this prose does not restate; the conformance fixtures are replayed by a human or model (https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/VERIFY.md), not executed
 ```
