@@ -109,3 +109,12 @@ Observations (not failures):
 - Closest approaches to forbidden wording, all judged exempt as the mandated flag text, negations or attributed statements: "If the printed date is close, confirm it with your broker before doing anything else" (C05, run 1); "The reply period printed on the form (read it off the form; it is not derived here)" (C21, runs 2–3); "nothing in this screen says you are entitled to anything" (C14, run 1); "I will not quote a fee" (C14, run 3).
 
 Grader reports for the three 2026-09-21 replays are retained in the maintainer's replay scratch (`out/grade.md`, `out2/grade.md`, `out3/grade.md`); they are not committed because they quote the operator outputs at length.
+
+## 2026-09-21 — INDEPENDENTLY GRADED replay of the shipped 0.3.0 text (21 fixtures × 3 runs) — PASS 63/63
+- Skill text replayed: committed blob `9893589c6a4bd18d5fbca9d12d450227a9611e52` (commit dc910e7). Shipped blob after this replay: `da08eb5c9fb99410441fbc6bf8c39769159ddea2` (commit 54464f1) — the only difference is the `hash_method` comment line in Metadata (no rule text changed; diff: `git diff dc910e7 54464f1 -- skills/`).
+- Fixtures graded: committed blob `5c9cf73d7c462b0bb373dcd95ddec224a3b72bdd` (dc910e7 = shipped; unchanged since).
+- Operator: `claude-opus-5`, three fresh contexts (N = 3), host-default sampling, keys withheld, today = as_of_date 2026-09-21; operator prompt as recorded in the previous entry, with output written to files rather than returned inline.
+- Grader: an INDEPENDENT fresh context that did not write the fixtures, applying the vocabulary block (closed-world POTENTIAL rule, instruction-wording exemptions, field-name matching). Full per-case table and ten observations: `conformance/GRADING_2026-09-21.md`.
+- Result: 63/63 case-runs PASS; no assertion failed in any run.
+- Observations carried forward for the next fixture revision (not failures): two runs appended a qualifier to heading 5 in C13; C07/C15/C18 emitted a negating `RECOVERY PATH · UNKNOWN` line (allowed); C05/C12/C13 asked one question beyond the Minimal-facts table (those cases do not assert `asks_only_minimal_facts` — consider adding it); money-label separator varies (`:` vs `·`); one C09 run emitted the timeline URL (permitted by rule 0).
+- This entry supersedes the two earlier 2026-09-21 entries as the baseline for the alignment pin.
