@@ -7,7 +7,35 @@ description: Run a fail-closed preliminary screen of a U.S. import situation (du
 
 Use this skill when a user who sells into or imports into the United States asks about tariffs, duty refunds, a CBP notice (CF-28 / CF-29), antidumping/countervailing duties, liquidation, protests, or "what applies to my product".
 
-This skill produces a **screen**, not advice. It mirrors the free browser tool at https://plaudeapi.com/trade (runs locally, stores nothing). When in doubt, send the user there and stop.
+This skill produces a **screen**, not advice. It follows the same fail-closed rules as the free browser tool at https://plaudeapi.com/trade (the browser tool runs locally and stores nothing on any server; the host running this skill may keep its own logs of your prompts) and is aligned with production at the recorded baseline below. When in doubt, send the user there and stop. For a CBP Form 28 specifically, the guide at https://plaudeapi.com/trade/cf28/ explains what to identify before answering.
+
+## Metadata (currency and production alignment)
+
+```yaml
+skill: us-import-risk-screen
+version: 0.2.0
+last_primary_source_review: 2026-09-19   # statutes, regulations and the CBP Form 28 instructions listed under "Key facts", read from the primary sources on that date (not application code)
+revalidate_by: 2027-03-18                # ceiling = last_primary_source_review + 180 days; past this date treat the skill as STALE until re-reviewed
+revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
+aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code
+  repo: knowledge-pop (private)
+  commit: 5f87b5e94a5a4048c47551baee653cb6b10d1a8b
+  compiled_screen_files:                  # the exact file set check-trade-eventscreen.mjs compiles (its tsconfig include list)
+    src/trade/eventscreen.ts: 1a109a0d0412b409a59cc44a2d7b37f4c8c9b079
+    src/trade/campaign.ts: 10682a2defd8e02e66b96ddeef7850203ef960a4
+    src/trade/config.ts: 23ad321d319293a6bca0538000b5cee638570ab4
+    src/trade/windows.ts: c09d67c862be5bec1d6a68c9792c6b90df3f127d
+  check_scripts:
+    scripts/check-trade-eventscreen.mjs: 2a1b5495ef0e75fdb27f15fec9c47e520d315c0e
+    scripts/check-trade-eventscreen-matrix.mjs: f5daaa44f3279ffcc7d6eff26756b25469616448
+  guide:
+    content/trade/articles/cf28.md: 17e94de0d892cf8169ce2db9c8fe61651ecfa20d   # rendered at https://plaudeapi.com/trade/cf28/
+  runtime_data_bundle:
+    public/data/trade/latest.json: ec4eb3d6f63853b7715e74401bc009bad57b2936   # as_of 2026-09-18; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
+  hash_method: git hash-object <path> in the knowledge-pop working tree at the recorded commit
+  baseline_replay: conformance/RUNS.md (run before this pin was written)
+  limitation: byte-identical pinned files do not prove behavioural equivalence between this prose and the TypeScript screen; the conformance fixtures are replayed by a human or model (VERIFY.md), not executed
+```
 
 ## Hard rules (never break these)
 
@@ -43,14 +71,14 @@ This skill produces a **screen**, not advice. It mirrors the free browser tool a
 4. **What fact is missing** — the specific facts that would change the screen.
 5. **Measures that may apply (signal only)** — Section 301 / 232 / AD-CVD / UFLPA families by chapter and origin; say which line, exclusions and effective dates decide actual applicability.
 6. **Why a professional might look** — plain language, no urgency theatre.
-7. **Next step** — "Run the free screen at https://plaudeapi.com/trade (nothing is stored). If you want a licensed U.S. attorney to review a specific entry, the page explains the conflict-check-first request path."
+7. **Next step** — "Run the free screen at https://plaudeapi.com/trade (the browser tool stores nothing on any server). If the notice is a CBP Form 28, read https://plaudeapi.com/trade/cf28/ first. If you want a licensed U.S. attorney to review a specific entry, the page explains the conflict-check-first request path."
 
-## Key facts to rely on (current as of 2026-09-19; re-verify before relying on them in any filing)
+## Key facts to rely on (last primary-source review 2026-09-19 — see Metadata; re-verify before relying on them in any filing)
 
 - IEEPA-based duties (HTSUS 9903.01 / 9903.02) were collected from 2025-02-04 and collection ended 2026-02-24 after *Learning Resources v. Trump* (S. Ct., 2026-02-20); CBP's CAPE refund module opened 2026-04-20. Entries before 2025-02-04 carry no IEEPA question; an entry dated exactly 2026-02-24 needs verification of what was deposited.
 - 19 U.S.C. 1504(a): deemed liquidation 1 year after entry unless extended (up to 4 years) or suspended; after suspension lifts, 6 months.
 - 19 U.S.C. 1514(c)(3) / 19 CFR 174.12(e): protest within 180 days after liquidation/reliquidation or the protested decision.
-- A CF-28 is a request for information whose due date is printed on the form; a CF-29 is a notice of action ("proposed" or "taken") — the protest clock still runs from liquidation.
+- A CF-28 is a request for information whose reply period is printed on the form (the guide at https://plaudeapi.com/trade/cf28/ explains the form's own period and the separate entry-records rule in 19 CFR 163.6(a) — never compute a CF-28 due date yourself); a CF-29 is a notice of action ("proposed" or "taken") — the protest clock still runs from liquidation.
 - Column-2 origins (BY, CU, KP, RU) take column-2 rates; GN 3(b).
 
 ## Worked example (tone and shape)

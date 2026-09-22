@@ -1,0 +1,192 @@
+# Conformance fixtures for skills/us-import-risk-screen (S1, 2026-09-21).
+#
+# WHAT THIS IS: replayable expectations for a human or a model applying SKILL.md
+# to the inputs below. WHAT THIS IS NOT: an automated regression-test framework.
+# Nothing in this repository executes these cases; VERIFY.md describes the replay
+# protocol (who runs them, how many times, what "pass" means) and the separate
+# static / alignment-pin checks. Each case mirrors a named invariant of the
+# production check script (knowledge-pop scripts/check-trade-eventscreen.mjs) at
+# the baseline recorded in SKILL.md "Metadata".
+#
+# Assertion vocabulary (structured, not bare substrings):
+#   expects.dates[]        - { kind, status: POTENTIAL|UNKNOWN|NONE, date: YYYY-MM-DD|null, basis_cites: [..] }
+#                            NONE means the screen must NOT produce that kind of date at all.
+#   expects.no_projection_of - kinds of dates that must not be projected from these inputs
+#   expects.headings_all_present - the seven output headings must all appear (SKILL.md "Output format")
+#   expects.missing_facts_named  - facts the screen must ask for
+#   expects.states_inconsistency - the screen must say the dates are inconsistent
+#   forbids.instruction_wording - imperative advice patterns that must not appear as directions to the user
+#   forbids.computed_amounts    - any recoverable/refund amount computed by the screen
+#   allows.mentions             - terms a correct answer MAY mention while explaining they do not apply
+#                                (a mention inside such an explanation is not a failure)
+# Dates are evaluated relative to as_of_date, never to the replay date.
+
+schema_version: 1
+skill: us-import-risk-screen
+skill_version: 0.2.0
+as_of_date: 2026-09-21
+
+cases:
+  - id: C01_liquidation_date_given
+    mirrors: "liquidation date -> POTENTIAL protest-window end = +180 days"
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      annual_us_import_volume: "$100K-$1M"
+      product: "aluminum patio furniture"
+      country_of_origin: VN
+      entry_date: 2025-06-15
+      liquidation_date: 2026-03-01
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      dates:
+        - { kind: PROTEST_WINDOW, status: POTENTIAL, date: 2026-08-28, basis_cites: ["1514"] }
+      verify_step_present: true
+    forbids:
+      instruction_wording: ["file a protest by", "you must file", "you should file"]
+      computed_amounts: true
+
+  - id: C02_entry_date_only_non_adcvd
+    mirrors: "entry date only -> LIQUIDATION POTENTIAL = entry + 1 year (1504) with extended/suspended caveat"
+    inputs:
+      issue_family: general import risk
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      product: "LED desk lamps"
+      country_of_origin: MX
+      entry_date: 2025-06-15
+      liquidation_date: null
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      dates:
+        - { kind: LIQUIDATION, status: POTENTIAL, date: 2026-06-15, basis_cites: ["1504"], caveat_mentions_any: ["extended", "suspended"] }
+        - { kind: PROTEST_WINDOW, status: UNKNOWN, date: null }
+    forbids:
+      instruction_wording: ["file a protest by"]
+
+  - id: C03_no_liquidation_date_no_180
+    mirrors: "never 'liquidation + 180 days' without a stated liquidation date"
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      product: "steel shelving"
+      country_of_origin: KR
+      entry_date: 2025-09-10
+      liquidation_date: null
+      cbp_notice: none
+      duty_amount_at_stake: "$40,000 (user-stated)"
+    expects:
+      headings_all_present: true
+      no_projection_of: [PROTEST_WINDOW]
+      dates:
+        - { kind: PROTEST_WINDOW, status: UNKNOWN, date: null }
+      money_label: USER-STATED
+    forbids:
+      computed_amounts: true
+      instruction_wording: ["file a protest by"]
+
+  - id: C04_adcvd_no_one_year
+    mirrors: "AD/CVD never derives a 1-year liquidation date"
+    inputs:
+      issue_family: AD-CVD
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      product: "aluminum extrusions"
+      country_of_origin: CN
+      entry_date: 2025-08-01
+      liquidation_date: null
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      no_projection_of: [LIQUIDATION]
+      states_any: ["may not apply", "suspended"]
+      scope_not_hts: true            # says the order's scope language, not the HTS number, controls
+    forbids:
+      instruction_wording: ["file a protest by", "use HTS"]
+      assigns_hts_code: true
+
+  - id: C05_cf28_notice_no_computed_due_date
+    mirrors: "CF-28: reply period is the one printed on the form; no computed deadline"
+    inputs:
+      issue_family: CF-28 or CF-29 notice
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      product: "e-bikes"
+      country_of_origin: TW
+      entry_date: 2026-05-20
+      liquidation_date: null
+      cbp_notice: CF-28
+      notice_date: 2026-09-02
+    expects:
+      headings_all_present: true
+      no_projection_of: [CF28_DUE_DATE]
+      refers_to_form_printed_period: true
+      points_to_guide: "https://plaudeapi.com/trade/cf28/"
+      dates:
+        - { kind: LIQUIDATION, status: POTENTIAL, date: 2027-05-20, basis_cites: ["1504"] }
+    forbids:
+      instruction_wording: ["you have 30 days", "reply by 2026-10-02", "respond by"]
+    allows:
+      mentions: ["30 days"]          # allowed only when attributed to the form's printed instructions or the guide, never as a computed due date
+
+  - id: C06_contradictory_dates_drive_nothing
+    mirrors: "contradictory / future / out-of-range dates drive nothing"
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      product: "hand tools"
+      country_of_origin: DE
+      entry_date: 2026-04-10
+      liquidation_date: 2026-02-01     # before entry
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      states_inconsistency: true
+      no_projection_of: [PROTEST_WINDOW, LIQUIDATION]   # dependent calculations suppressed; other observations may still be given
+      missing_facts_named: ["correct liquidation date"]
+    forbids:
+      instruction_wording: ["file a protest by"]
+
+  - id: C07_pre_ieepa_entry
+    mirrors: "entries before 2025-02-04 carry no IEEPA question"
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: yes
+      importer_of_record: you
+      product: "ceramic tableware"
+      country_of_origin: CN
+      entry_date: 2024-11-20
+      liquidation_date: null
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      ieepa_recovery_question_raised: false
+    allows:
+      mentions: ["IEEPA", "CAPE"]     # a correct answer may explain that IEEPA-era duties do not apply to this entry date
+    forbids:
+      computed_amounts: true
+
+  - id: C08_unknown_everything_safe_output
+    mirrors: "unknown inputs still produce a safe generic screen"
+    inputs:
+      issue_family: general import risk
+      sells_or_imports_into_us: unknown
+      importer_of_record: not sure
+      product: ""
+      country_of_origin: ""
+      entry_date: null
+      liquidation_date: null
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      all_dates_unknown_or_none: true
+      missing_facts_named: ["whether you sell or import into the U.S.", "importer of record", "product", "country of origin"]
+      asks_only_minimal_facts: true   # SKILL.md "Minimal facts": no request for entry numbers, invoices or a narrative
+    forbids:
+      instruction_wording: ["file a protest by"]
+      computed_amounts: true

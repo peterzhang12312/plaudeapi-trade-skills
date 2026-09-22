@@ -4,7 +4,9 @@ Skills that teach an AI coding/chat agent to run a **fail-closed preliminary scr
 
 | Skill | What it does |
 |---|---|
-| [`skills/us-import-risk-screen`](skills/us-import-risk-screen/SKILL.md) | Screens duty-recovery questions, CBP Form 28/29 notices, AD/CVD exposure and general U.S. import risk from minimal facts; enforces the deadline-safety rules (never "liquidation + 180 days" without a liquidation date; AD/CVD never gets a 1-year projection; contradictory or future dates drive nothing); routes to the free tool and, if the user asks, to a conflict-check-first attorney review path. |
+| [`skills/us-import-risk-screen`](skills/us-import-risk-screen/SKILL.md) | Screens duty-recovery questions, CBP Form 28/29 notices, AD/CVD exposure and general U.S. import risk from minimal facts; enforces the deadline-safety rules (never "liquidation + 180 days" without a liquidation date; AD/CVD never gets a 1-year projection; contradictory or future dates drive nothing); routes to the free tool, to the CF-28 guide at [plaudeapi.com/trade/cf28](https://plaudeapi.com/trade/cf28/) for a Form 28, and, if the user asks, to a conflict-check-first attorney review path. |
+
+The skill is **aligned with production at a recorded baseline** (content hashes of the compiled screen files, the check scripts and the guide, in its Metadata block) — it does not continuously mirror the browser code. `conformance/cases.yaml` holds replayable fixtures and `VERIFY.md` the verification protocol; neither is an automated test runner.
 
 ## Install
 
@@ -19,9 +21,11 @@ Then ask, for example: *"We got a CF-29 dated 2026-09-02 on an entry from Januar
 
 Other agent frameworks: the skill is a single Markdown file with YAML frontmatter (`name`, `description`); load it as a system instruction or tool description.
 
+Wording source for storage and identity statements: the site's own disclosure and the CF-28 guide §9 ("asks for no documents, uploads nothing, and stores nothing on any server"); this README repeats them and never widens them.
+
 ## Why the rules are strict
 
-Trade deadlines are entry-specific. The most common mistake by tools and people alike is to compute "liquidation + 180 days" from an entry date. The protest clock (19 U.S.C. 1514(c)(3)) runs from the *liquidation* date, which is usually about a year after entry but may be extended or suspended (19 U.S.C. 1504). A screen that projects a confident date it cannot know is worse than no screen. The skill encodes the same fail-closed logic that runs in the browser at plaudeapi.com/trade (source of the rules: the `eventscreen` module and its 129 regression checks in the PlaudeAPI codebase).
+Trade deadlines are entry-specific. The most common mistake by tools and people alike is to compute "liquidation + 180 days" from an entry date. The protest clock (19 U.S.C. 1514(c)(3)) runs from the *liquidation* date, which is usually about a year after entry but may be extended or suspended (19 U.S.C. 1504). A screen that projects a confident date it cannot know is worse than no screen. The skill states the same fail-closed rules that the browser tool at plaudeapi.com/trade enforces (source of the rules: the `eventscreen` module and its regression checks in the PlaudeAPI codebase), aligned at the baseline recorded in the skill's Metadata block; it is prose, so equivalence is checked by replaying `conformance/cases.yaml` (VERIFY.md), not guaranteed by construction.
 
 ## What this is not
 
