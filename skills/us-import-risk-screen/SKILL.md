@@ -13,27 +13,27 @@ This skill produces a **screen**, not advice. It states the fail-closed deadline
 
 ```yaml
 skill: us-import-risk-screen
-version: 0.3.2                            # 0.3.2 = 0.3.1 + Output-format rule 2 defines BAND (annual U.S. import volume band) and rule 3 scopes the past-date flag to projected dates; 0.3.1 = 0.3.0 + rule 3 clarified (a no-date line is UNKNOWN; POTENTIAL always carries a date; a user-stated liquidation date is restated as POTENTIAL) — both after the 2026-09-21 independent replays; 0.3.0 = 0.2.0 + Hard rule 9; bump on every rule or pin change
+version: 0.3.3                            # 0.3.3 = 0.3.2 + production re-pin to knowledge-pop 880e699 (pins only, no rule change; 2026-10-01); 0.3.2 = 0.3.1 + Output-format rule 2 defines BAND (annual U.S. import volume band) and rule 3 scopes the past-date flag to projected dates; 0.3.1 = 0.3.0 + rule 3 clarified (a no-date line is UNKNOWN; POTENTIAL always carries a date; a user-stated liquidation date is restated as POTENTIAL) — both after the 2026-09-21 independent replays; 0.3.0 = 0.2.0 + Hard rule 9; bump on every rule or pin change
 last_primary_source_review: 2026-09-19   # statutes, regulations and the CBP Form 28 instructions listed under "Key facts", read from the primary sources on that date (not application code)
 revalidate_by: 2027-03-18                # ceiling = last_primary_source_review + 180 days; past this date treat the skill as STALE until re-reviewed
 revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
 aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code
   repo: knowledge-pop (private)
-  commit: 5f87b5e94a5a4048c47551baee653cb6b10d1a8b
+  commit: 880e6993879c024cea5041a62295e517d2bc9ae7
   compiled_screen_files:                  # the exact file set check-trade-eventscreen.mjs compiles (its tsconfig include list)
-    src/trade/eventscreen.ts: 1a109a0d0412b409a59cc44a2d7b37f4c8c9b079
-    src/trade/campaign.ts: 10682a2defd8e02e66b96ddeef7850203ef960a4
+    src/trade/eventscreen.ts: 243af38d329441ed6dbeb66646a5aa8acf058c63
+    src/trade/campaign.ts: 8dd3b6a15356064ee4edf421ec73341e7e22caa0
     src/trade/config.ts: 23ad321d319293a6bca0538000b5cee638570ab4
     src/trade/windows.ts: c09d67c862be5bec1d6a68c9792c6b90df3f127d
   check_scripts:
     scripts/check-trade-eventscreen.mjs: 2a1b5495ef0e75fdb27f15fec9c47e520d315c0e
-    scripts/check-trade-eventscreen-matrix.mjs: f5daaa44f3279ffcc7d6eff26756b25469616448
+    scripts/check-trade-eventscreen-matrix.mjs: 98b4636702add94c241c462782b12b42700be10f
   guide:
     content/trade/articles/cf28.md: 17e94de0d892cf8169ce2db9c8fe61651ecfa20d   # rendered at https://plaudeapi.com/trade/cf28/
     expected_title: "Received a CBP Form 28"  # VERIFY.md Tier 1d checks the live page for this string
   storage_wording_source: "CF-28 guide section 9 / site disclosure: the browser-side check 'asks for no documents, uploads nothing, and stores nothing on any server'"
   runtime_data_bundle:
-    public/data/trade/latest.json: ec4eb3d6f63853b7715e74401bc009bad57b2936   # as_of 2026-09-18; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
+    public/data/trade/latest.json: 66d992e7ce0a522a6bb918680820b417762b54ee   # as_of 2026-10-01; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
   hash_method: committed blob id -- git rev-parse <commit>:<path> in knowledge-pop (equals git hash-object of an LF checkout; a CRLF-converted working copy would hash differently)
   baseline_replay: https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/conformance/RUNS.md (run before this pin was written)
   limitation: byte-identical pinned files do not prove behavioural equivalence between this prose and the TypeScript screen; the skill does not continuously mirror the browser code; production enforces checks this prose does not restate; the conformance fixtures are replayed by a human or model (https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/VERIFY.md), not executed
