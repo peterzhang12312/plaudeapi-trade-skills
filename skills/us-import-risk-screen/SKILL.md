@@ -13,21 +13,21 @@ This skill produces a **screen**, not advice. It states the fail-closed deadline
 
 ```yaml
 skill: us-import-risk-screen
-version: 0.3.3                            # 0.3.3 = 0.3.2 + production re-pin to knowledge-pop 880e699 (pins only, no rule change; 2026-10-01); 0.3.2 = 0.3.1 + Output-format rule 2 defines BAND (annual U.S. import volume band) and rule 3 scopes the past-date flag to projected dates; 0.3.1 = 0.3.0 + rule 3 clarified (a no-date line is UNKNOWN; POTENTIAL always carries a date; a user-stated liquidation date is restated as POTENTIAL) — both after the 2026-09-21 independent replays; 0.3.0 = 0.2.0 + Hard rule 9; bump on every rule or pin change
+version: 0.3.4                            # 0.3.4 = 0.3.3 + production re-pin to knowledge-pop 13b623f and one Key-facts sentence: the browser tool now shows a CF-28 reference date, this skill still states none (no rule or fixture change; 2026-10-05); 0.3.3 = 0.3.2 + production re-pin to knowledge-pop 880e699 (pins only, no rule change; 2026-10-01); 0.3.2 = 0.3.1 + Output-format rule 2 defines BAND (annual U.S. import volume band) and rule 3 scopes the past-date flag to projected dates; 0.3.1 = 0.3.0 + rule 3 clarified (a no-date line is UNKNOWN; POTENTIAL always carries a date; a user-stated liquidation date is restated as POTENTIAL) — both after the 2026-09-21 independent replays; 0.3.0 = 0.2.0 + Hard rule 9; bump on every rule or pin change
 last_primary_source_review: 2026-09-19   # statutes, regulations and the CBP Form 28 instructions listed under "Key facts", read from the primary sources on that date (not application code)
 revalidate_by: 2027-03-18                # ceiling = last_primary_source_review + 180 days; past this date treat the skill as STALE until re-reviewed
 revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
 aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code
   repo: knowledge-pop (private)
-  commit: 880e6993879c024cea5041a62295e517d2bc9ae7
+  commit: 13b623f7948af918c6dae9436b9fe00908cc82db
   compiled_screen_files:                  # the exact file set check-trade-eventscreen.mjs compiles (its tsconfig include list)
-    src/trade/eventscreen.ts: 243af38d329441ed6dbeb66646a5aa8acf058c63
-    src/trade/campaign.ts: 8dd3b6a15356064ee4edf421ec73341e7e22caa0
+    src/trade/eventscreen.ts: 39b68d6fbb40227b88b824a4e5241db9d682ea0c
+    src/trade/campaign.ts: 5401547db1c8090e4e557d4f45ab423fffa4a393
     src/trade/config.ts: 23ad321d319293a6bca0538000b5cee638570ab4
     src/trade/windows.ts: c09d67c862be5bec1d6a68c9792c6b90df3f127d
   check_scripts:
-    scripts/check-trade-eventscreen.mjs: 2a1b5495ef0e75fdb27f15fec9c47e520d315c0e
-    scripts/check-trade-eventscreen-matrix.mjs: 98b4636702add94c241c462782b12b42700be10f
+    scripts/check-trade-eventscreen.mjs: 100ec22f4f28fba79e18aaf9d63844ec9eb823e9
+    scripts/check-trade-eventscreen-matrix.mjs: 0858363089ee0c7d4dac0b953d26b70b45748fc8
   guide:
     content/trade/articles/cf28.md: 17e94de0d892cf8169ce2db9c8fe61651ecfa20d   # rendered at https://plaudeapi.com/trade/cf28/
     expected_title: "Received a CBP Form 28"  # VERIFY.md Tier 1d checks the live page for this string
@@ -36,7 +36,7 @@ aligned_with_production:                  # "aligned with production at the reco
     public/data/trade/latest.json: 66d992e7ce0a522a6bb918680820b417762b54ee   # as_of 2026-10-01; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
   hash_method: committed blob id -- git rev-parse <commit>:<path> in knowledge-pop (equals git hash-object of an LF checkout; a CRLF-converted working copy would hash differently)
   baseline_replay: https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/conformance/RUNS.md (run before this pin was written)
-  limitation: byte-identical pinned files do not prove behavioural equivalence between this prose and the TypeScript screen; the skill does not continuously mirror the browser code; production enforces checks this prose does not restate; the conformance fixtures are replayed by a human or model (https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/VERIFY.md), not executed
+  limitation: byte-identical pinned files do not prove behavioural equivalence between this prose and the TypeScript screen; the skill does not continuously mirror the browser code; production enforces checks this prose does not restate; since knowledge-pop 13b623f production shows a CF-28 reference date (form date + 30 days, printed date governs) that this skill deliberately does not state; the conformance fixtures are replayed by a human or model (https://github.com/peterzhang12312/plaudeapi-trade-skills/blob/master/VERIFY.md), not executed
 ```
 
 ## Hard rules (never break these)
@@ -83,7 +83,7 @@ aligned_with_production:                  # "aligned with production at the reco
 - IEEPA-based duties (HTSUS 9903.01 / 9903.02) were collected from 2025-02-04 and collection ended 2026-02-24 after *Learning Resources v. Trump* (S. Ct., 2026-02-20); CBP's CAPE refund module opened 2026-04-20. Entries before 2025-02-04 carry no IEEPA question; an entry dated exactly 2026-02-24 needs verification of what was deposited.
 - 19 U.S.C. 1504(a): deemed liquidation 1 year after entry unless extended (up to 4 years) or suspended; after suspension lifts, 6 months.
 - 19 U.S.C. 1514(c)(3) / 19 CFR 174.12(e): protest within 180 days after liquidation/reliquidation or the protested decision.
-- A CF-28 is a request for information whose reply period is printed on the form (the guide at https://plaudeapi.com/trade/cf28/ explains the form's own period and the separate entry-records rule in 19 CFR 163.6(a) — never compute a CF-28 due date yourself); a CF-29 is a notice of action ("proposed" or "taken") — the protest clock still runs from liquidation.
+- A CF-28 is a request for information whose reply period is printed on the form (the guide at https://plaudeapi.com/trade/cf28/ explains the form's own period and the separate entry-records rule in 19 CFR 163.6(a) — never compute a CF-28 due date yourself; the browser tool now shows a reference date, the form date + 30 days, marked as reference only with the printed date governing, and this skill still states no CF-28 date); a CF-29 is a notice of action ("proposed" or "taken") — the protest clock still runs from liquidation.
 - Column-2 origins (BY, CU, KP, RU) take column-2 rates; GN 3(b).
 - Sources for the dates and citations above: the primary-authority list of the CF-28 guide (https://plaudeapi.com/trade/cf28/) and the site's regime timeline (https://plaudeapi.com/trade/timeline/); the IEEPA start/end dates are the same constants the browser tool uses. Two open questions for attorney re-review at the next revalidation (they are questions, not rules of this skill): (a) does the "entries before 2025-02-04" line need a carve-out for warehouse withdrawals or FTZ entries, or does it hold as written? (b) from which event does the 6-month period in 19 U.S.C. 1504(d) run? Until answered, the Key facts above stand as written.
 
