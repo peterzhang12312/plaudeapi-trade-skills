@@ -130,3 +130,23 @@ Grader reports for the three 2026-09-21 replays are retained in the maintainer's
 - Grader: a fourth, separate `claude-opus-5-5` context that did not write the fixtures or produce the outputs, applying the cases.yaml vocabulary block (closed-world POTENTIAL, `past_date_flagged`, `money_label`, `allows.mentions`, `forbids.instruction_wording` exemptions), not substring matching. Full table and nine borderline calls: `conformance/GRADING_2026-10-01.md`.
 - Result: every structured assertion held in 3/3 runs for all 21 cases (63/63). Borderline calls recorded, all graded PASS: notably B1 -- run 1 C01/C03 printed the expected money label plus a second "not provided" label (a literal reading of `money_label` "exactly this label" would fail those two case-runs; candidate key tightening, as observation (8) of the 0.3.2 entry), and B2 -- C09/C10 state the inconsistency without the word "inconsistent".
 - This entry is the replay of record for the 880e699 pin.
+
+## 2026-10-05 — PRODUCTION RE-PIN to knowledge-pop 13b623f + INDEPENDENT replay of skill version 0.3.4 (SKILL.md blob 202a852fa34ccddfce6a78a37f589f50bf0e5970, cases.yaml blob 6226ddb8f367bafda668ff7a2c00f11ae00b3fa9) — PASS 21/21 cases, 63/63 case-runs
+- Trigger: VERIFY.md Tier 2 DRIFT CANDIDATE after the 2026-10-05 production releases (knowledge-pop `13b623f7948af918c6dae9436b9fe00908cc82db`, garden production `3867e48`; data vintage unchanged, 2026-10-01).
+  - Changed pinned blobs since `880e699`: `src/trade/eventscreen.ts`, `src/trade/campaign.ts`, `scripts/check-trade-eventscreen.mjs`, `scripts/check-trade-eventscreen-matrix.mjs`.
+  - Unchanged: `config.ts`, `windows.ts`, `content/trade/articles/cf28.md`, `public/data/trade/latest.json`.
+- Diff read (VERIFY.md Tier 2 action):
+  - `eventscreen.ts` = F-03 only. A CF-28 with a stated date now gets a NOTICE_RESPONSE line POTENTIAL at form date + 30 days, worded "reference date only … the due date printed on your form governs". CF-29 is unchanged.
+  - `campaign.ts` = attribution/language helpers (peekCampaign, currentLang, langSearch) and a crypto-random reference segment. No screen rule.
+  - The two check scripts are tests only.
+- Skill change, 0.3.3 -> 0.3.4: the skill deliberately stays stricter than production and still states no CF-28 date.
+  - One Key-facts sentence and the Metadata `limitation` now say production shows a reference date.
+  - No Hard rule, Output-format rule or fixture key changed. `skill_version` was updated with `version`.
+- Tier 1: 1a clean; 1b clean (exit 1); 1c review 2026-09-19, revalidate_by 2027-03-18, STATUS OK; 1d guide http 200, title hits 4, timeline http 200; 1e versions match (0.3.4).
+- Tier 2: 8/8 committed blob ids at knowledge-pop master `13b623f` equal the pins; every path exists.
+- Fixtures graded: cases.yaml as committed with this entry. Operators received an inputs-only extract: `as_of_date` plus each case's `inputs`, with case ids shortened to C01..C21 so the id carried no hint.
+- Operator prompt (verbatim): "Read SKILL.md in full. Treat it as the operating instructions you must follow exactly. Read the fixture file. Use only as_of_date and each case's inputs (including any user_message). For EACH of the 21 cases, produce the screen the skill prescribes, using today's date = the file's as_of_date (2026-09-21). Where an input is null/blank, treat it as not provided (ask for it under 'What fact is missing' as the skill directs; do not invent values). Follow the skill's seven headings in order."
+- Operator: model `claude-opus-5-5`, three fresh isolated contexts (N = 3), host-default sampling. Each was told to read only SKILL.md and the inputs-only extract. Output SHA-256: run1 aaeb4832…, run2 578a8e8f…, run3 ce2cf5dd….
+- Grader: a fourth, separate `claude-opus-5-5` context that did not write the fixtures or produce the outputs. It applied the cases.yaml vocabulary block, not substring matching, and gave C05 particular attention: no run states 2026-10-02 or any CF-28 reply date. Full table and eleven borderline calls (all PASS): `conformance/GRADING_2026-10-05.md`.
+- Result: every structured assertion held in 3/3 runs for all 21 cases (63/63).
+- This entry is the replay of record for the 13b623f pin.
