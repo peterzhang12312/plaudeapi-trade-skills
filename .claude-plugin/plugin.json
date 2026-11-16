@@ -1,0 +1,18 @@
+{
+  "name": "plaudeapi-trade",
+  "displayName": "PlaudeAPI Trade: U.S. import risk screen",
+  "version": "0.4.1",
+  "description": "A fail-closed screen that checks a U.S. import situation against published CBP and court sources, dates every item POTENTIAL or UNKNOWN with its legal basis, and says what is unknown. General information, not legal advice.",
+  "author": {
+    "name": "Bandi & Associates PLLC",
+    "url": "https://plaudeapi.com/trade/"
+  },
+  "homepage": "https://plaudeapi.com/trade/agent/",
+  "repository": "https://github.com/peterzhang12312/plaudeapi-trade-skills",
+  "license": "MIT",
+  "keywords": ["customs", "import", "tariff", "CBP", "IEEPA", "importer-of-record", "trade-compliance"],
+  "documentationUrl": "https://plaudeapi.com/trade/agent/",
+  "supportUrl": "https://plaudeapi.com/trade/",
+  "privacyPolicyUrl": "https://plaudeapi.com/legal/privacy-notice/",
+  "termsOfServiceUrl": "https://plaudeapi.com/legal/terms-of-use/"
+}

@@ -20,6 +20,8 @@ cp -r plaudeapi-trade-skills/skills/us-import-risk-screen ~/.claude/skills/
 
 Then ask, for example: *"We got a CF-29 dated 2026-09-02 on an entry from January — what may matter?"*
 
+**Claude plugin** — the repository root is also a Claude plugin (`.claude-plugin/plugin.json`, name `plaudeapi-trade`, MIT). To try it locally in Claude Code: `claude --plugin-dir ./plaudeapi-trade-skills`. The plugin bundles no code, no MCP server and no hook, and collects nothing itself (your AI tool's provider handles what you type there under its own terms); it contains the one skill below and the conformance files.
+
 Other agent frameworks: the skill is a single Markdown file with YAML frontmatter (`name`, `description`); load it as a system instruction or tool description.
 
 Wording source for storage and identity statements: the site's own disclosure and the CF-28 guide §9, which say of the **browser-side PlaudeAPI Trade check only** that it "asks for no documents, uploads nothing, and stores nothing on any server"; this README repeats that scope and never widens it — an agent host running this skill may retain your prompts under its own terms.
@@ -29,6 +31,8 @@ Wording source for storage and identity statements: the site's own disclosure an
 Trade deadlines are entry-specific. The most common mistake by tools and people alike is to compute "liquidation + 180 days" from an entry date. The protest clock (19 U.S.C. 1514(c)(3)) runs from the *liquidation* date, which is usually about a year after entry but may be extended or suspended (19 U.S.C. 1504). A screen that projects a confident date it cannot know is worse than no screen. The skill states the deadline-safety rules listed in its Hard rules, which the browser tool at plaudeapi.com/trade also enforces (source of the rules: the `eventscreen` module and its regression checks in the PlaudeAPI codebase), aligned at the baseline recorded in the skill's Metadata block (`limitation` field); it is prose, so equivalence is checked by replaying `conformance/cases.yaml` (VERIFY.md), not assumed by construction.
 
 ## What this is not
+
+This is a free tool and general information, not legal advice and not customs brokerage. Using it does not create an attorney-client relationship. Its output is a screen, not advice; a person must review it before relying on it.
 
 Not legal advice, not customs brokerage, not classification. Any HTS information is general and for planning; the classification used on a specific entry is determined by the importer's licensed customs broker. If legal services are requested, they are provided only by **Bandi & Associates PLLC**, a New York law firm, after a conflicts check and a separate written engagement; its responsible attorney, Di Ban, Esq. (eclbk_legal@ahs.us.com), also founded and operates PlaudeAPI. PlaudeAPI receives no share of legal fees.
 
