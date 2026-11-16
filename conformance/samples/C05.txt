@@ -1,0 +1,41 @@
+## 1. What may be wrong
+
+- A CBP Form 28 dated 2026-09-02 is stated for an entry dated 2026-05-20 (e-bikes, stated origin TW). The notice date is after the entry date and before today (2026-11-16).
+- A CF-28 is a request for information; its reply period is stated on the form itself. This screen states no CF-28 date.
+- A CF-28 does not by itself start a protest clock; a protest window runs from liquidation.
+
+## 2. What money may be at stake
+
+not provided
+
+## 3. What date or deadline MAY matter
+
+- CF-28 REPLY PERIOD · UNKNOWN · none
+  - basis: the reply period stated on the CBP Form 28 governs; the separate entry-records rule in 19 CFR 163.6(a) is explained in the CF-28 guide. This screen computes no CF-28 due date.
+  - verify: the reply period printed on the form, and whether any extension was requested or granted, are what a broker or attorney would confirm.
+- LIQUIDATION · POTENTIAL · 2027-05-20
+  - basis: 19 U.S.C. 1504(a), deemed liquidation 1 year after the stated entry date (2026-05-20) unless extended (up to 4 years) or suspended (after suspension lifts, 6 months); a projection by this screen, not a known liquidation.
+  - verify: the entry's liquidation status in ACE, and whether liquidation has been extended or suspended, are what a broker would confirm.
+- PROTEST WINDOW · UNKNOWN · none
+  - basis: 19 U.S.C. 1514(c)(3) / 19 CFR 174.12(e): a protest is due within 180 days after liquidation or reliquidation (or the protested decision); no liquidation date is known, so the window is unknown.
+  - verify: the actual liquidation or reliquidation date in ACE once it occurs, and whether anything was already protested.
+
+## 4. What fact is missing
+
+- The reply period stated on the CF-28 and what the form asks to be identified.
+- Whether the entry has liquidated (the liquidation date, if any).
+- Your annual U.S. import volume band (unknown / under $100K / $100K–$1M / $1M–$10M / over $10M).
+- The duty amount at stake, if you want to state it.
+- The HTS code your broker previously used (optional).
+
+## 5. Measures that may apply (signal only)
+
+- Origin as stated: TW. Families a professional may check as signals only: Section 301, Section 232, AD/CVD, UFLPA. Whether any applies is decided by the exact tariff line, any exclusions and the effective dates; for AD/CVD, the order's written scope language controls, not the HTS number. This screen states no HTS chapter for the product.
+
+## 6. Why a professional might look
+
+- A CF-28 has a reply period set on the form; how the request is answered can affect later action on the entry, and the form's own period governs.
+
+## 7. Next step
+
+Run the free screen at https://plaudeapi.com/trade (the browser tool stores nothing on any server). If the notice is a CBP Form 28, read https://plaudeapi.com/trade/cf28/ first. If you want a licensed U.S. attorney to review a specific entry, the page explains the conflict-check-first request path.
