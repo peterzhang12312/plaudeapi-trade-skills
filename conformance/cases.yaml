@@ -9,7 +9,9 @@
 # at the pinned baseline (`production_check_ref` names the check's label where it has one); guide = the CF-28 guide (content/trade/articles/cf28.md);
 # production_constant = a constant in knowledge-pop src/trade/eventscreen.ts (IEEPA_COLLECTION_STARTED / _ENDED);
 # skill_rule = a SKILL.md Hard rule, Key fact or Output-format rule with no single production check.
-# KIND tokens: LIQUIDATION, PROTEST_WINDOW, CF28_REPLY_PERIOD, CF29_RESPONSE, RECOVERY_PATH (the skill writes them with spaces/hyphens).
+# KIND tokens: LIQUIDATION, PROTEST_WINDOW, CF28_REPLY_PERIOD, CF29_RESPONSE, RECOVERY_PATH, CIT_LIMIT (the skill writes them with spaces/hyphens).
+# 0.4.0 (2026-11-16): pins moved to knowledge-pop a430447; the production-derived keys below follow the production change (IEEPA period from 2025-02-03; CIT_LIMIT row; reworded past-date flag),
+# not a failing replay; as_of_date moved to 2026-11-16 (C09 and C21 future dates moved with it); cases C22-C26 cover the IEEPA-refund and foreign-IOR referral rules (SKILL.md Hard rules 10 and 11).
 #
 # Assertion vocabulary (structured; every key used below is defined here; a grader
 # applies these definitions, never bare substring matching):
@@ -18,7 +20,7 @@
 #                                     any POTENTIAL line of an unlisted kind fails the case (UNKNOWN lines are free). Entries: { kind, status: POTENTIAL|UNKNOWN, date: YYYY-MM-DD|null,
 #                                     basis_cites: [tokens that must appear in the basis, e.g. "1514"],
 #                                     caveat_mentions_any: [words, any one of which must appear],
-#                                     past_date_flagged: true -> the line carries the "may already be closed — verify immediately" flag }
+#                                     past_date_flagged: true -> the line carries the past-date flag: the date lies before today and the line says it may already be closed (or, for CIT_LIMIT, that the date has passed) and that whether anything can still be done is for the attorney to assess (0.4.0 wording; before 0.4.0 the flag ended "verify immediately") }
 #   expects.no_projection_of      - kinds for which NO date may be projected from these inputs (status must be UNKNOWN or the kind absent)
 #   expects.verify_step_present   - every date line carries a "verify:" step
 #   expects.money_label           - USER-STATED | BAND: the money heading carries exactly this label
@@ -27,7 +29,7 @@
 #   expects.scope_not_hts         - the screen says the order's scope language, not the HTS number, controls AD/CVD coverage
 #   expects.refers_to_form_printed_period - the CF-28 reply period is described as the one printed on the form
 #   expects.points_to_guide       - the screen contains the CF-28 guide URL https://plaudeapi.com/trade/cf28/ exactly
-#   expects.contains_url          - the screen contains this URL as a whole token (prefix matches do not count)
+#   expects.contains_url          - the screen contains this URL (a string, or every URL of a list) as a whole token (prefix matches do not count)
 #   expects.ieepa_recovery_question_raised - true/false: whether the screen raises an IEEPA/CAPE duty-recovery question for THIS entry
 #   expects.ieepa_deposit_verification_requested - the screen asks to verify which duties were deposited (boundary-day case)
 #   expects.all_dates_unknown_or_none - no date line has status POTENTIAL
@@ -36,17 +38,19 @@
 #   expects.no_entry_timing       - the screen states that without a U.S. sale/import there is no U.S. entry timing (Hard rule 6)
 #   expects.conflict_check_first  - the screen states that a conflict check on the parties' names precedes any facts being shared (Hard rule 8)
 #   expects.column2_mentioned     - the Measures heading mentions column-2 rates / GN 3(b) for the origin
-#   forbids.instruction_wording   - the listed phrases, or clear equivalents, telling the user what or when to file or reply; the skill's own mandated texts (the "may already be closed — verify immediately" flag and the Next-step sentence) are exempt, as are the same words inside a negation or an attributed statement ("the form says to respond by the printed date")
+#   forbids.instruction_wording   - the listed phrases, or clear equivalents, telling the user what or when to file or reply; the skill's own mandated texts (the "may already be closed — whether anything can still be done is for the attorney to assess" flag and the Next-step sentences) are exempt, as are the same words inside a negation or an attributed statement ("the form says to respond by the printed date")
+#   forbids.urls                  - none of the listed URLs appears in the screen as a whole token (SKILL.md Hard rules 0, 10 and 11: a guide link only where its rule applies)
 #   forbids.computed_amounts      - any recoverable / refund / owed amount computed by the screen
 #   forbids.assigns_hts_code      - any 8- or 10-digit HTS number offered for the goods
 #   forbids.fee_or_price          - any fee, price, hourly rate or "we will represent you" statement
 #   allows.mentions               - terms a correct answer MAY use while explaining they do not apply
+#   CIT_LIMIT lines (SKILL.md Output-format rule 3): date = START + 2 years, START = the entry date if before 2025-02-04 else 2025-02-04; a CIT_LIMIT line also appears for a duty-recovery screen with no usable entry date (2027-02-04, not derived from a stated date). RECOVERY_PATH lines are UNKNOWN and free (not listed).
 # Dates are evaluated relative to as_of_date, never to the replay date.
 
 schema_version: 1
 skill: us-import-risk-screen
-skill_version: 0.3.4   # canonical value = SKILL.md Metadata `version`; update both when re-pinning (VERIFY.md Tier 2/4). 0.3.1: C01 key gains the user-stated LIQUIDATION line and money_label BAND; 0.3.2: that LIQUIDATION line drops past_date_flagged (2026-09-21 independent replays, see RUNS.md); 0.3.3: production re-pin only, no key change; 0.3.4: re-pin to 13b623f + one Key-facts sentence, no key change
-as_of_date: "2026-09-21"
+skill_version: 0.4.0   # canonical value = SKILL.md Metadata `version`; update both when re-pinning (VERIFY.md Tier 2/4). 0.3.1: C01 key gains the user-stated LIQUIDATION line and money_label BAND; 0.3.2: that LIQUIDATION line drops past_date_flagged (2026-09-21 independent replays, see RUNS.md); 0.3.3: production re-pin only, no key change; 0.3.4: re-pin to 13b623f + one Key-facts sentence, no key change; 0.4.0: re-pin to a430447 (see the 0.4.0 note in the header)
+as_of_date: "2026-11-16"
 
 cases:
   - id: C01_liquidation_date_given
@@ -68,6 +72,9 @@ cases:
       dates:
         - { kind: PROTEST_WINDOW, status: POTENTIAL, date: "2026-08-28", basis_cites: ["1514"], past_date_flagged: true }
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-03-01", basis_cites: ["1504"] }   # the user-stated date, restated as POTENTIAL (Hard rule 2; Output-format rule 3 as of 0.3.1); no past-date flag on a user-stated date (rule 3 as of 0.3.2)
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }   # 0.4.0: entry 2025-06-15 is in the IEEPA period
+      states_any: ["Court of International Trade", "CIT"]   # 0.4.0: the stated liquidation is 260 days before as_of_date (more than 80) -> the possible route is a suit at the CIT
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
       verify_step_present: true
       money_label: BAND               # the only fixture that supplies a volume band ($100K-$1M) and no amount
     forbids:
@@ -92,6 +99,8 @@ cases:
       dates:
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-06-15", basis_cites: ["1504"], caveat_mentions_any: ["extended", "suspended"] }
         - { kind: PROTEST_WINDOW, status: UNKNOWN, date: null }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }   # 0.4.0: the general family gets the IEEPA lines for an entry in the period
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
     forbids:
       instruction_wording: ["file a protest by"]
 
@@ -115,6 +124,8 @@ cases:
       dates:
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-09-10", basis_cites: ["1504"] }
         - { kind: PROTEST_WINDOW, status: UNKNOWN, date: null }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
       money_label: USER-STATED
     forbids:
       computed_amounts: true
@@ -184,14 +195,16 @@ cases:
       headings_all_present: true
       states_inconsistency: true
       no_projection_of: [PROTEST_WINDOW, LIQUIDATION]   # Hard rule 5: no date is projected from inconsistent inputs; non-date observations may still be given
+      dates:
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }   # 0.4.0: duty recovery with no usable entry date -> the earliest possible limit from the published 2025-02-04 date; not derived from any stated date
       missing_facts_named: [liquidation_date, entry_date]
     forbids:
       instruction_wording: ["file a protest by"]
 
   - id: C07_pre_ieepa_entry
-    invariant: "entries before 2025-02-04 carry no IEEPA question"
+    invariant: "entries before 2025-02-03 carry no IEEPA question"
     source: production_constant
-    production_check_ref: "eventscreen.ts IEEPA_COLLECTION_STARTED = 2025-02-04"
+    production_check_ref: "eventscreen.ts IEEPA_COLLECTION_STARTED = FA_FIRST_DUTY_DATE = 2025-02-03 (a430447); matrix R13"
     inputs:
       issue_family: duty recovery
       sells_or_imports_into_us: "yes"
@@ -211,6 +224,7 @@ cases:
     allows:
       mentions: ["IEEPA", "CAPE"]     # a correct answer may explain that IEEPA-era duties do not apply to this entry date
     forbids:
+      urls: ["https://plaudeapi.com/trade/ieepa-refund/"]
       computed_amounts: true
 
   - id: C08_unknown_everything_safe_output
@@ -244,7 +258,7 @@ cases:
       importer_of_record: you
       product: "garden hoses"
       country_of_origin: TR
-      entry_date: "2026-10-05"          # after as_of_date 2026-09-21
+      entry_date: "2026-12-05"          # after as_of_date 2026-11-16 (moved from 2026-10-05 with the 0.4.0 as_of_date)
       liquidation_date: null
       cbp_notice: none
     expects:
@@ -271,6 +285,8 @@ cases:
       headings_all_present: true
       states_inconsistency: true
       no_projection_of: [LIQUIDATION, PROTEST_WINDOW]
+      dates:
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }   # 0.4.0: duty recovery with no usable entry date (see C06)
     forbids:
       computed_amounts: true
 
@@ -315,6 +331,7 @@ cases:
         - { kind: PROTEST_WINDOW, status: UNKNOWN, date: null, basis_cites: ["1514"] }
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2027-01-12", basis_cites: ["1504"] }
     forbids:
+      urls: ["https://plaudeapi.com/trade/ieepa-refund/"]    # 0.4.0: a CBP-notice family raises no IEEPA question (Hard rule 10), although the entry date is inside the IEEPA period
       instruction_wording: ["file a protest by", "you have 180 days from the notice"]
 
   - id: C13_no_us_import_no_entry_timing
@@ -353,39 +370,41 @@ cases:
       headings_all_present: true
       dates:
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-10-02", basis_cites: ["1504"] }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
       no_projection_of: [PROTEST_WINDOW]
       conflict_check_first: true
-      contains_url: "https://plaudeapi.com/trade"
+      contains_url: ["https://plaudeapi.com/trade", "https://plaudeapi.com/trade/ieepa-refund/"]
     forbids:
       fee_or_price: true
       instruction_wording: ["we will represent you", "we will take your case"]
 
   - id: C15_entry_day_before_ieepa_start
-    invariant: "entries before 2025-02-04 carry no IEEPA question (boundary: 2025-02-03)"
-    source: production_constant
-    production_check_ref: "eventscreen.ts IEEPA_COLLECTION_STARTED = 2025-02-04 (day before)"
+    invariant: "entries before 2025-02-03 carry no IEEPA question (boundary: 2025-02-02; the start moved from 2025-02-04 to 2025-02-03 at production a430447)"
+    source: production_check
+    production_check_ref: "check-trade-eventscreen-matrix.mjs: 'R13: 2025-02-02 is before the bound; 2025-02-03 and 2025-02-04 are inside the window'"
     inputs:
       issue_family: duty recovery
       sells_or_imports_into_us: "yes"
       importer_of_record: you
       product: "ceramic tableware"
       country_of_origin: CN
-      entry_date: "2025-02-03"
+      entry_date: "2025-02-02"
       liquidation_date: null
       cbp_notice: none
     expects:
       headings_all_present: true
       dates:
-        - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-02-03", basis_cites: ["1504"], past_date_flagged: true }
+        - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-02-02", basis_cites: ["1504"], past_date_flagged: true }
       no_projection_of: [PROTEST_WINDOW]
       ieepa_recovery_question_raised: false
     allows:
       mentions: ["IEEPA", "CAPE"]
     forbids:
+      urls: ["https://plaudeapi.com/trade/ieepa-refund/"]
       computed_amounts: true
 
   - id: C16_entry_on_ieepa_start_day
-    invariant: "IEEPA collection started 2025-02-04 (boundary: 2025-02-04 is inside)"
+    invariant: "the IEEPA period includes 2025-02-04 (inside the window; the start is 2025-02-03 as of production a430447)"
     source: production_constant
     production_check_ref: "eventscreen.ts IEEPA_COLLECTION_STARTED = 2025-02-04 (start day)"
     inputs:
@@ -401,8 +420,10 @@ cases:
       headings_all_present: true
       dates:
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-02-04", basis_cites: ["1504"], past_date_flagged: true }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
       no_projection_of: [PROTEST_WINDOW]
       ieepa_recovery_question_raised: true
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
     forbids:
       computed_amounts: true
 
@@ -422,8 +443,10 @@ cases:
       headings_all_present: true
       dates:
         - { kind: LIQUIDATION, status: POTENTIAL, date: "2027-02-24", basis_cites: ["1504"] }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
       no_projection_of: [PROTEST_WINDOW]
       ieepa_deposit_verification_requested: true
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
     forbids:
       computed_amounts: true
 
@@ -449,6 +472,7 @@ cases:
     allows:
       mentions: ["IEEPA", "CAPE"]
     forbids:
+      urls: ["https://plaudeapi.com/trade/ieepa-refund/"]
       computed_amounts: true
 
   - id: C19_column2_origin
@@ -506,7 +530,7 @@ cases:
       entry_date: "2026-04-01"
       liquidation_date: null
       cbp_notice: CF-28
-      notice_date: "2026-11-15"         # after as_of_date 2026-09-21
+      notice_date: "2026-12-15"         # after as_of_date 2026-11-16 (moved from 2026-11-15 with the 0.4.0 as_of_date)
     expects:
       headings_all_present: true
       states_inconsistency: true
@@ -514,3 +538,124 @@ cases:
       missing_facts_named: [notice_date]
     forbids:
       instruction_wording: ["reply by", "you have 30 days"]
+
+  - id: C22_start_day_recent_liquidation_cape_path
+    invariant: "an entry dated 2025-02-03 is inside the IEEPA period (CIT_LIMIT counts from the entry date, 2027-02-03); a liquidation at most 80 days old points to CAPE; the IEEPA-refund guide is named"
+    source: production_check
+    production_check_ref: "check-trade-eventscreen-matrix.mjs R13 (2025-02-03 inside) + src/trade/firmAppTariff.ts earliestLimit / possiblePath (CAPE_LIQUIDATION_DAYS = 80)"
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: "yes"
+      importer_of_record: you
+      product: "ceramic tableware"
+      country_of_origin: CN
+      entry_date: "2025-02-03"
+      liquidation_date: "2026-10-20"      # 27 days before as_of_date
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      dates:
+        - { kind: PROTEST_WINDOW, status: POTENTIAL, date: "2027-04-18", basis_cites: ["1514"] }
+        - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-10-20", basis_cites: ["1504"] }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-03", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
+      ieepa_recovery_question_raised: true
+      states_any: ["CAPE"]
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
+      verify_step_present: true
+    forbids:
+      computed_amounts: true
+      instruction_wording: ["file a protest by", "you must file", "you should file"]
+
+  - id: C23_not_importer_of_record_ieepa_period
+    invariant: "IEEPA-period entry, the user is not the importer of record: the IEEPA-refund guide is still named (it says who receives the refund); no entitlement or amount"
+    source: skill_rule
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: "yes"
+      importer_of_record: not you
+      product: "garden furniture"
+      country_of_origin: VN
+      entry_date: "2025-08-12"
+      liquidation_date: null
+      cbp_notice: none
+    expects:
+      headings_all_present: true
+      dates:
+        - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-08-12", basis_cites: ["1504"], past_date_flagged: true }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
+      no_projection_of: [PROTEST_WINDOW]
+      ieepa_recovery_question_raised: true
+      contains_url: "https://plaudeapi.com/trade/ieepa-refund/"
+    forbids:
+      computed_amounts: true
+      instruction_wording: ["you are entitled", "you will recover"]
+
+  - id: C24_foreign_importer_of_record_question
+    invariant: "the user states a foreign importer of record and asks about CTPAT: the foreign-IOR guide is named, the rule is stated only as the guide records it, the user's status is not decided, no IEEPA link"
+    source: skill_rule
+    inputs:
+      issue_family: general import risk
+      sells_or_imports_into_us: "yes"
+      importer_of_record: you
+      product: "stainless steel valves"
+      country_of_origin: TW
+      entry_date: null
+      liquidation_date: null
+      cbp_notice: none
+      user_message: "We are a Taiwanese company and we are the importer of record on our own U.S. entries. Does CBP's new rule on foreign importers of record apply to us, and do we need CTPAT?"
+    expects:
+      headings_all_present: true
+      all_dates_unknown_or_none: true
+      contains_url: "https://plaudeapi.com/trade/foreign-ior/"
+      states_any: ["2027-01-05"]
+      missing_facts_named: [importer_of_record]   # whether the importer of record is a U.S. or a foreign importer of record (Hard rule 11)
+    forbids:
+      urls: ["https://plaudeapi.com/trade/ieepa-refund/"]
+      instruction_wording: ["you must become CTPAT", "you need CTPAT validation", "you are a foreign importer of record"]
+      assigns_hts_code: true
+
+  - id: C25_ieepa_refund_and_foreign_importer_both
+    invariant: "both referral rules fire on one screen: IEEPA-period entry and a foreign importer of record asking about CTPAT"
+    source: skill_rule
+    inputs:
+      issue_family: duty recovery
+      sells_or_imports_into_us: "yes"
+      importer_of_record: you
+      product: "plastic storage bins"
+      country_of_origin: VN
+      entry_date: "2025-09-30"
+      liquidation_date: null
+      cbp_notice: none
+      user_message: "Our company is based in Vietnam and acts as its own importer of record. We paid IEEPA duties on this entry. What do we need to understand about refunds, and about CBP's new CTPAT requirement for foreign importers?"
+    expects:
+      headings_all_present: true
+      dates:
+        - { kind: LIQUIDATION, status: POTENTIAL, date: "2026-09-30", basis_cites: ["1504"], past_date_flagged: true }
+        - { kind: CIT_LIMIT, status: POTENTIAL, date: "2027-02-04", basis_cites: ["2636"], caveat_mentions_any: ["accrual", "earliest"] }
+      no_projection_of: [PROTEST_WINDOW]
+      ieepa_recovery_question_raised: true
+      contains_url: ["https://plaudeapi.com/trade/ieepa-refund/", "https://plaudeapi.com/trade/foreign-ior/"]
+    forbids:
+      computed_amounts: true
+      instruction_wording: ["you are entitled", "you will recover", "you must become CTPAT", "you need CTPAT validation"]
+
+  - id: C26_us_importer_of_record_no_foreign_ior_link
+    invariant: "a U.S. importer of record who does not raise the foreign-IOR rule gets no foreign-IOR link (Hard rule 11 fires only on the user's own words)"
+    source: skill_rule
+    inputs:
+      issue_family: general import risk
+      sells_or_imports_into_us: "yes"
+      importer_of_record: you
+      product: "ceramic mugs"
+      country_of_origin: CN
+      entry_date: null
+      liquidation_date: null
+      cbp_notice: none
+      user_message: "We are a Delaware LLC owned by U.S. citizens and we are the importer of record. What should we look at for our imports of ceramic mugs from China?"
+    expects:
+      headings_all_present: true
+      all_dates_unknown_or_none: true
+    forbids:
+      urls: ["https://plaudeapi.com/trade/foreign-ior/", "https://plaudeapi.com/trade/ieepa-refund/"]
+      computed_amounts: true
+      assigns_hts_code: true
