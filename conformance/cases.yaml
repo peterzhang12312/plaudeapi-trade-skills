@@ -49,7 +49,7 @@
 
 schema_version: 1
 skill: us-import-risk-screen
-skill_version: 0.4.1   # canonical value = SKILL.md Metadata `version`; update both when re-pinning (VERIFY.md Tier 2/4). 0.3.1: C01 key gains the user-stated LIQUIDATION line and money_label BAND; 0.3.2: that LIQUIDATION line drops past_date_flagged (2026-09-21 independent replays, see RUNS.md); 0.3.3: production re-pin only, no key change; 0.3.4: re-pin to 13b623f + one Key-facts sentence, no key change; 0.4.0: re-pin to a430447 (see the 0.4.0 note in the header); 0.4.1: wording fixes in the skill after the first 0.4.0 replay, no key change
+skill_version: 0.5.0   # canonical value = SKILL.md frontmatter `metadata.version` (VERIFY.md Tier 1f also compares plugin.json and references/ALIGNMENT.md); update both when re-pinning (VERIFY.md Tier 2/4). 0.3.1: C01 key gains the user-stated LIQUIDATION line and money_label BAND; 0.3.2: that LIQUIDATION line drops past_date_flagged (2026-09-21 independent replays, see RUNS.md); 0.3.3: production re-pin only, no key change; 0.3.4: re-pin to 13b623f + one Key-facts sentence, no key change; 0.4.0: re-pin to a430447 (see the 0.4.0 note in the header); 0.4.1: wording fixes in the skill after the first 0.4.0 replay, no key change; 0.5.0: standards alignment (frontmatter, references/ALIGNMENT.md, shorter body), no key change
 as_of_date: "2026-11-16"
 
 cases:
