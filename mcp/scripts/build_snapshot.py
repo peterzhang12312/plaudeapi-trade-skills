@@ -144,6 +144,8 @@ def parse_guide(page: str) -> dict:
     ]
     authorities = []
     for text, links in p.lis.get("Primary authorities", []):
+        if not links and re.match(r"page cites?", text, re.I):
+            continue  # a pagination note, not an authority
         cite = re.sub(r"\s*(—\s*)?https?://\S+", "", text).strip(" —")
         authorities.append({"citation": cite, "urls": links})  # unlinked statutes keep urls: []
     sec = re.search(r"<h2>Primary authorities</h2>(.*?)(?=<h2|</article>)", page, re.S)

@@ -42,6 +42,14 @@ def test_parse_cf28_keeps_unlinked_authorities_and_finds_note():
     assert "read on 2026-09-20" in g["reading_note"]  # note sits before a Related-guides paragraph
 
 
+def test_page_cite_notes_are_not_authorities_but_unlinked_authorities_stay():
+    g = b.parse_guide(read("foreign-ior"))
+    assert len(g["authorities"]) == 2
+    assert not any(a["citation"].lower().startswith("page cite") for a in g["authorities"])
+    cf = b.parse_guide(read("cf28"))
+    assert sum(1 for a in cf["authorities"] if not a["urls"]) == 2
+
+
 def test_parse_eu_has_no_authorities_section():
     g = b.parse_guide(read("eu"))
     assert g["authorities"] == [] and g["key_dates"] == []
