@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "plaudeapi-trade-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Read-only, public-facts-only MCP server for PlaudeAPI Trade. General information, not legal advice."
 readme = "README.md"
 license = "MIT"

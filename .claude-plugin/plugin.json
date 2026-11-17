@@ -1,7 +1,7 @@
 {
   "name": "plaudeapi-trade",
   "displayName": "PlaudeAPI Trade: U.S. import risk screen",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A fail-closed screen that checks a U.S. import situation against published CBP and court sources, dates every item POTENTIAL or UNKNOWN with its legal basis, and says what is unknown. General information, not legal advice.",
   "author": {
     "name": "Bandi & Associates PLLC",

@@ -38,4 +38,4 @@ not provided
 
 ## 7. Next step
 
-Run the free screen at https://plaudeapi.com/trade (the browser tool stores nothing on any server). If the notice is a CBP Form 28, read https://plaudeapi.com/trade/cf28/ first. If you want a licensed U.S. attorney to review a specific entry, the page explains the conflict-check-first request path.
+Run the free screen at https://plaudeapi.com/trade (the browser tool stores nothing on any server). If the notice is a CBP Form 28, read https://plaudeapi.com/trade/cf28/ first. If you want a New York-licensed attorney to review a specific entry, the page explains the conflict-check-first request path.

@@ -6,13 +6,13 @@ What the pin means and does not mean is stated in the `limitation` field below: 
 
 ```yaml
 skill: us-import-risk-screen
-version: 0.5.0                            # see CHANGELOG.md for the history; bump on every rule or pin change
-last_primary_source_review: 2026-11-16   # 2026-11-16 = alignment review against production (pinned at knowledge-pop c3549895) and the two guide pages, read from their own front matter (verified 2026-11-13 / 2026-11-14); this date records that alignment review only, not a primary-source re-read; the statutes, regulations and the CBP Form 28 instructions under "Key facts" were last read from the primary sources on 2026-09-19 and were not re-read in this pass (the guides' own authority lists carry their 2026-11-13/14 reads)
+version: 0.5.1                            # see CHANGELOG.md for the history; bump on every rule or pin change
+last_primary_source_review: 2026-11-16   # 2026-11-16 = alignment review against production (pinned at knowledge-pop 4f8c94d) and the two guide pages, read from their own front matter (verified 2026-11-13 / 2026-11-14); this date records that alignment review only, not a primary-source re-read; the statutes, regulations and the CBP Form 28 instructions under "Key facts" were last read from the primary sources on 2026-09-19 and were not re-read in this pass (the guides' own authority lists carry their 2026-11-13/14 reads)
 revalidate_by: 2027-05-15                # ceiling = last_primary_source_review + 180 days; past this date treat the skill as STALE until re-reviewed
 revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
 aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code
   repo: knowledge-pop (private)
-  commit: c3549895b87cefa6e6a7623abaafdcfc59711084
+  commit: 4f8c94dc7f9600930595e9e4ec70e3e89dcedcc8
   compiled_screen_files:                  # the exact file set check-trade-eventscreen.mjs compiles (its tsconfig include list)
     src/trade/eventscreen.ts: 53eba2ad8f401484bd5f53c68e7f20ea70c303a9
     src/trade/campaign.ts: 5401547db1c8090e4e557d4f45ab423fffa4a393
@@ -23,9 +23,9 @@ aligned_with_production:                  # "aligned with production at the reco
     scripts/check-trade-eventscreen.mjs: c87e74237885fa16bb969e060aea6cba2f585844
     scripts/check-trade-eventscreen-matrix.mjs: 4ed1d99eb5844092b66883f117c28e6d035b7ee6
   guide:
-    content/trade/articles/cf28.md: e62816318e03c413ffe9272fa15b3fde878fda57   # rendered at https://plaudeapi.com/trade/cf28/
+    content/trade/articles/cf28.md: 5fe7d990929dafca91d6eab676292cb18daf6a2a   # rendered at https://plaudeapi.com/trade/cf28/
     expected_title: "Received a CBP Form 28"  # VERIFY.md Tier 1d checks the live page for this string
-    content/trade/articles/ieepa-refund.md: 3e4c100e44f2fbfd74d913c8c5a766bcaa6c07c3   # rendered at https://plaudeapi.com/trade/ieepa-refund/ ; front matter verified 2026-11-14
+    content/trade/articles/ieepa-refund.md: 729e17c8e32dcbe08e7e3b7dec05d68ab12fb4c4   # rendered at https://plaudeapi.com/trade/ieepa-refund/ ; front matter verified 2026-11-14
     content/trade/articles/foreign-ior.md: 9c985646d94e05c7d25049409276e7348b1efa50   # rendered at https://plaudeapi.com/trade/foreign-ior/ ; front matter verified 2026-11-13
   storage_wording_source: "CF-28 guide section 9 / site disclosure: the browser-side check 'asks for no documents, uploads nothing, and stores nothing on any server'"
   runtime_data_bundle:

@@ -2,6 +2,11 @@
 
 Versions of `skills/us-import-risk-screen` (the plugin `plaudeapi-trade` carries the same number). The version is bumped on every rule or pin change. Replay results are in `conformance/RUNS.md`.
 
+## 0.5.1 — 2026-11-16
+- Wording only, no rule change. The Next-step line (output heading 7) says "a New York-licensed attorney" in place of "a licensed U.S. attorney", following the website change of the same day (founder-attorney decision 2026-11-16, NY Rule 7.1(a) consistency with the Firm page). `conformance/samples/C05.txt` (the sample answer pinned byte for byte by the website's Agent page), the C14 fixture and its generated eval changed with it; dated grading records are left as written.
+- Re-pin to knowledge-pop 4f8c94d: `cf28.md` and `ieepa-refund.md` changed (the attorney-review wording on the CF-28 guide; a working govinfo link for 19 U.S.C. 1514 in the IEEPA refund guide); the other nine hashes are unchanged. `mcp/` fixtures `cf28.html` and `ieepa-refund.html` and `snapshot.json` refreshed from the live pages (`mcp` 0.1.1).
+- Replay of record: 26 cases x 3 runs, independent grader, result in `conformance/RUNS.md`.
+
 ## 0.5.0 — 2026-11-16
 - Standards alignment, no rule change. `SKILL.md` frontmatter gains `license: MIT` and `metadata` (`version`, `author`, `last-primary-source-review`, `revalidate-by`); `description` now begins "Use this skill when…".
 - The production alignment pin and the maintainer notes moved to `references/ALIGNMENT.md`; the skill body is shorter (an estimated 4,900 tokens, character count divided by four; no tokenizer was available). The version history moved here.
