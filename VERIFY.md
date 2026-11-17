@@ -1,6 +1,6 @@
-# VERIFY — how this repository is checked (written 2026-09-21 for skill version 0.3.0)
+# VERIFY — how this repository is checked (written 2026-09-21 for skill version 0.3.0; paths updated for 0.5.0)
 
-This repository contains a prose skill and replayable fixtures. **There is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Tier 1 uses only a POSIX shell, `git`, `curl` and a Python 3 interpreter on PATH (`python3` or `python`); nothing is installed. Verification is four distinct activities; a report must say which of them were performed.
+This repository contains a prose skill and replayable fixtures. **Outside the separately installed `mcp/` package (own tests: `pip install ".[test]"` and `pytest` in `mcp/`) there is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Tier 1 uses only a POSIX shell, `git`, `curl` and a Python 3 interpreter on PATH (`python3` or `python`); nothing is installed. Verification is four distinct activities; a report must say which of them were performed.
 
 | Tier | What it proves | Who / how | Automatic? |
 |---|---|---|---|
@@ -19,7 +19,9 @@ PY=$(command -v python3 || command -v python) || { echo "python3/python not on P
 "$PY" - <<'EOF'
 import re, pathlib, sys
 bad = []
-for f in [pathlib.Path('README.md'), pathlib.Path('VERIFY.md'), *pathlib.Path('skills').rglob('*.md'), *pathlib.Path('conformance').glob('*')]:
+for f in [pathlib.Path(n) for n in ('README.md', 'VERIFY.md', 'AGENTS.md', 'SECURITY.md', 'CHANGELOG.md')] + [*pathlib.Path('skills').rglob('*.md'), *pathlib.Path('skills').rglob('*.yaml'), *pathlib.Path('conformance').glob('*'), *pathlib.Path('evals').rglob('*.md'), *pathlib.Path('.claude-plugin').glob('*.json')]:
+    if not f.is_file():
+        continue
     for i, line in enumerate(f.read_text(encoding='utf-8').splitlines(), 1):
         if '(?!' in line:  # the check's own definition line
             continue
@@ -29,38 +31,48 @@ print('\n'.join(bad) or '1a clean'); sys.exit(1 if bad else 0)
 EOF
 # 1b. no fee/price offer, no unsupported credential wording, no 'mirrors production'
 #     (user-stated duty amounts and the volume bands in the intake table are legitimate content and are NOT matched)
-grep -rniE '\$[0-9][0-9,.]*[[:space:]]*(flat|fixed|fee|retainer|per hour|/h|/hour)|(fee|price|retainer|charge)[[:space:]]+(of|is|:)[[:space:]]*\$|specialist|\bexpert\b|mirrors production' README.md VERIFY.md skills/ conformance/ | grep -vE '^VERIFY\.md:[0-9]+:(# 1b|grep -rniE)' ; echo "exit $? (1 = clean)"
+grep -rniE '\$[0-9][0-9,.]*[[:space:]]*(flat|fixed|fee|retainer|per hour|/h|/hour)|(fee|price|retainer|charge)[[:space:]]+(of|is|:)[[:space:]]*\$|specialist|\bexpert\b|mirrors production' README.md VERIFY.md AGENTS.md SECURITY.md CHANGELOG.md skills/ conformance/ evals/ .claude-plugin/ | grep -vE '^VERIFY\.md:[0-9]+:(# 1b|grep -rniE)' ; echo "exit $? (1 = clean)"
 # 1c. metadata dates parse and the skill is not expired
 "$PY" - <<'EOF'
 import re, datetime as d, sys
-s = open('skills/us-import-risk-screen/SKILL.md', encoding='utf-8').read()
+s = open('skills/us-import-risk-screen/references/ALIGNMENT.md', encoding='utf-8').read()
 rev = d.date.fromisoformat(re.search(r'last_primary_source_review:\s*(\S+)', s).group(1))
 by  = d.date.fromisoformat(re.search(r'revalidate_by:\s*(\S+)', s).group(1))
 today = d.date.today()
 assert by == rev + d.timedelta(days=180), ('revalidate_by must equal review + 180 days', rev, by)
+fm = open('skills/us-import-risk-screen/SKILL.md', encoding='utf-8').read()
+assert re.search(r'last-primary-source-review:\s*"' + str(rev) + '"', fm) and re.search(r'revalidate-by:\s*"' + str(by) + '"', fm), 'SKILL.md frontmatter dates differ from references/ALIGNMENT.md'
 print('review', rev, 'revalidate_by', by, 'today', today, 'STATUS', 'OK' if today <= by else 'STALE -- DO NOT RELY')
 sys.exit(0 if today <= by else 2)
 EOF
-# 1d. the guide pointer resolves to the guide (HTTP 200 AND the `expected_title` recorded next to the guide hash in SKILL.md Metadata), and the revalidate_on_event trigger page exists
-TITLE=$(grep -oE 'expected_title: "[^"]+"' skills/us-import-risk-screen/SKILL.md | cut -d'"' -f2)
+# 1d. the guide pointer resolves to the guide (HTTP 200 AND the `expected_title` recorded next to the guide hash in references/ALIGNMENT.md), and the revalidate_on_event trigger page exists
+TITLE=$(grep -oE 'expected_title: "[^"]+"' skills/us-import-risk-screen/references/ALIGNMENT.md | cut -d'"' -f2)
 BODY=$(mktemp); CODE=$(curl -sS -o "$BODY" -w '%{http_code}' https://plaudeapi.com/trade/cf28/); echo "guide http $CODE, title hits $(grep -c "$TITLE" "$BODY") (expect 200 and >= 1)"; rm -f "$BODY"
 curl -sS -o /dev/null -w 'timeline http %{http_code} (expect 200)\n' https://plaudeapi.com/trade/timeline/
-# 1e. the version in SKILL.md Metadata equals cases.yaml skill_version
-V1=$(grep -oE '^version: [0-9.]+' skills/us-import-risk-screen/SKILL.md | cut -d' ' -f2); V2=$(grep -oE '^skill_version: [0-9.]+' conformance/cases.yaml | cut -d' ' -f2); [ "$V1" = "$V2" ] && echo "1e versions match ($V1)" || echo "1e VERSION MISMATCH skill=$V1 fixtures=$V2"
+# 1e/1f. one version everywhere: SKILL.md frontmatter metadata.version = references/ALIGNMENT.md version = cases.yaml skill_version = .claude-plugin/plugin.json version = .claude-plugin/marketplace.json version
+V1=$(grep -oE '^  version: "[0-9.]+"' skills/us-import-risk-screen/SKILL.md | grep -oE '[0-9.]+')
+V2=$(grep -oE '^skill_version: [0-9.]+' conformance/cases.yaml | cut -d' ' -f2)
+V3=$(grep -oE '^version: [0-9.]+' skills/us-import-risk-screen/references/ALIGNMENT.md | cut -d' ' -f2)
+V4=$(grep -oE '"version": *"[0-9.]+"' .claude-plugin/plugin.json | grep -oE '[0-9.]+')
+V5=$(grep -oE '"version": *"[0-9.]+"' .claude-plugin/marketplace.json | grep -oE '[0-9.]+')
+[ "$V1" = "$V2" ] && echo "1e versions match ($V1)" || echo "1e VERSION MISMATCH skill=$V1 fixtures=$V2"
+[ -n "$V1" ] && [ "$V1" = "$V2" ] && [ "$V1" = "$V3" ] && [ "$V1" = "$V4" ] && [ "$V1" = "$V5" ] && echo "1f versions match everywhere ($V1)" || echo "1f VERSION MISMATCH skill=$V1 fixtures=$V2 alignment=$V3 plugin.json=$V4 marketplace.json=$V5"
+# 1g. the eval files are exactly what the generator writes from cases.yaml (needs Python with PyYAML; maintainer tool, not a runtime dependency)
+"$PY" scripts/gen_evals.py --check && echo "1g evals match cases.yaml" || echo "1g EVALS OUT OF DATE (run: $PY scripts/gen_evals.py)"
 ```
-Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d prints `http 200` with title hits ≥ 1 and `timeline http 200`, 1e prints `versions match`. (Path existence is proven by Tier 2: `git rev-parse master:<path>` fails on a missing path and Tier 2 exits non-zero.)
+Pass = 1a prints `1a clean`, 1b prints `exit 1`, 1c prints `STATUS OK`, 1d prints `http 200` with title hits ≥ 1 and `timeline http 200`, 1e and 1f print `versions match` (1f also compares `plugin.json`, `marketplace.json` and `references/ALIGNMENT.md`), 1g prints `evals match cases.yaml`. (Path existence is proven by Tier 2: `git rev-parse master:<path>` fails on a missing path and Tier 2 exits non-zero.)
 
 ## Tier 2 — alignment-pin verification (maintainer only; the repo is private)
 ```bash
 KP="${KP:-../knowledge-pop}"          # path to your private knowledge-pop checkout (override with KP=...)
 echo "knowledge-pop master: $(git -C "$KP" rev-parse master)   (informational; the pin is by content hash, not by commit)"
-# the file list is read from the Metadata block so SKILL.md stays the only list; a missing path makes rev-parse fail and the loop exit 1
-grep -oE '^    (src|scripts|content|public)/[^:]+' skills/us-import-risk-screen/SKILL.md | tr -d ' ' | grep . | while read -r f; do
+# the file list is read from references/ALIGNMENT.md so that file stays the only list; a missing path makes rev-parse fail and the loop exit 1
+grep -oE '^    (src|scripts|content|public)/[^:]+' skills/us-import-risk-screen/references/ALIGNMENT.md | tr -d ' ' | grep . | while read -r f; do
   hash=$(git -C "$KP" rev-parse --verify --quiet "master:$f") || { echo "MISSING IN PRODUCTION: $f"; exit 1; }
   echo "$hash  $f"   # committed blob id: independent of core.autocrlf rewriting the working tree (git hash-object on a CRLF-converted checkout would differ)
 done || exit 1
 ```
-Compare each hash with `aligned_with_production` in SKILL.md → Metadata. Any mismatch = **DRIFT CANDIDATE**: the skill is not wrong yet, but it is no longer aligned at a known baseline. Action: read the diff of the changed file(s), replay Tier 3, then either re-pin (update the hashes, bump `version`, add a `conformance/RUNS.md` entry) or mark the skill `STALE — DO NOT RELY` in its metadata until fixed. A new `public/data/trade/latest.json` vintage is a `revalidate_on_event` trigger even if the compiled files are unchanged.
+Compare each hash with `aligned_with_production` in `references/ALIGNMENT.md`. Any mismatch = **DRIFT CANDIDATE**: the skill is not wrong yet, but it is no longer aligned at a known baseline. Action: read the diff of the changed file(s), replay Tier 3, then either re-pin (update the hashes, bump `version` in all five places Tier 1f compares, add a `conformance/RUNS.md` entry) or mark the skill `STALE — DO NOT RELY` in SKILL.md (Currency section) and `references/ALIGNMENT.md` until fixed. A new `public/data/trade/latest.json` vintage is a `revalidate_on_event` trigger even if the compiled files are unchanged.
 
 ## Tier 3 — replay protocol for `conformance/cases.yaml`
 - Operator: a person, or a model. Record the model name and version (e.g. `claude-opus-5`), the sampling setting where controllable (temperature 0 preferred; if the host does not expose it, record "host default"), the date, and the skill `version`.
@@ -74,4 +86,4 @@ Compare each hash with `aligned_with_production` in SKILL.md → Metadata. Any m
 Run-Q is the *review cadence* (every ≤ 90 days); `revalidate_by` (review + 180 days) is the *hard ceiling* after which Tier 1c marks the skill STALE even if no Run-Q happened. A skill 120 days past review is therefore "overdue for Run-Q" but not yet STALE; both statements are true and refer to different things. Every ≤ 90 days, and immediately on any `revalidate_on_event` trigger: re-read every authority under "Key facts" from the primary source; re-run Tiers 1–3; update `last_primary_source_review`, `revalidate_by` and the pin; bump `version`; record the review in `conformance/RUNS.md`. If any authority changed, mark the skill `STALE — DO NOT RELY` until the attorney re-approves the "Key facts" and the worked example.
 
 ## What this file does not claim
-No automatic drift detection, no executable tests, a replay that passes today does not show the law is current tomorrow; for what the pin proves, see the `limitation` field in the skill's Metadata.
+No automatic drift detection, no executable tests, a replay that passes today does not show the law is current tomorrow; for what the pin proves, see the `limitation` field in `references/ALIGNMENT.md`.

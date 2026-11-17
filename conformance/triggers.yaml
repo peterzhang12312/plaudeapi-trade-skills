@@ -1,0 +1,51 @@
+# Trigger tests for skills/us-import-risk-screen (written 2026-11-16 for skill version 0.5.0).
+# Source file for the `evals/trigger-*` cases; scripts/gen_evals.py turns it into files.
+# should_trigger: a person would reasonably expect the skill to load. near_miss: a neighbouring
+# subject that the skill does not cover; the skill should NOT load. Phrased the way a user types,
+# never naming the skill. These are fixtures for a replay or an eval run, not an automatic test.
+schema_version: 1
+skill: us-import-risk-screen
+
+should_trigger:
+  - id: cf29-entry-january
+    prompt: "We got a CF-29 dated 2026-09-02 on an entry from January. What may matter here?"
+  - id: ieepa-refund-who-gets-it
+    prompt: "I paid IEEPA tariffs on my imports in 2025 and I hear refunds are possible now. Where do I even start with figuring out whether this applies to us?"
+  - id: cf28-received
+    prompt: "CBP sent us a Form 28 request for information on a shipment of e-bikes from Taiwan. What should I understand before anyone answers it?"
+  - id: protest-deadline-from-entry
+    prompt: "My product entered the U.S. on 2025-10-02. Is my protest deadline entry date plus 180 days?"
+  - id: adcvd-extrusions
+    prompt: "We import aluminum extrusions from China and a customer mentioned antidumping duties. Could that affect us and when would anything liquidate?"
+  - id: what-applies-to-product
+    prompt: "I'm about to start selling ceramic mugs made in China to U.S. customers. What U.S. tariffs or import measures might touch this?"
+  - id: foreign-ior-ctpat
+    prompt: "Our company is in Vietnam and we are our own importer of record in the U.S. Does the new CBP rule for foreign importers of record affect us?"
+  - id: liquidation-date-known
+    prompt: "Our entry liquidated on 2026-03-01. How long might we have to protest, and what else could matter?"
+  - id: amazon-seller-duty-recovery
+    prompt: "I'm an Amazon seller who imports furniture from Vietnam through a broker. Someone said I may be able to recover tariff money. Is that real, and what should I check?"
+  - id: chinese-language-cf28
+    prompt: "海关发来一份CF-28通知，我们是进口商，产品是不锈钢水槽，该先搞清楚哪些事实？"
+
+near_miss:
+  - id: eu-customs-duty
+    prompt: "What customs duty and import VAT will I pay bringing furniture from China into Germany?"
+  - id: export-control-license
+    prompt: "Do I need an export license under the EAR to ship a server to the United Arab Emirates?"
+  - id: us-sales-tax-nexus
+    prompt: "My online store sells into 12 states. How do I work out where I owe state sales tax?"
+  - id: uk-import-vat
+    prompt: "How is import VAT handled for goods I bring into the UK after Brexit?"
+  - id: canada-import-permit
+    prompt: "Do I need an import permit from CBSA to bring dairy products into Canada?"
+  - id: fba-income-tax
+    prompt: "How is my Amazon FBA profit taxed on my U.S. federal return?"
+  - id: incoterms-explainer
+    prompt: "Explain the difference between DDP and FOB in plain English."
+  - id: python-csv-parse
+    prompt: "Write a Python function that reads a CSV of products and groups the rows by country."
+  - id: mexico-immex
+    prompt: "How do I set up an IMMEX program for a maquiladora in Tijuana?"
+  - id: delaware-llc
+    prompt: "What are the steps to form a Delaware LLC and get an EIN?"

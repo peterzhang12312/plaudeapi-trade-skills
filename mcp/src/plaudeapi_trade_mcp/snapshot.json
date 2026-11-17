@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "generated": "2026-11-16",
+  "origin": "https://plaudeapi.com/trade/guides/",
+  "firm": "Bandi & Associates PLLC",
+  "disclaimer": "General information only, not legal advice. Using this server does not create an attorney-client relationship. Published by Bandi & Associates PLLC.",
+  "free_check_url": "https://plaudeapi.com/trade/",
+  "diagnostic": {
+    "label": "US$495 Trade diagnostic",
+    "url": "https://plaudeapi.com/trade/#diagnostic"
+  },
+  "guides": [
+    {
+      "slug": "foreign-ior",
+      "title": "CBP rule: a foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker (FR 2026-22735, effective 2027-01-05)",
+      "url": "https://plaudeapi.com/trade/foreign-ior/",
+      "zh_url": "https://plaudeapi.com/trade/foreign-ior/zh/",
+      "description": "From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer.",
+      "verified": "2026-11-13",
+      "updated": null,
+      "published": "2026-11-14",
+      "modified": "2026-11-14",
+      "key_dates": [
+        {
+          "date": "2026-11-06",
+          "event": "Published in the Federal Register (91 FR 69977-70007; FR Doc. 2026-22735; docket USCBP-2026-1387; CBP Dec. 26-19)",
+          "source": "FR first page, p. 69977"
+        },
+        {
+          "date": "2027-01-05",
+          "event": "Rule effective. From this date the updated CBP Forms 3461 and 7501 must be used for each entry and entry summary",
+          "source": "DATES, p. 69977; §VI.C, p. 69984"
+        },
+        {
+          "date": "2027-01-05",
+          "event": "Public comments due (regulations.gov, docket USCBP-2026-1387)",
+          "source": "DATES / ADDRESSES, p. 69977"
+        },
+        {
+          "date": "Before 2027-01-05",
+          "event": "A licensed customs broker may request delayed compliance with the new verification duty in 19 CFR 111.29",
+          "source": "DATES, p. 69977; §VII, p. 69986"
+        },
+        {
+          "date": "2027-05-06",
+          "event": "All brokers expected to be fully compliant",
+          "source": "DATES, p. 69977; §VII, p. 69986"
+        }
+      ],
+      "authorities": [
+        {
+          "citation": "Heightened Requirements for Foreign Importers of Record, interim final rule with request for comments, 91 FR 69977-70007 (Nov. 6, 2026), FR Doc. 2026-22735, docket USCBP-2026-1387, CBP Dec. 26-19, RIN 1685-AA48",
+          "urls": [
+            "https://www.federalregister.gov/documents/2026/11/06/2026-22735/heightened-requirements-for-foreign-importers-of-record"
+          ]
+        },
+        {
+          "citation": "19 CFR 24.36 — refunds paid to the importer of record",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/chapter-I/part-24/section-24.36"
+          ]
+        }
+      ],
+      "reading_note": "The rule was read on 2026-11-13 against the Federal Register full text, obtained from the Federal Register website on 2026-11-10 (URL above); 19 CFR 24.36 was read on 2026-11-14. Rules change; check the current text before relying on any date stated here."
+    },
+    {
+      "slug": "ieepa-refund",
+      "title": "IEEPA duty refunds: CAPE or the CIT",
+      "url": "https://plaudeapi.com/trade/ieepa-refund/",
+      "zh_url": "https://plaudeapi.com/trade/ieepa-refund/zh/",
+      "description": "Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather.",
+      "verified": "2026-11-14",
+      "updated": null,
+      "published": "2026-11-14",
+      "modified": "2026-11-14",
+      "key_dates": [
+        {
+          "date": "2026-02-20",
+          "event": "Supreme Court: IEEPA does not authorize the President to impose tariffs (Learning Resources, Inc. v. Trump, No. 24-1287)",
+          "source": "Opinion"
+        },
+        {
+          "date": "2026-02-24",
+          "event": "CBP stopped collecting IEEPA duties on goods entered, or withdrawn from warehouse, for consumption from 12:00 a.m. ET",
+          "source": "CSMS #67834313"
+        },
+        {
+          "date": "2026-04-20",
+          "event": "CAPE opened (Phase 1)",
+          "source": "CSMS #68315804, CSMS #68340863"
+        },
+        {
+          "date": "2026-10-08",
+          "event": "The CIT certified a class (Freestyle World, Inc. v. CBP, No. 26-01088)",
+          "source": "Slip Op. 26-123"
+        }
+      ],
+      "authorities": [
+        {
+          "citation": "Learning Resources, Inc. v. Trump, No. 24-1287 (U.S. Feb. 20, 2026) — IEEPA does not authorize the President to impose tariffs",
+          "urls": [
+            "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+          ]
+        },
+        {
+          "citation": "CBP CSMS #67834313 (2026-02-22) — ending collection of IEEPA duties from 12:00 a.m. ET on 2026-02-24",
+          "urls": [
+            "https://content.govdelivery.com/accounts/USDHSCBP/bulletins/40b11c9"
+          ]
+        },
+        {
+          "citation": "CBP CSMS #68315804 (2026-04-10) and #68340863 (2026-04-13) — CAPE Phase 1: who may submit a declaration, entries within 80 days of liquidation, entries Phase 1 does not accept",
+          "urls": [
+            "https://content.govdelivery.com/accounts/USDHSCBP/bulletins/4126a9c",
+            "https://content.govdelivery.com/accounts/USDHSCBP/bulletins/412cc7f"
+          ]
+        },
+        {
+          "citation": "CBP CSMS #69066837 (2026-06-29) — CAPE takes certain entries flagged for reconciliation",
+          "urls": [
+            "https://content.govdelivery.com/accounts/USDHSCBP/bulletins/41de055"
+          ]
+        },
+        {
+          "citation": "Declaration of Brandon Lord (CBP), ECF No. 50, Freestyle World, Inc. v. CBP, CIT No. 26-01088 (2026-09-15), ¶8 — CAPE Phase 3, CIT plaintiffs only",
+          "urls": [
+            "https://storage.courtlistener.com/recap/gov.uscourts.cit.19175/gov.uscourts.cit.19175.50.0.pdf"
+          ]
+        },
+        {
+          "citation": "Freestyle World, Inc. v. CBP, CIT No. 26-01088, Slip Op. 26-123 (2026-10-08) — class certification; the government's appeal of the reliquidation order, Fed. Cir. No. 26-1895, docketed 2026-06-03",
+          "urls": [
+            "https://www.cit.uscourts.gov/sites/cit/files/26-123.pdf"
+          ]
+        },
+        {
+          "citation": "19 CFR 24.36 — refunds paid to the importer of record; CBP Form 4811",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/chapter-I/part-24/section-24.36"
+          ]
+        },
+        {
+          "citation": "19 U.S.C. 1514(a), (c)(3) — a protest within 180 days after liquidation or reliquidation",
+          "urls": [
+            "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title19-section1514&num=0&edition=prelim"
+          ]
+        },
+        {
+          "citation": "19 CFR 174.3, 174.12(a) — who may file a protest, and agents",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/chapter-I/part-174"
+          ]
+        },
+        {
+          "citation": "28 U.S.C. 2636(a), (i) — a CIT action 180 days after a protest is denied; 2 years after accrual",
+          "urls": [
+            "https://www.govinfo.gov/content/pkg/USCODE-2023-title28/html/USCODE-2023-title28-partVI-chap169-sec2636.htm"
+          ]
+        },
+        {
+          "citation": "19 CFR 141.21(b), as amended by FR 2026-22735 (91 FR 69977, 2026-11-06) — foreign IOR entry requirements from 2027-01-05",
+          "urls": [
+            "https://www.federalregister.gov/documents/2026/11/06/2026-22735/heightened-requirements-for-foreign-importers-of-record"
+          ]
+        }
+      ],
+      "reading_note": "Authorities were read on 2026-11-14 from the sources linked, except FR 2026-22735, read on 2026-11-13 from the Federal Register text. Rules and CBP procedures change; check the current text before relying on any date or period stated here."
+    },
+    {
+      "slug": "eu",
+      "title": "Exporting to the EU? Three rules your EU buyers will ask you about before 30 December 2026",
+      "url": "https://plaudeapi.com/trade/eu/",
+      "zh_url": "https://plaudeapi.com/trade/eu/zh/",
+      "description": "The EU deforestation regulation applies to large and medium operators from 30 December 2026, the green-claims ban has applied since 27 September 2026, and the packaging regulation since 12 August 2026. What each one means for a Chinese factory or seller supplying the EU, what the EU buyer will ask for, and what to prepare.",
+      "verified": null,
+      "updated": "2026-10-10",
+      "published": "2026-10-10",
+      "modified": "2026-10-10",
+      "key_dates": [],
+      "authorities": [],
+      "reading_note": null
+    },
+    {
+      "slug": "cf28",
+      "title": "Received a CBP Form 28 (CF-28)? What to Do Next",
+      "url": "https://plaudeapi.com/trade/cf28/",
+      "zh_url": null,
+      "description": "A CBP Form 28 is a Request for Information about specific import entries. What it means, what to identify before you answer, which dates matter, what to keep, and when a broker or an attorney fits.",
+      "verified": null,
+      "updated": "2026-09-20",
+      "published": "2026-09-20",
+      "modified": "2026-09-20",
+      "key_dates": [],
+      "authorities": [
+        {
+          "citation": "CBP Form 28, Request for Information (08/24): preprinted questions A–B and items A–E, the CBP Officer Message box, the Certification block (signer: owner, importer, or corporate/company official; not required if a foreign firm completes the form), and General Information and Instructions items 1–6",
+          "urls": [
+            "https://www.cbp.gov/sites/default/files/2025-05/cbp_form_28.pdf"
+          ]
+        },
+        {
+          "citation": "19 U.S.C. 1509(a) — examination of books and witnesses; the statutory basis stated on the form",
+          "urls": []
+        },
+        {
+          "citation": "19 CFR 151.11 — request for samples or additional examination packages after release (Customs Form 28)",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-151.11"
+          ]
+        },
+        {
+          "citation": "19 CFR 163.4(a)–(b) — record retention (5 years from entry as the general rule; shorter periods for specified records)",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-163.4"
+          ]
+        },
+        {
+          "citation": "19 CFR 163.6(a) — production of entry records within 30 calendar days of receipt of the demand, or a shorter period when the records are required for an admissibility or release determination; extension request before the due date",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-163.6"
+          ]
+        },
+        {
+          "citation": "19 CFR 152.2 — notification to importer of increased duties (Customs Form 29); liquidation not withheld more than 20 days",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-152.2"
+          ]
+        },
+        {
+          "citation": "19 U.S.C. 1514; 19 CFR 174.12(e) — protests within 180 days",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-174.12"
+          ]
+        },
+        {
+          "citation": "19 CFR 111.1 — definition of \"customs business\" (scope of a licensed broker's work)",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-111.1"
+          ]
+        },
+        {
+          "citation": "19 U.S.C. 1592; 19 CFR 162.74 — penalties for false statements; prior disclosure",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-162.74"
+          ]
+        },
+        {
+          "citation": "19 CFR 351.225 — scope rulings under antidumping and countervailing duty orders",
+          "urls": [
+            "https://www.ecfr.gov/current/title-19/section-351.225"
+          ]
+        },
+        {
+          "citation": "19 U.S.C. 1484 — entry of merchandise; the importer's reasonable-care obligation",
+          "urls": []
+        }
+      ],
+      "reading_note": "Authorities were read on 2026-09-20 from the sources linked. Regulations and forms change; check the current text before relying on any date or period stated here."
+    }
+  ]
+}

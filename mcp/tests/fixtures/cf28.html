@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1C1C1C" />
+    <title>Received a CBP Form 28 (CF-28)? What to Do Next — PlaudeAPI Trade</title>
+    <meta name="description" content="A CBP Form 28 is a Request for Information about specific import entries. What it means, what to identify before you answer, which dates matter, what to keep, and when a broker or an attorney fits." />
+    <link rel="canonical" href="https://plaudeapi.com/trade/cf28/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Received a CBP Form 28 (CF-28)? What to Do Next" />
+    <meta property="og:description" content="A CBP Form 28 is a Request for Information about specific import entries. What it means, what to identify before you answer, which dates matter, what to keep, and when a broker or an attorney fits." />
+    <meta property="og:url" content="https://plaudeapi.com/trade/cf28/" />
+    <meta property="article:published_time" content="2026-09-20" />
+    <meta property="article:modified_time" content="2026-09-20" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Received a CBP Form 28 (CF-28)? What to Do Next","description":"A CBP Form 28 is a Request for Information about specific import entries. What it means, what to identify before you answer, which dates matter, what to keep, and when a broker or an attorney fits.","inLanguage":"en","datePublished":"2026-09-20","dateModified":"2026-09-20","mainEntityOfPage":"https://plaudeapi.com/trade/cf28/","author":{"@type":"Person","name":"Di Ban, Esq.","affiliation":{"@type":"Organization","name":"Bandi & Associates PLLC"}},"publisher":{"@type":"Organization","name":"Bandi & Associates PLLC","telephone":"925-375-2570","address":"4322 Queens Street, Ste 1201, Long Island City, New York 11101"}}</script>
+    <style>
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-600.woff2') format('woff2'); }
+/* --muted was #7C7C7C (round-1 QA GLOBAL-4, 2026-09-26): 4.17:1 on white, below
+   the 4.5:1 WCAG AA minimum for the eyebrow/byline/disclosure text this
+   variable colors. Darkened to #6B6B6B (5.33:1 on white), matching the same
+   fix applied to the Trade SPA's shared MUTED token in src/trade/ui.ts. */
+:root { color-scheme: light; --ink:#1C1C1C; --text:#3F3F3F; --muted:#6B6B6B; --rule:#E3E3E3; --wash:#F4F4F4; --accent:#E2553C; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #fff; color: var(--text); font-family: Inter, system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
+.masthead { background: var(--ink); color: #fff; }
+.masthead .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: 1rem 1.25rem; }
+.masthead a { color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.masthead .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; letter-spacing: 0; text-transform: none; }
+.masthead nav a { margin-left: 1.25rem; color: #B5B5B5; display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; letter-spacing: .1em; }
+.masthead a:focus-visible, article a:focus-visible, footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.masthead nav a:hover { color: #fff; }
+.masthead nav a.nav-primary { color: #fff; }
+/* Audit 2026-11-16 #2: the navigation grew (diagnostic, IEEPA refunds, foreign IOR); under 860 px it sits behind a Menu button. A checkbox,
+   so it works without script; the label is the button. */
+.nav-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.nav-btn { display: none; cursor: pointer; border: 1px solid #5A5A5A; padding: .5rem 1rem; align-items: center; color: #fff; font-size: 14px; min-height: 40px; letter-spacing: .16em; text-transform: uppercase; }
+.nav-toggle:focus-visible + .nav-btn { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (min-width: 860px) { .nav-toggle { display: none; } }
+@media (max-width: 859px) {
+  .nav-btn { display: inline-flex; }
+  .masthead nav { display: none; width: 100%; }
+  .nav-toggle:checked ~ nav { display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .masthead nav a { margin-left: 0; }
+}
+main { margin: 0 auto; max-width: 900px; padding: 3rem 1.25rem 4rem; }
+@media (min-width: 640px) { main { padding: 3.5rem 2rem 5rem; } }
+.eyebrow { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.12; color: var(--ink); margin: 1rem 0 0; max-width: 760px; }
+.byline { margin: 1.25rem 0 0; padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.byline b { font-weight: 600; color: var(--ink); }
+.publisher { margin: .75rem 0 0; font-size: 14px; color: var(--muted); }
+.publisher b { font-weight: 600; color: var(--ink); }
+.lede { font-size: 17px; line-height: 1.65; color: var(--text); max-width: 760px; margin: 1.75rem 0 0; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
+article h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.6rem; line-height: 1.25; color: var(--ink); margin: 2.75rem 0 .75rem; }
+article p, article li { font-size: 15px; max-width: 760px; }
+article p { margin: .9rem 0; }
+article ul, article ol { padding-left: 1.4rem; margin: .75rem 0; }
+article li { margin: .45rem 0; }
+article li p { margin: 0; }
+article strong { font-weight: 600; color: var(--ink); }
+article a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(28,28,28,.35); overflow-wrap: anywhere; }
+article a:hover { color: var(--accent); }
+.cta { margin: 1.25rem 0 0; }
+.btn-primary, .btn-secondary { display: inline-flex; min-height: 44px; align-items: center; padding: .75rem 1.5rem; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: var(--accent); color: #fff; }
+.btn-secondary { border: 1px solid var(--ink); color: var(--ink); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.disclosure { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); max-width: 760px; }
+.disclosure p { margin: .6rem 0; }
+address { font-style: normal; }
+footer { border-top: 1px solid var(--rule); background: var(--wash); }
+footer .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: 1.5rem 1.25rem; font-size: 14px; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--ink); }
+
+.skip-link { position: absolute; left: .75rem; top: .75rem; z-index: 100; padding: .65rem 1rem; background: #fff; color: #1C1C1C; border: 2px solid #E2553C; font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: 0; text-transform: none; text-decoration: none; }
+.skip-link:not(:focus) { width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+main[tabindex="-1"]:focus { outline: none; }
+</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="masthead">
+      <div class="row">
+        <a class="brand" href="/trade/">PlaudeAPI Trade</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <label for="nav-toggle" class="nav-btn">Menu</label>
+        <nav aria-label="Trade navigation">
+          <a class="nav-primary" href="/trade/#diagnostic">Trade diagnostic</a>
+          <a href="/trade/ieepa-refund/">IEEPA refunds</a>
+          <a href="/trade/foreign-ior/">Foreign IOR</a>
+          <a href="/trade/">Free check</a>
+          <a href="/trade/regimes/">Regime notes</a>
+          <a href="/trade/about-data/">About the data</a>
+          <a href="/trade/guides/">Guides</a>
+          <a href="/trade/agent/">Agent</a>
+          <a href="/trade/team/">Team</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <p class="eyebrow">CBP notices · Request for Information</p>
+      <h1>Received a CBP Form 28 (CF-28)? What to Do Next</h1>
+      <p class="byline"><span>By <b>Di Ban, Esq.</b>, Bandi &amp; Associates PLLC</span><span>Published <time datetime="2026-09-20">2026-09-20</time></span><span>Updated <time datetime="2026-09-20">2026-09-20</time></span></p>
+      <p class="publisher" data-firm-attribution>Published by <b>Bandi &amp; Associates PLLC</b> · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101</p>
+      <article>
+<p class="lede">A CBP Form 28, "Request for Information," means U.S. Customs and Border Protection wants facts or documents about one or more of your import entries — usually about classification, value, country of origin, or admissibility — before it decides how to treat them. Read the form's own date and reply instructions first: its printed instructions ask for a reply within 30 days of the request date and tell you to contact the named CBP officer if you cannot meet that, and the reply is required under 19 U.S.C. 1509(a). Before you answer, identify exactly what CBP is asking, which entries are covered, and whether the answer could touch other entries. Then decide whether your broker can handle it or whether a customs attorney should look first.</p>
+<h2>1. What is a CBP Form 28?</h2>
+<p>A CBP Form 28 (CF-28) is the form CBP uses to ask for information, documents, or samples about the merchandise on a specific entry. The form itself states that "the requested information is necessary for proper classification and/or appraisement of your merchandise and/or for insuring import compliance," and that "your reply is required in accordance with section 509(a), Tariff Act of 1930, as amended (19 U.S.C. 1509)." The regulations name the form for one specific use — a written request for samples or additional examination packages after merchandise has been released (19 CFR 151.11) — and separately allow CBP to demand entry records, by written, oral, or electronic notice, from anyone required to keep them (19 CFR 163.6(a)). The form's printed questions and items go wider than either provision; read the form you received for what it actually asks.</p>
+<p>You may not see the words "CF-28." Your broker may say "CBP sent a request for information," "Customs asked for more information about your entry," or simply forward a PDF with an entry number on it. If the document is headed "Request for Information," carries a CBP OMB control number, and names a CBP officer, it is this form.</p>
+<h2>2. Why did CBP send it?</h2>
+<p>The 08/24 form has three parts an officer can use: two preprinted valuation questions (A: whether you are related to the seller and how that affects the price; B: additional costs such as packing, commissions, proceeds to the seller, assists, royalties or license fees), a list of items to furnish (contract or purchase order, descriptive literature, a breakdown of components and their cost, samples), and an open "CBP Officer Message" box in which the officer can ask anything else about the entry. In practice the subjects behind a request are:</p>
+<ul>
+<li><strong>Value</strong> — the preprinted questions: the price actually paid or payable, whether the buyer and seller are related, assists, commissions, royalties (the form's own definitions of "related" and "assist" are printed on its reverse).</li>
+<li><strong>Classification</strong> — usually raised through the items to furnish (descriptive literature; a breakdown of components, materials or ingredients and their cost) or in the officer's message: does the tariff number declared fit the goods?</li>
+<li><strong>Country of origin</strong> — usually raised in the officer's message: where the goods were made or substantially transformed, and the basis for any preferential-treatment claim.</li>
+<li><strong>Admissibility and other-agency requirements</strong> — marking, quotas, or another agency's rules, again through the officer's message.</li>
+</ul>
+<p>A CF-28 is not a penalty notice and not a finding. It is, however, the record on which CBP will base its next step, which is why what you say and what you attach matter.</p>
+<h2>3. What should you identify before responding?</h2>
+<p>Before anyone drafts a reply, establish these facts from the form and your own records:</p>
+<ol>
+<li><strong>The entry number(s) and the goods covered.</strong> The form's instructions require that "all information, documents, and samples requested must relate to the shipment of merchandise described on the front of this form." Answer about those entries — not about your whole import history.</li>
+<li><strong>The exact questions marked.</strong> Only the indicated questions and items are requested. Note which ones are ticked and what the officer wrote in the message box.</li>
+<li><strong>The date of the request and the named officer.</strong> The clock and the point of contact are on the front page.</li>
+<li><strong>Who is the importer of record, and who will sign.</strong> The form is addressed to the importer named on the entry. Its certification is to be signed by an "Owner, Importer, or Corporate/Company Official" and, in the form's own words, "it is required that an appropriate corporate/company official execute this certificate and/or endorse all correspondence in response" — with one printed exception: the certification is "NOT REQUIRED IF FOREIGN FIRM COMPLETES THIS FORM." If you are an overseas seller and a freight forwarder, marketplace, or other party was the importer of record, that party — not you — is the one CBP addressed, and it holds both the obligation to reply and the rights that follow (for example, to protest).</li>
+<li><strong>Whether the same facts affect other entries.</strong> If the classification, value, or origin CBP is asking about is the same on entries not named in the form, a reply that concedes a point can have consequences beyond the entries listed. Identify that exposure before you write.</li>
+<li><strong>Whether anything already filed was wrong.</strong> If you find an error in what was declared, that is a separate decision with its own procedure (see section 8), and it should be made deliberately, not by accident inside a CF-28 reply.</li>
+</ol>
+<h2>4. Which dates and deadlines matter?</h2>
+<ul>
+<li><strong>The reply period on the form.</strong> The form's General Information and Instructions state: "If a reply cannot be made within 30 days from the date of this request or if you wish to discuss any of the questions designated for your reply, please contact the CBP officer whose name appears on the front of this form." The 30 days run from the date of the request, not from the day you opened it. The form does not promise an extension; it tells you whom to ask.</li>
+<li><strong>Entry-record demands.</strong> When CBP demands entry records under the recordkeeping rules, they "shall be produced within 30 calendar days of receipt of the demand or within any shorter period as Customs may prescribe when the entry records are required in connection with a determination regarding the admissibility or release of merchandise," and a request for more time "must be received by Customs before the applicable due date" (19 CFR 163.6(a)). The form's period runs from the date of the request; the recordkeeping period runs from receipt of the demand; a shorter period applies only in the admissibility-or-release situation the regulation names. If your form asks for entry records and the two do not obviously line up, ask the named officer which date CBP is working to and note the answer.</li>
+<li><strong>What can follow.</strong> If CBP concludes that the entered rate or value is too low and the increase in duties exceeds $15, it notifies the importer on a CBP Form 29, and liquidation "shall not be withheld for a period of more than 20 days from the date of mailing of such notice" absent compelling reasons (19 CFR 152.2). A decision reflected in a liquidation can be protested within 180 days of the liquidation or its notice (19 U.S.C. 1514; 19 CFR 174.12(e)). These later clocks are why a CF-28 is worth taking seriously while the record is still open.</li>
+</ul>
+<p>This page cannot tell you your deadline. The form you received does. If the printed date is close or has passed, contact the officer named on the form now and record that you did.</p>
+<h2>5. What records and documents should you preserve?</h2>
+<p>Keep everything that supports what was declared on the entries in question, and do not let routine deletion remove it: the commercial invoice, packing list, purchase order and contract, proof of payment, bills of lading, the entry summary (CBP Form 7501) and the broker's transmissions, any classification or origin analysis you relied on, supplier declarations, production records, and correspondence with your supplier and broker. The general rule is that records required to be kept for CBP are retained "for 5 years from the date of entry" (19 CFR 163.4(a)); 19 CFR 163.4(b) shortens that period for a few categories (for example, some packing lists and certain other specified records). For an entry under a live request, keep everything for the matter regardless of the minimum period. If a document you would normally rely on does not exist, note that now rather than creating it after the fact.</p>
+<h2>6. When may a customs broker be enough?</h2>
+<p>A licensed customs broker's work — "customs business" — covers transactions with CBP concerning entry, admissibility, classification and valuation, payment of duties, and "the preparation, and activities relating to the preparation, of documents in any format ... intended to be filed with CBP" (19 CFR 111.1). A broker can therefore assemble the requested documents, prepare the reply, and transmit it. That is usually enough when the request is narrow, the facts are clear and favorable, the answer does not touch other entries, and nothing already declared appears to be wrong.</p>
+<p>Whatever the broker prepares, the certification on the form is signed on the importer's side — by an "Owner, Importer, or Corporate/Company Official," as the form puts it, unless the printed foreign-firm exception applies. Read the reply before it goes.</p>
+<h2>7. When may attorney review be appropriate?</h2>
+<p>Some CF-28 situations raise questions that are legal rather than clerical. Consider having a customs attorney review the request and your draft reply when:</p>
+<ul>
+<li>the request concerns <strong>country of origin or valuation on relationships</strong> (related-party pricing, assists, royalties) and the answer depends on how a rule is applied to your facts;</li>
+<li>the same facts affect <strong>entries not named on the form</strong>, so a concession has wider consequences;</li>
+<li>you have found that something already declared was <strong>inaccurate</strong>, and you need to decide whether and how to make a prior disclosure under 19 U.S.C. 1592 and 19 CFR 162.74 — a disclosure has to be made "before, or without knowledge of, the commencement of a formal investigation" to receive its full benefit;</li>
+<li>the goods may fall within an <strong>antidumping or countervailing duty order</strong>; whether a product is covered is decided under the order's scope language and, where unclear, by a scope ruling from the Department of Commerce (19 CFR 351.225);</li>
+<li>the amount at stake, the number of entries, or a possible penalty exposure is large enough that the cost of getting the reply wrong exceeds the cost of a review.</li>
+</ul>
+<p>None of this makes every CF-28 a legal matter. Many are answered by the importer and broker without difficulty. The point of the list is to recognise the ones that are not.</p>
+<h2>8. What should you avoid doing before understanding the issue?</h2>
+<ul>
+<li><strong>Do not ignore the form or let the date pass.</strong> If you need time, ask the named officer before the reply period ends.</li>
+<li><strong>Do not answer questions that were not asked</strong>, and do not volunteer conclusions about other entries in a reply that is limited to the entries on the form.</li>
+<li><strong>Do not guess.</strong> If you do not know a fact, say what you know and how you know it; do not fill gaps with assumptions that may later read as misstatements.</li>
+<li><strong>Do not "correct" past entries inside the CF-28 reply</strong> without deciding first how to handle the correction; a prior disclosure is a distinct procedure with its own requirements (19 CFR 162.74).</li>
+<li><strong>Do not let the wrong person sign.</strong> The form asks for an owner, importer, or corporate/company official to certify; a broker or forwarder signing in your place is not what the form calls for.</li>
+<li><strong>Do not delete or alter records</strong> that relate to the entries.</li>
+</ul>
+<h2>9. Free PlaudeAPI self-check</h2>
+<p>If you want a structured first pass, PlaudeAPI's free trade check screens the basic facts of an entry — the notice you received and its date, the entry and liquidation dates you have, the importer-of-record position, the product and origin — and returns a memo that maps which clocks may be running and which facts are missing. It asks for no documents, uploads nothing, and stores nothing on any server; it is a technology service and not legal advice.</p>
+<p class="cta"><a class="btn-primary" href="/trade/?issue=cf28">Run the free PlaudeAPI trade check</a></p>
+<h2>10. Optional attorney review if genuine uncertainty remains</h2>
+<p>If, after working through the questions above, you are not comfortable deciding the reply on your own — because the origin or value question is a close one, because other entries may be affected, or because something declared may have been wrong — you can ask a licensed U.S. attorney to review the specific issue. A conflict check comes first; legal services are provided only by Bandi &#x26; Associates PLLC after conflicts clearance and a separate written engagement.</p>
+<p class="cta"><a class="btn-secondary" href="/legal/trade-counsel/?issue=cf28">Ask a U.S. attorney to review this issue</a></p>
+<h2>Primary authorities</h2>
+<ul>
+<li>CBP Form 28, Request for Information (08/24): preprinted questions A–B and items A–E, the CBP Officer Message box, the Certification block (signer: owner, importer, or corporate/company official; not required if a foreign firm completes the form), and General Information and Instructions items 1–6 — <a href="https://www.cbp.gov/sites/default/files/2025-05/cbp_form_28.pdf">https://www.cbp.gov/sites/default/files/2025-05/cbp_form_28.pdf</a></li>
+<li>19 U.S.C. 1509(a) — examination of books and witnesses; the statutory basis stated on the form</li>
+<li>19 CFR 151.11 — request for samples or additional examination packages after release (Customs Form 28) — <a href="https://www.ecfr.gov/current/title-19/section-151.11">https://www.ecfr.gov/current/title-19/section-151.11</a></li>
+<li>19 CFR 163.4(a)–(b) — record retention (5 years from entry as the general rule; shorter periods for specified records) — <a href="https://www.ecfr.gov/current/title-19/section-163.4">https://www.ecfr.gov/current/title-19/section-163.4</a></li>
+<li>19 CFR 163.6(a) — production of entry records within 30 calendar days of receipt of the demand, or a shorter period when the records are required for an admissibility or release determination; extension request before the due date — <a href="https://www.ecfr.gov/current/title-19/section-163.6">https://www.ecfr.gov/current/title-19/section-163.6</a></li>
+<li>19 CFR 152.2 — notification to importer of increased duties (Customs Form 29); liquidation not withheld more than 20 days — <a href="https://www.ecfr.gov/current/title-19/section-152.2">https://www.ecfr.gov/current/title-19/section-152.2</a></li>
+<li>19 U.S.C. 1514; 19 CFR 174.12(e) — protests within 180 days — <a href="https://www.ecfr.gov/current/title-19/section-174.12">https://www.ecfr.gov/current/title-19/section-174.12</a></li>
+<li>19 CFR 111.1 — definition of "customs business" (scope of a licensed broker's work) — <a href="https://www.ecfr.gov/current/title-19/section-111.1">https://www.ecfr.gov/current/title-19/section-111.1</a></li>
+<li>19 U.S.C. 1592; 19 CFR 162.74 — penalties for false statements; prior disclosure — <a href="https://www.ecfr.gov/current/title-19/section-162.74">https://www.ecfr.gov/current/title-19/section-162.74</a></li>
+<li>19 CFR 351.225 — scope rulings under antidumping and countervailing duty orders — <a href="https://www.ecfr.gov/current/title-19/section-351.225">https://www.ecfr.gov/current/title-19/section-351.225</a></li>
+<li>19 U.S.C. 1484 — entry of merchandise; the importer's reasonable-care obligation</li>
+</ul>
+<p>Authorities were read on 2026-09-20 from the sources linked. Regulations and forms change; check the current text before relying on any date or period stated here.</p>
+<p class="related">Related guides: <a href="/trade/foreign-ior/">CBP rule for a foreign importer of record</a>
+ · <a href="/trade/ieepa-refund/">IEEPA duty refunds: CAPE or the CIT</a>
+</p>
+
+      </article>
+      <section class="disclosure" aria-label="About this page">
+        <p>This page is published by Bandi &amp; Associates PLLC. The free screening is general information for preliminary U.S. trade screening; it is not legal advice and does not create an attorney-client relationship. If legal services are requested, Bandi &amp; Associates PLLC provides them only after conflicts clearance and a separate written engagement. PlaudeAPI, the regulation tool provided by Bandi &amp; Associates PLLC for the free screening, charges no fee of its own; any fee for legal services is the Firm's, and the Firm's terms say what happens to it.</p>
+        <p data-us-law-only>Bandi &amp; Associates PLLC advises on United States law only. Its attorneys are admitted in the State of New York and are not admitted to practice in Germany, France or any other European jurisdiction.</p>
+        <p>This page is general information about a U.S. customs procedure, not legal advice, not customs brokerage, and not a substitute for reading the form you received. Using this page or the free check does not create an attorney-client relationship, and the protections of the client-lawyer relationship do not apply to the free screening.</p>
+        <p data-firm-attribution>Responsible for this content: Di Ban, Esq. · Bandi &amp; Associates PLLC · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101 · eclbk_legal@ahs.us.com</p>
+        <address>Bandi &amp; Associates PLLC · 4322 Queens Street, Ste 1201 · Long Island City, New York 11101 · ban.di@bandilaw.com</address>
+      </section>
+    </main>
+    <footer>
+      <div class="row">
+        <span>Published by Bandi &amp; Associates PLLC</span>
+        <span><a href="/legal/">Legal</a> &middot; <a href="/trade/">plaudeapi.com/trade</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

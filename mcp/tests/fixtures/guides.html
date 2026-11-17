@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1C1C1C" />
+    <title>Guides — PlaudeAPI Trade</title>
+    <meta name="description" content="Guides on U.S. customs rules, CBP notices and EU market access, with the date each was last updated." />
+    <link rel="canonical" href="https://plaudeapi.com/trade/guides/" />
+    <link rel="alternate" hreflang="en" href="https://plaudeapi.com/trade/guides/" />
+    <link rel="alternate" hreflang="zh" href="https://plaudeapi.com/trade/guides/zh/" />
+    <link rel="alternate" hreflang="x-default" href="https://plaudeapi.com/trade/guides/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Guides" />
+    <meta property="og:description" content="Guides on U.S. customs rules, CBP notices and EU market access, with the date each was last updated." />
+    <meta property="og:url" content="https://plaudeapi.com/trade/guides/" />
+    <meta property="article:modified_time" content="2026-11-14" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    
+    <style>
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-600.woff2') format('woff2'); }
+/* --muted was #7C7C7C (round-1 QA GLOBAL-4, 2026-09-26): 4.17:1 on white, below
+   the 4.5:1 WCAG AA minimum for the eyebrow/byline/disclosure text this
+   variable colors. Darkened to #6B6B6B (5.33:1 on white), matching the same
+   fix applied to the Trade SPA's shared MUTED token in src/trade/ui.ts. */
+:root { color-scheme: light; --ink:#1C1C1C; --text:#3F3F3F; --muted:#6B6B6B; --rule:#E3E3E3; --wash:#F4F4F4; --accent:#E2553C; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #fff; color: var(--text); font-family: Inter, system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
+.masthead { background: var(--ink); color: #fff; }
+.masthead .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: 1rem 1.25rem; }
+.masthead a { color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.masthead .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; letter-spacing: 0; text-transform: none; }
+.masthead nav a { margin-left: 1.25rem; color: #B5B5B5; display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; letter-spacing: .1em; }
+.masthead a:focus-visible, article a:focus-visible, footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.masthead nav a:hover { color: #fff; }
+.masthead nav a.nav-primary { color: #fff; }
+/* Audit 2026-11-16 #2: the navigation grew (diagnostic, IEEPA refunds, foreign IOR); under 860 px it sits behind a Menu button. A checkbox,
+   so it works without script; the label is the button. */
+.nav-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.nav-btn { display: none; cursor: pointer; border: 1px solid #5A5A5A; padding: .5rem 1rem; align-items: center; color: #fff; font-size: 14px; min-height: 40px; letter-spacing: .16em; text-transform: uppercase; }
+.nav-toggle:focus-visible + .nav-btn { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (min-width: 860px) { .nav-toggle { display: none; } }
+@media (max-width: 859px) {
+  .nav-btn { display: inline-flex; }
+  .masthead nav { display: none; width: 100%; }
+  .nav-toggle:checked ~ nav { display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .masthead nav a { margin-left: 0; }
+}
+main { margin: 0 auto; max-width: 900px; padding: 3rem 1.25rem 4rem; }
+@media (min-width: 640px) { main { padding: 3.5rem 2rem 5rem; } }
+.eyebrow { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.12; color: var(--ink); margin: 1rem 0 0; max-width: 760px; }
+.byline { margin: 1.25rem 0 0; padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.byline b { font-weight: 600; color: var(--ink); }
+.publisher { margin: .75rem 0 0; font-size: 14px; color: var(--muted); }
+.publisher b { font-weight: 600; color: var(--ink); }
+.lede { font-size: 17px; line-height: 1.65; color: var(--text); max-width: 760px; margin: 1.75rem 0 0; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
+article h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.6rem; line-height: 1.25; color: var(--ink); margin: 2.75rem 0 .75rem; }
+article p, article li { font-size: 15px; max-width: 760px; }
+article p { margin: .9rem 0; }
+article ul, article ol { padding-left: 1.4rem; margin: .75rem 0; }
+article li { margin: .45rem 0; }
+article li p { margin: 0; }
+article strong { font-weight: 600; color: var(--ink); }
+article a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(28,28,28,.35); overflow-wrap: anywhere; }
+article a:hover { color: var(--accent); }
+.cta { margin: 1.25rem 0 0; }
+.btn-primary, .btn-secondary { display: inline-flex; min-height: 44px; align-items: center; padding: .75rem 1.5rem; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: var(--accent); color: #fff; }
+.btn-secondary { border: 1px solid var(--ink); color: var(--ink); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.disclosure { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); max-width: 760px; }
+.disclosure p { margin: .6rem 0; }
+address { font-style: normal; }
+footer { border-top: 1px solid var(--rule); background: var(--wash); }
+footer .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: 1.5rem 1.25rem; font-size: 14px; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--ink); }
+
+.skip-link { position: absolute; left: .75rem; top: .75rem; z-index: 100; padding: .65rem 1rem; background: #fff; color: #1C1C1C; border: 2px solid #E2553C; font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: 0; text-transform: none; text-decoration: none; }
+.skip-link:not(:focus) { width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+main[tabindex="-1"]:focus { outline: none; }
+
+.draft { display: inline-block; margin: 0 0 1.5rem; padding: .55rem .9rem; border: 1px dashed var(--muted); color: var(--muted); font-size: 14px; letter-spacing: .18em; text-transform: uppercase; }
+.translation-note { margin: 1rem 0 0; font-size: 14px; color: var(--muted); max-width: 760px; }
+.translation-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.table-wrap { overflow-x: auto; margin: 1.25rem 0; /* scroll cue: a soft shadow on the edge that has more to show (pure CSS, only while the table is wider than its box) */
+  background: linear-gradient(to right, #fff 30%, rgba(255,255,255,0)) left center / 40px 100% no-repeat local, linear-gradient(to left, #fff 30%, rgba(255,255,255,0)) right center / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.22), rgba(0,0,0,0)) left center / 14px 100% no-repeat scroll, radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.22), rgba(0,0,0,0)) right center / 14px 100% no-repeat scroll; }
+article table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
+article th, article td { border: 1px solid var(--rule); padding: .5rem .65rem; text-align: left; vertical-align: top; }
+article th { background: var(--wash); font-weight: 600; color: var(--ink); }
+html[lang="zh"] body { font-family: Inter, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', system-ui, sans-serif; font-weight: 400; }
+html[lang="zh"] h1, html[lang="zh"] article h2, html[lang="zh"] .masthead .brand { font-family: 'Playfair Display', 'Noto Serif CJK SC', 'Songti SC', SimSun, Georgia, serif; }
+html[lang="zh"] .masthead a, html[lang="zh"] .eyebrow, html[lang="zh"] .draft { letter-spacing: .08em; }
+
+.guide-list { list-style: none; padding: 0; margin: 1rem 0 0; max-width: 760px; }
+.guide-list li { margin: 0; padding: 1.1rem 0; border-top: 1px solid var(--rule); }
+.guide-list li:first-child { border-top: 0; padding-top: 0; }
+article .guide-list a.guide-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; line-height: 1.3; text-decoration: none; display: inline-block; }
+article .guide-list a.guide-title:hover { color: var(--accent); }
+.guide-meta { margin: .35rem 0 0; font-size: 14px; color: var(--muted); }
+.guide-desc { margin: .35rem 0 0; font-size: 14px; }
+</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="masthead">
+      <div class="row">
+        <a class="brand" href="/trade/">PlaudeAPI Trade</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <label for="nav-toggle" class="nav-btn">Menu</label>
+        <nav aria-label="Trade navigation">
+          <a class="nav-primary" href="/trade/#diagnostic">Trade diagnostic</a>
+          <a href="/trade/ieepa-refund/">IEEPA refunds</a>
+          <a href="/trade/foreign-ior/">Foreign IOR</a>
+          <a href="/trade/">Free check</a>
+          <a href="/trade/regimes/">Regime notes</a>
+          <a href="/trade/about-data/">About the data</a>
+          <a href="/trade/guides/">Guides</a>
+          <a href="/trade/agent/">Agent</a>
+          <a href="/trade/team/">Team</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <p class="eyebrow">PlaudeAPI Trade</p>
+      <h1>Guides</h1>
+
+      <p class="publisher" data-firm-attribution>Published by <b>Bandi &amp; Associates PLLC</b> · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101</p>
+      <p class="translation-note" role="note">Also available in Chinese: <a href="/trade/guides/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a>. The English page governs.</p>
+      <article>
+<h2>Articles</h2>
+<ul class="guide-list">
+<li>
+<a class="guide-title" href="/trade/foreign-ior/">CBP rule: a foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker (FR 2026-22735, effective 2027-01-05)</a>
+<p class="guide-meta">Verified <time datetime="2026-11-13">2026-11-13</time> · <a href="/trade/foreign-ior/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
+<p class="guide-desc">From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer.</p>
+</li>
+<li>
+<a class="guide-title" href="/trade/ieepa-refund/">IEEPA duty refunds: CAPE or the CIT</a>
+<p class="guide-meta">Verified <time datetime="2026-11-14">2026-11-14</time> · <a href="/trade/ieepa-refund/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
+<p class="guide-desc">Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather.</p>
+</li>
+<li>
+<a class="guide-title" href="/trade/eu/">Exporting to the EU? Three rules your EU buyers will ask you about before 30 December 2026</a>
+<p class="guide-meta">Updated <time datetime="2026-10-10">2026-10-10</time> · <a href="/trade/eu/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
+<p class="guide-desc">The EU deforestation regulation applies to large and medium operators from 30 December 2026, the green-claims ban has applied since 27 September 2026, and the packaging regulation since 12 August 2026. What each one means for a Chinese factory or seller supplying the EU, what the EU buyer will ask for, and what to prepare.</p>
+</li>
+<li>
+<a class="guide-title" href="/trade/cf28/">Received a CBP Form 28 (CF-28)? What to Do Next</a>
+<p class="guide-meta">Updated <time datetime="2026-09-20">2026-09-20</time></p>
+<p class="guide-desc">A CBP Form 28 is a Request for Information about specific import entries. What it means, what to identify before you answer, which dates matter, what to keep, and when a broker or an attorney fits.</p>
+</li>
+</ul>
+      </article>
+      <section class="disclosure" aria-label="About this page">
+        <p>This page is published by Bandi &amp; Associates PLLC. The free screening is general information for preliminary U.S. trade screening; it is not legal advice and does not create an attorney-client relationship. If legal services are requested, Bandi &amp; Associates PLLC provides them only after conflicts clearance and a separate written engagement. PlaudeAPI, the regulation tool provided by Bandi &amp; Associates PLLC for the free screening, charges no fee of its own; any fee for legal services is the Firm's, and the Firm's terms say what happens to it.</p>
+        <p data-us-law-only>Bandi &amp; Associates PLLC advises on United States law only. Its attorneys are admitted in the State of New York and are not admitted to practice in Germany, France or any other European jurisdiction.</p>
+        <p>This page is general information about a U.S. customs procedure, not legal advice, not customs brokerage, and not a substitute for reading the form you received. Using this page or the free check does not create an attorney-client relationship, and the protections of the client-lawyer relationship do not apply to the free screening.</p>
+        <p data-firm-attribution>Responsible for this content: Di Ban, Esq. · Bandi &amp; Associates PLLC · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101 · eclbk_legal@ahs.us.com</p>
+        <address>Bandi &amp; Associates PLLC · 4322 Queens Street, Ste 1201 · Long Island City, New York 11101 · ban.di@bandilaw.com</address>
+      </section>
+    </main>
+    <footer>
+      <div class="row">
+        <span>Published by Bandi &amp; Associates PLLC</span>
+        <span><a href="/legal/">Legal</a> &middot; <a href="/trade/">plaudeapi.com/trade</a></span>
+      </div>
+    </footer>
+  </body>
+</html>
