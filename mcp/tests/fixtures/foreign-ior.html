@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1C1C1C" />
+    <title>CBP rule: a foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker (FR 2026-22735, effective 2027-01-05) — PlaudeAPI Trade</title>
+    <meta name="description" content="From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer." />
+    <link rel="canonical" href="https://plaudeapi.com/trade/foreign-ior/" />
+    <link rel="alternate" hreflang="en" href="https://plaudeapi.com/trade/foreign-ior/" />
+    <link rel="alternate" hreflang="zh" href="https://plaudeapi.com/trade/foreign-ior/zh/" />
+    <link rel="alternate" hreflang="x-default" href="https://plaudeapi.com/trade/foreign-ior/" />
+    <meta name="robots" content="noai, noimageai" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CBP rule: a foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker (FR 2026-22735, effective 2027-01-05)" />
+    <meta property="og:description" content="From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer." />
+    <meta property="og:url" content="https://plaudeapi.com/trade/foreign-ior/" />
+    <meta property="article:published_time" content="2026-11-14" />
+    <meta property="article:modified_time" content="2026-11-14" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"CBP rule: a foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker (FR 2026-22735, effective 2027-01-05)","description":"From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer.","inLanguage":"en","datePublished":"2026-11-14","dateModified":"2026-11-14","mainEntityOfPage":"https://plaudeapi.com/trade/foreign-ior/","author":{"@type":"Person","name":"Di Ban, Esq.","affiliation":{"@type":"Organization","name":"Bandi & Associates PLLC"}},"publisher":{"@type":"Organization","name":"Bandi & Associates PLLC","telephone":"925-375-2570","address":"4322 Queens Street, Ste 1201, Long Island City, New York 11101"},"workTranslation":[{"@type":"Article","@id":"https://plaudeapi.com/trade/foreign-ior/zh/","inLanguage":"zh"}]}</script>
+    <style>
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-600.woff2') format('woff2'); }
+/* --muted was #7C7C7C (round-1 QA GLOBAL-4, 2026-09-26): 4.17:1 on white, below
+   the 4.5:1 WCAG AA minimum for the eyebrow/byline/disclosure text this
+   variable colors. Darkened to #6B6B6B (5.33:1 on white), matching the same
+   fix applied to the Trade SPA's shared MUTED token in src/trade/ui.ts. */
+:root { color-scheme: light; --ink:#1C1C1C; --text:#3F3F3F; --muted:#6B6B6B; --rule:#E3E3E3; --wash:#F4F4F4; --accent:#E2553C; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #fff; color: var(--text); font-family: Inter, system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
+.masthead { background: var(--ink); color: #fff; }
+.masthead .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: 1rem 1.25rem; }
+.masthead a { color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.masthead .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; letter-spacing: 0; text-transform: none; }
+.masthead nav a { margin-left: 1.25rem; color: #B5B5B5; display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; letter-spacing: .1em; }
+.masthead a:focus-visible, article a:focus-visible, footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.masthead nav a:hover { color: #fff; }
+.masthead nav a.nav-primary { color: #fff; }
+/* Audit 2026-11-16 #2: the navigation grew (diagnostic, IEEPA refunds, foreign IOR); under 860 px it sits behind a Menu button. A checkbox,
+   so it works without script; the label is the button. */
+.nav-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.nav-btn { display: none; cursor: pointer; border: 1px solid #5A5A5A; padding: .5rem 1rem; align-items: center; color: #fff; font-size: 14px; min-height: 40px; letter-spacing: .16em; text-transform: uppercase; }
+.nav-toggle:focus-visible + .nav-btn { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (min-width: 860px) { .nav-toggle { display: none; } }
+@media (max-width: 859px) {
+  .nav-btn { display: inline-flex; }
+  .masthead nav { display: none; width: 100%; }
+  .nav-toggle:checked ~ nav { display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .masthead nav a { margin-left: 0; }
+}
+main { margin: 0 auto; max-width: 900px; padding: 3rem 1.25rem 4rem; }
+@media (min-width: 640px) { main { padding: 3.5rem 2rem 5rem; } }
+.eyebrow { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.12; color: var(--ink); margin: 1rem 0 0; max-width: 760px; }
+.byline { margin: 1.25rem 0 0; padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.byline b { font-weight: 600; color: var(--ink); }
+.publisher { margin: .75rem 0 0; font-size: 14px; color: var(--muted); }
+.publisher b { font-weight: 600; color: var(--ink); }
+.lede { font-size: 17px; line-height: 1.65; color: var(--text); max-width: 760px; margin: 1.75rem 0 0; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
+article h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.6rem; line-height: 1.25; color: var(--ink); margin: 2.75rem 0 .75rem; }
+article p, article li { font-size: 15px; max-width: 760px; }
+article p { margin: .9rem 0; }
+article ul, article ol { padding-left: 1.4rem; margin: .75rem 0; }
+article li { margin: .45rem 0; }
+article li p { margin: 0; }
+article strong { font-weight: 600; color: var(--ink); }
+article a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(28,28,28,.35); overflow-wrap: anywhere; }
+article a:hover { color: var(--accent); }
+.cta { margin: 1.25rem 0 0; }
+.btn-primary, .btn-secondary { display: inline-flex; min-height: 44px; align-items: center; padding: .75rem 1.5rem; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: var(--accent); color: #fff; }
+.btn-secondary { border: 1px solid var(--ink); color: var(--ink); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.disclosure { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); max-width: 760px; }
+.disclosure p { margin: .6rem 0; }
+address { font-style: normal; }
+footer { border-top: 1px solid var(--rule); background: var(--wash); }
+footer .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: 1.5rem 1.25rem; font-size: 14px; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--ink); }
+
+.skip-link { position: absolute; left: .75rem; top: .75rem; z-index: 100; padding: .65rem 1rem; background: #fff; color: #1C1C1C; border: 2px solid #E2553C; font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: 0; text-transform: none; text-decoration: none; }
+.skip-link:not(:focus) { width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+main[tabindex="-1"]:focus { outline: none; }
+
+.draft { display: inline-block; margin: 0 0 1.5rem; padding: .55rem .9rem; border: 1px dashed var(--muted); color: var(--muted); font-size: 14px; letter-spacing: .18em; text-transform: uppercase; }
+.translation-note { margin: 1rem 0 0; font-size: 14px; color: var(--muted); max-width: 760px; }
+.translation-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.table-wrap { overflow-x: auto; margin: 1.25rem 0; /* scroll cue: a soft shadow on the edge that has more to show (pure CSS, only while the table is wider than its box) */
+  background: linear-gradient(to right, #fff 30%, rgba(255,255,255,0)) left center / 40px 100% no-repeat local, linear-gradient(to left, #fff 30%, rgba(255,255,255,0)) right center / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.22), rgba(0,0,0,0)) left center / 14px 100% no-repeat scroll, radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.22), rgba(0,0,0,0)) right center / 14px 100% no-repeat scroll; }
+article table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
+article th, article td { border: 1px solid var(--rule); padding: .5rem .65rem; text-align: left; vertical-align: top; }
+article th { background: var(--wash); font-weight: 600; color: var(--ink); }
+html[lang="zh"] body { font-family: Inter, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', system-ui, sans-serif; font-weight: 400; }
+html[lang="zh"] h1, html[lang="zh"] article h2, html[lang="zh"] .masthead .brand { font-family: 'Playfair Display', 'Noto Serif CJK SC', 'Songti SC', SimSun, Georgia, serif; }
+html[lang="zh"] .masthead a, html[lang="zh"] .eyebrow, html[lang="zh"] .draft { letter-spacing: .08em; }
+
+.doors { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.25rem 0; max-width: 760px; }
+@media (min-width: 640px) { .doors { grid-template-columns: 1fr 1fr; } .doors.doors-3 { grid-template-columns: 1fr; } }
+@media (min-width: 860px) { .doors.doors-3 { grid-template-columns: 1fr 1fr 1fr; max-width: none; } }
+.door { border: 1px solid var(--rule); padding: 1rem 1.1rem; }
+.door h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.15rem; line-height: 1.3; color: var(--ink); margin: 0 0 .5rem; }
+article .door p { font-size: 14px; margin: .5rem 0; }
+article details { max-width: 760px; margin: 1rem 0; border-top: 1px solid var(--rule); padding-top: .6rem; }
+article summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 15px; min-height: 24px; }
+article details.info { border-top: 0; padding-top: 0; margin: .5rem 0 0; }
+article details.info summary { font-weight: 400; font-size: 14px; color: var(--muted); }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1.25rem; max-width: 760px; margin: 1rem 0; font-size: 15px; }
+.in-short { margin: 1.25rem 0 0; padding: 1rem 1.25rem; max-width: 760px; background: var(--wash); border-left: 3px solid var(--accent); }
+.in-short-title { margin: 0; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--ink); }
+.in-short ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+.in-short li { margin: .35rem 0; font-size: 15px; }
+.facts dt { font-weight: 600; color: var(--ink); }
+.facts dd { margin: 0; }
+</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="masthead">
+      <div class="row">
+        <a class="brand" href="/trade/">PlaudeAPI Trade</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <label for="nav-toggle" class="nav-btn">Menu</label>
+        <nav aria-label="Trade navigation">
+          <a class="nav-primary" href="/trade/#diagnostic">Trade diagnostic</a>
+          <a href="/trade/ieepa-refund/">IEEPA refunds</a>
+          <a href="/trade/foreign-ior/">Foreign IOR</a>
+          <a href="/trade/">Free check</a>
+          <a href="/trade/regimes/">Regime notes</a>
+          <a href="/trade/about-data/">About the data</a>
+          <a href="/trade/guides/">Guides</a>
+          <a href="/trade/agent/">Agent</a>
+          <a href="/trade/team/">Team</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <p class="eyebrow">CBP rule FR 2026-22735 · Verified 2026-11-13</p>
+      <h1>A foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker from <span style="white-space:nowrap">2027-01-05</span></h1>
+      <aside class="in-short" aria-labelledby="in-short-title">
+        <p class="in-short-title" id="in-short-title">In short</p>
+        <ul><li>2027-01-05 · Rule effective. From this date the updated CBP Forms 3461 and 7501 must be used for each entry and entry summary</li><li>U.S. IOR: no CTPAT requirement; declare status on each entry</li><li>foreign IOR with CTPAT validation: may use any licensed customs broker</li><li>foreign IOR without CTPAT validation: must use a CTPAT-validated licensed customs broker</li></ul>
+      </aside>
+      <p class="byline"><span>By <b>Di Ban, Esq.</b>, Bandi &amp; Associates PLLC</span><span>Published <time datetime="2026-11-14">2026-11-14</time></span><span>Updated <time datetime="2026-11-14">2026-11-14</time></span></p>
+      <p class="publisher" data-firm-attribution>Published by <b>Bandi &amp; Associates PLLC</b> · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101</p>
+      <p class="translation-note" role="note">Also available in Chinese: <a href="/trade/foreign-ior/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a>. The English page governs.</p>
+      <article>
+<h2>Key dates</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Event</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-11-06</td>
+<td>Published in the Federal Register (91 FR 69977-70007; FR Doc. 2026-22735; docket USCBP-2026-1387; CBP Dec. 26-19)</td>
+<td>FR first page, p. 69977</td>
+</tr>
+<tr>
+<td><strong>2027-01-05</strong></td>
+<td>Rule effective. From this date the updated CBP Forms 3461 and 7501 must be used for each entry and entry summary</td>
+<td>DATES, p. 69977; §VI.C, p. 69984</td>
+</tr>
+<tr>
+<td><strong>2027-01-05</strong></td>
+<td>Public comments due (regulations.gov, docket USCBP-2026-1387)</td>
+<td>DATES / ADDRESSES, p. 69977</td>
+</tr>
+<tr>
+<td>Before 2027-01-05</td>
+<td>A licensed customs broker may request delayed compliance with the new verification duty in 19 CFR 111.29</td>
+<td>DATES, p. 69977; §VII, p. 69986</td>
+</tr>
+<tr>
+<td>2027-05-06</td>
+<td>All brokers expected to be fully compliant</td>
+<td>DATES, p. 69977; §VII, p. 69986</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Who is affected</h2>
+<div class="doors doors-3">
+<section class="door">
+<h3>U.S. IOR: no CTPAT requirement; declare status on each entry</h3>
+<p>A U.S. IOR is an individual who is a U.S. citizen or lawful permanent resident, or an entity organized under U.S. law and located in the United States that meets the ownership or real-property test (19 CFR 110.2(a), p. 70005). It must declare U.S. IOR status on each entry and entry summary (19 CFR 141.22(a)(1), p. 70006).</p>
+<details class="info"><summary>The U.S. IOR test</summary>
+<p>The entity must, at all times, either (A) have at least 51% of its beneficial owners being U.S. citizens or lawful permanent residents with control of the entity, or (B) directly own a significant amount of unencumbered U.S. real property (19 CFR 110.2(a), p. 70005; explained at p. 69981).</p>
+<p>"Beneficial owner" is defined in 19 CFR 110.1 and includes a person who owns or controls not less than 25% of the ownership interests, or who has substantial control (p. 69982; rule text pp. 70004-70005).</p>
+<p>CBP may verify U.S. IOR status. Factors it may consider include the principal place of business, substantial business activity in the United States, unencumbered physical domestic assets, unencumbered U.S. real property, whether gross sales generally exceed cost of goods sold, and capitalization (110.2(b), p. 70005).</p>
+<p>"Physical domestic assets" means cash in a U.S. bank account, U.S. Treasury bonds, and real property, inventory, machinery and equipment physically located in the United States; accounts receivable are excluded (110.1, p. 70005; explained at p. 69983).</p>
+</details>
+</section>
+<section class="door">
+<h3>foreign IOR with CTPAT validation: may use any licensed customs broker</h3>
+<p>Any importer of record that does not meet the U.S. IOR criteria is a foreign IOR (19 CFR 110.3, p. 70005). A foreign IOR that is CTPAT-validated and has the right to make entry may make entry itself or hire any licensed customs broker (19 CFR 141.21(b)(1), p. 70006).</p>
+</section>
+<section class="door">
+<h3>foreign IOR without CTPAT validation: must use a CTPAT-validated licensed customs broker</h3>
+<p>It must designate a CTPAT-validated licensed customs broker to make entry or to act as the importer of record for the entry (19 CFR 141.21(b)(2), p. 70006).</p>
+</section>
+</div>
+<details>
+<summary>Which entries the rule covers</summary>
+<ul>
+<li>Entries for consumption, including formal entries and informal entries that must be filed on CBP Form 3461 or 7501 (19 CFR 141.21(a), p. 70006; explained at p. 69983). Operationally, informal entry types 11, 12 and 13 and all formal entry types (footnote 23, p. 69983).</li>
+<li>The rule also requires a licensed customs broker to verify that a client is a U.S. IOR before making the U.S. IOR declaration for that client (19 CFR 111.29(a)(2), pp. 70005-70006).</li>
+</ul>
+</details>
+<h2>What you need to do</h2>
+<p>Rule text: 19 CFR 141.21(b), p. 70006; explained at p. 69983.</p>
+<details>
+<summary>1. You are CTPAT-validated and have the right to make entry</summary>
+<p>You may make entry yourself or hire any licensed customs broker to do so; the broker need not be CTPAT-validated (141.21(b)(1)).</p>
+</details>
+<details open>
+<summary>2. You are not CTPAT-validated</summary>
+<p>You must designate a CTPAT-validated licensed customs broker to make entry or to act as the importer of record for the entry (141.21(b)(2)).</p>
+<ul>
+<li>If a broker acts as importer of record for a principal that is not itself an importer of record and would qualify as a foreign IOR, that broker must also be CTPAT-validated (141.21(b)(2)).</li>
+<li>If the principal on the power of attorney (141.46) is not the owner or purchaser of the goods, the CTPAT-validated broker must act as the importer of record for the entry (141.21(b)(2)).</li>
+<li>Holding a broker license alone is not sufficient, unless the foreign IOR is itself CTPAT-validated (p. 69983).</li>
+<li>Using a CTPAT-validated broker does not give you or the principal CTPAT benefits (footnote 24, p. 69983).</li>
+</ul>
+</details>
+<details>
+<summary>3. You meet the U.S. IOR criteria</summary>
+<p>CTPAT validation is not required; you may make entry yourself or designate a licensed customs broker that is not CTPAT-validated. You must declare U.S. IOR status on each entry and entry summary (141.22(a)(1), p. 70006; p. 69984). The declaration is a checkbox on Forms 3461 and 7501 (a "Yes"/"No" in the electronic versions); a party that does not qualify leaves it blank (p. 69984 and footnote 25).</p>
+<ul>
+<li>If a licensed customs broker that is not CTPAT-validated acts as importer of record, the broker must identify the principal on the power of attorney and declare that the principal would meet the U.S. IOR criteria, and that principal must have a CBP Form 5106 on file with CBP (141.22(a)(2), p. 70006).</li>
+</ul>
+</details>
+<details>
+<summary>4. Consequences of an inaccurate declaration</summary>
+<p>If CBP determines that an importer of record inaccurately declared U.S. IOR status, CBP may require live entry (an entry summary with deposit of estimated duties, taxes and fees at the time of entry, so release waits for payment) and may discontinue immediate delivery privileges (19 CFR 142.13(a)(5), 142.25(a)(5), p. 70006; explained at p. 69984).</p>
+<p>A licensed customs broker may be subject to a 19 U.S.C. 1592 penalty or other enforcement action (19 CFR part 171, appendix B, paragraph (K), pp. 70006-70007).</p>
+</details>
+<details>
+<summary>What the rule text does not answer</summary>
+<ul>
+<li>Whether the rule reaches goods entered, or in transit, before 2027-01-05, and whether the date is keyed to the entry filing date. The rule text states no transition rule for importers; brokers get 60 days (6 months if delayed compliance is approved) to verify clients (pp. 69996-69997).</li>
+<li>What ACE filers must change in their systems before 2027-01-05. The rule says the updated Forms 3461 and 7501 and their electronic equivalents apply from that date (p. 69984); it does not describe the filing-system arrangements.</li>
+<li>Whether a U.S. LLC wholly owned by a foreign parent meets the 51% beneficial-owner and control test in 110.2(a), and how "at all times" is tested.</li>
+<li>How many CTPAT-validated licensed customs broker firms exist. A foreign IOR without CTPAT validation needs one (141.21(b)(2)).</li>
+<li>Whether CBP will later bar informal entries by a foreign IOR. CBP did not adopt a ban, but is monitoring such entries and invited comment (pp. 69978, 69985).</li>
+<li>Whether "foreign IOR" differs from "nonresident importer", the term left in place in part 141, for existing bond and agent rules (p. 69979, footnote 6; p. 69982).</li>
+<li>Whether entries not for consumption, for example in-bond movements or foreign-trade zones, are affected. The text of 141.21(a) restricts only entries "for consumption".</li>
+</ul>
+</details>
+<h2>Trade diagnostic</h2>
+<p>Trade diagnostic, $495: your entity's U.S. IOR / foreign IOR status under 19 CFR 110.2, and the entry arrangements available under 19 CFR 141.21(b) or, for a U.S. IOR, 19 CFR 141.22(a).</p>
+<dl class="facts">
+<dt>Fee</dt>
+<dd>$495. Flat fee; each engagement covers one scope. Refund scope: one importer of record, up to 50 entries; larger files are quoted before we start. IOR status scope: one entity. The full $495 is credited toward the fee if you engage Bandi & Associates PLLC.</dd>
+<dt>What you get</dt>
+<dd>IOR status scope: a written analysis of one entity's U.S. IOR / foreign IOR status under 19 CFR 110.2, on where it is organized and located, its ownership and control structure and its U.S. real-property situation; and of the entry arrangements available to it under 19 CFR 141.21(b) or, for a U.S. IOR, 19 CFR 141.22(a), given its current customs broker and that broker's CTPAT status.</dd>
+<dt>Who does it</dt>
+<dd>A New York-licensed attorney of Bandi & Associates PLLC</dd>
+<dt>How long</dt>
+<dd>IOR status scope: a written analysis within 5 business days after we receive the complete inputs: where the entity is organized and located; its ownership and control structure; its U.S. real-property situation; and its current customs broker and that broker's CTPAT status. Missing inputs stop the clock; we name what is missing within 1 business day of receiving your file.</dd>
+</dl>
+<p class="cta"><a class="btn-primary" href="https://portal.plaudeapi.com/diagnostic?lang=en">Start with a conflict check</a></p>
+<p>Nothing is charged at this step. You pay $495 only after Bandi &#x26; Associates PLLC clears the conflict check and you accept the engagement terms. The intake and the report are in English. The $495 fixed fee is paid by card at checkout, processed by Stripe. PlaudeAPI never sees or stores your card or bank details.</p>
+<p>The diagnostic is a fixed-fee legal analysis, not a determination of, and not binding on CBP as to, the entity's U.S. IOR or foreign IOR status; it rests on the inputs you provide, which Bandi &#x26; Associates PLLC does not verify against CBP's systems.</p>
+<p>Do not send any documents yet. The conflict check comes first and needs names only.</p>
+<h2>IEEPA refunds</h2>
+<p>Were you the importer of record on entries that paid IEEPA duties? CBP pays an IEEPA refund to the importer of record by default (19 CFR 24.36(b)). <a href="/trade/ieepa-refund/">See the refund routes</a>.</p>
+<h2>Primary authorities</h2>
+<ul>
+<li>Heightened Requirements for Foreign Importers of Record, interim final rule with request for comments, 91 FR 69977-70007 (Nov. 6, 2026), FR Doc. 2026-22735, docket USCBP-2026-1387, CBP Dec. 26-19, RIN 1685-AA48 — <a href="https://www.federalregister.gov/documents/2026/11/06/2026-22735/heightened-requirements-for-foreign-importers-of-record">https://www.federalregister.gov/documents/2026/11/06/2026-22735/heightened-requirements-for-foreign-importers-of-record</a></li>
+<li>Page cites follow the page markers in the Federal Register full text: DATES p. 69977; definitions discussion pp. 69981-69983; 141.21/141.22 discussion pp. 69983-69984; part 142 discussion p. 69984; request for comments p. 69985; delayed compliance p. 69986; rule text 19 CFR 110.1-110.3 pp. 70004-70005, 111.29 pp. 70005-70006, 141.21/141.22/141.46/142.13/142.25 p. 70006, appendix B paragraph (K) pp. 70006-70007.</li>
+<li>19 CFR 24.36 — refunds paid to the importer of record — <a href="https://www.ecfr.gov/current/title-19/chapter-I/part-24/section-24.36">https://www.ecfr.gov/current/title-19/chapter-I/part-24/section-24.36</a></li>
+</ul>
+<p>The rule was read on 2026-11-13 against the Federal Register full text, obtained from the Federal Register website on 2026-11-10 (URL above); 19 CFR 24.36 was read on 2026-11-14. Rules change; check the current text before relying on any date stated here.</p>
+
+      </article>
+      <section class="disclosure" aria-label="About this page">
+        <p>This page is published by Bandi &amp; Associates PLLC. The free screening is general information for preliminary U.S. trade screening; it is not legal advice and does not create an attorney-client relationship. If legal services are requested, Bandi &amp; Associates PLLC provides them only after conflicts clearance and a separate written engagement. PlaudeAPI, the regulation tool provided by Bandi &amp; Associates PLLC for the free screening, charges no fee of its own; any fee for legal services is the Firm's, and the Firm's terms say what happens to it.</p>
+        <p data-us-law-only>Bandi &amp; Associates PLLC advises on United States law only. Its attorneys are admitted in the State of New York and are not admitted to practice in Germany, France or any other European jurisdiction.</p>
+        <p>This page is general information about a U.S. customs rule, not legal advice, not customs brokerage, and not a determination of any party's status under the rule. Rules may change; the Federal Register text controls. Using this page or the free check does not create an attorney-client relationship, and the protections of the client-lawyer relationship do not apply to the free screening.</p>
+        <p data-firm-attribution>Responsible for this content: Di Ban, Esq. · Bandi &amp; Associates PLLC · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101 · eclbk_legal@ahs.us.com</p>
+        <address>Bandi &amp; Associates PLLC · 4322 Queens Street, Ste 1201 · Long Island City, New York 11101 · ban.di@bandilaw.com</address>
+      </section>
+    </main>
+    <footer>
+      <div class="row">
+        <span>Published by Bandi &amp; Associates PLLC</span>
+        <span><a href="/legal/">Legal</a> &middot; <a href="/trade/">plaudeapi.com/trade</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

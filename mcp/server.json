@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.peterzhang12312/plaudeapi-trade-public-facts",
+  "description": "Read-only public dates, sources and guide links for U.S. import rules. No user input stored.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/peterzhang12312/plaudeapi-trade-skills",
+    "source": "github",
+    "subfolder": "mcp"
+  },
+  "websiteUrl": "https://plaudeapi.com/trade/agent/",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "plaudeapi-trade-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}
