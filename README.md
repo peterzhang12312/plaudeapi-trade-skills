@@ -23,7 +23,7 @@ claude plugin marketplace add peterzhang12312/plaudeapi-trade-skills
 claude plugin install plaudeapi-trade@plaudeapi-trade-skills
 ```
 
-Release tags are named `plaudeapi-trade--v<version>` (for example `plaudeapi-trade--v0.5.0`; the version is the one in `.claude-plugin/plugin.json`). To pin what you install, clone the repository, check out a tag or a commit the maintainer recorded in `conformance/RUNS.md`, and add that local folder as the marketplace instead (`claude plugin marketplace add ./plaudeapi-trade-skills`).
+Release tags are named `plaudeapi-trade--v<version>` (for example `plaudeapi-trade--v0.5.1`; the version is the one in `.claude-plugin/plugin.json`). To pin what you install, clone the repository, check out a tag or a commit the maintainer recorded in `conformance/RUNS.md`, and add that local folder as the marketplace instead (`claude plugin marketplace add ./plaudeapi-trade-skills`).
 
 **Claude Code, as a copied skill** — copy the folder into your project's `.claude/skills/` (or your user-level `~/.claude/skills/`):
 
