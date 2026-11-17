@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1C1C1C" />
+    <title>IEEPA duty refunds: CAPE or the CIT — PlaudeAPI Trade</title>
+    <meta name="description" content="Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather." />
+    <link rel="canonical" href="https://plaudeapi.com/trade/ieepa-refund/" />
+    <link rel="alternate" hreflang="en" href="https://plaudeapi.com/trade/ieepa-refund/" />
+    <link rel="alternate" hreflang="zh" href="https://plaudeapi.com/trade/ieepa-refund/zh/" />
+    <link rel="alternate" hreflang="x-default" href="https://plaudeapi.com/trade/ieepa-refund/" />
+    <meta name="robots" content="noai, noimageai" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="IEEPA duty refunds: CAPE or the CIT" />
+    <meta property="og:description" content="Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather." />
+    <meta property="og:url" content="https://plaudeapi.com/trade/ieepa-refund/" />
+    <meta property="article:published_time" content="2026-11-14" />
+    <meta property="article:modified_time" content="2026-11-14" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"IEEPA duty refunds: CAPE or the CIT","description":"Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather.","inLanguage":"en","datePublished":"2026-11-14","dateModified":"2026-11-14","mainEntityOfPage":"https://plaudeapi.com/trade/ieepa-refund/","author":{"@type":"Person","name":"Di Ban, Esq.","affiliation":{"@type":"Organization","name":"Bandi & Associates PLLC"}},"publisher":{"@type":"Organization","name":"Bandi & Associates PLLC","telephone":"925-375-2570","address":"4322 Queens Street, Ste 1201, Long Island City, New York 11101"},"workTranslation":[{"@type":"Article","@id":"https://plaudeapi.com/trade/ieepa-refund/zh/","inLanguage":"zh"}]}</script>
+    <style>
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-600.woff2') format('woff2'); }
+/* --muted was #7C7C7C (round-1 QA GLOBAL-4, 2026-09-26): 4.17:1 on white, below
+   the 4.5:1 WCAG AA minimum for the eyebrow/byline/disclosure text this
+   variable colors. Darkened to #6B6B6B (5.33:1 on white), matching the same
+   fix applied to the Trade SPA's shared MUTED token in src/trade/ui.ts. */
+:root { color-scheme: light; --ink:#1C1C1C; --text:#3F3F3F; --muted:#6B6B6B; --rule:#E3E3E3; --wash:#F4F4F4; --accent:#E2553C; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #fff; color: var(--text); font-family: Inter, system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
+.masthead { background: var(--ink); color: #fff; }
+.masthead .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: 1rem 1.25rem; }
+.masthead a { color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.masthead .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; letter-spacing: 0; text-transform: none; }
+.masthead nav a { margin-left: 1.25rem; color: #B5B5B5; display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; letter-spacing: .1em; }
+.masthead a:focus-visible, article a:focus-visible, footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.masthead nav a:hover { color: #fff; }
+.masthead nav a.nav-primary { color: #fff; }
+/* Audit 2026-11-16 #2: the navigation grew (diagnostic, IEEPA refunds, foreign IOR); under 860 px it sits behind a Menu button. A checkbox,
+   so it works without script; the label is the button. */
+.nav-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.nav-btn { display: none; cursor: pointer; border: 1px solid #5A5A5A; padding: .5rem 1rem; align-items: center; color: #fff; font-size: 14px; min-height: 40px; letter-spacing: .16em; text-transform: uppercase; }
+.nav-toggle:focus-visible + .nav-btn { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (min-width: 860px) { .nav-toggle { display: none; } }
+@media (max-width: 859px) {
+  .nav-btn { display: inline-flex; }
+  .masthead nav { display: none; width: 100%; }
+  .nav-toggle:checked ~ nav { display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .masthead nav a { margin-left: 0; }
+}
+main { margin: 0 auto; max-width: 900px; padding: 3rem 1.25rem 4rem; }
+@media (min-width: 640px) { main { padding: 3.5rem 2rem 5rem; } }
+.eyebrow { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.12; color: var(--ink); margin: 1rem 0 0; max-width: 760px; }
+.byline { margin: 1.25rem 0 0; padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.byline b { font-weight: 600; color: var(--ink); }
+.publisher { margin: .75rem 0 0; font-size: 14px; color: var(--muted); }
+.publisher b { font-weight: 600; color: var(--ink); }
+.lede { font-size: 17px; line-height: 1.65; color: var(--text); max-width: 760px; margin: 1.75rem 0 0; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
+article h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.6rem; line-height: 1.25; color: var(--ink); margin: 2.75rem 0 .75rem; }
+article p, article li { font-size: 15px; max-width: 760px; }
+article p { margin: .9rem 0; }
+article ul, article ol { padding-left: 1.4rem; margin: .75rem 0; }
+article li { margin: .45rem 0; }
+article li p { margin: 0; }
+article strong { font-weight: 600; color: var(--ink); }
+article a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(28,28,28,.35); overflow-wrap: anywhere; }
+article a:hover { color: var(--accent); }
+.cta { margin: 1.25rem 0 0; }
+.btn-primary, .btn-secondary { display: inline-flex; min-height: 44px; align-items: center; padding: .75rem 1.5rem; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: var(--accent); color: #fff; }
+.btn-secondary { border: 1px solid var(--ink); color: var(--ink); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.disclosure { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); max-width: 760px; }
+.disclosure p { margin: .6rem 0; }
+address { font-style: normal; }
+footer { border-top: 1px solid var(--rule); background: var(--wash); }
+footer .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: 1.5rem 1.25rem; font-size: 14px; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--ink); }
+
+.skip-link { position: absolute; left: .75rem; top: .75rem; z-index: 100; padding: .65rem 1rem; background: #fff; color: #1C1C1C; border: 2px solid #E2553C; font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: 0; text-transform: none; text-decoration: none; }
+.skip-link:not(:focus) { width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+main[tabindex="-1"]:focus { outline: none; }
+
+.draft { display: inline-block; margin: 0 0 1.5rem; padding: .55rem .9rem; border: 1px dashed var(--muted); color: var(--muted); font-size: 14px; letter-spacing: .18em; text-transform: uppercase; }
+.translation-note { margin: 1rem 0 0; font-size: 14px; color: var(--muted); max-width: 760px; }
+.translation-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.table-wrap { overflow-x: auto; margin: 1.25rem 0; /* scroll cue: a soft shadow on the edge that has more to show (pure CSS, only while the table is wider than its box) */
+  background: linear-gradient(to right, #fff 30%, rgba(255,255,255,0)) left center / 40px 100% no-repeat local, linear-gradient(to left, #fff 30%, rgba(255,255,255,0)) right center / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.22), rgba(0,0,0,0)) left center / 14px 100% no-repeat scroll, radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.22), rgba(0,0,0,0)) right center / 14px 100% no-repeat scroll; }
+article table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
+article th, article td { border: 1px solid var(--rule); padding: .5rem .65rem; text-align: left; vertical-align: top; }
+article th { background: var(--wash); font-weight: 600; color: var(--ink); }
+html[lang="zh"] body { font-family: Inter, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', system-ui, sans-serif; font-weight: 400; }
+html[lang="zh"] h1, html[lang="zh"] article h2, html[lang="zh"] .masthead .brand { font-family: 'Playfair Display', 'Noto Serif CJK SC', 'Songti SC', SimSun, Georgia, serif; }
+html[lang="zh"] .masthead a, html[lang="zh"] .eyebrow, html[lang="zh"] .draft { letter-spacing: .08em; }
+
+.doors { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.25rem 0; max-width: 760px; }
+@media (min-width: 640px) { .doors { grid-template-columns: 1fr 1fr; } .doors.doors-3 { grid-template-columns: 1fr; } }
+@media (min-width: 860px) { .doors.doors-3 { grid-template-columns: 1fr 1fr 1fr; max-width: none; } }
+.door { border: 1px solid var(--rule); padding: 1rem 1.1rem; }
+.door h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.15rem; line-height: 1.3; color: var(--ink); margin: 0 0 .5rem; }
+article .door p { font-size: 14px; margin: .5rem 0; }
+article details { max-width: 760px; margin: 1rem 0; border-top: 1px solid var(--rule); padding-top: .6rem; }
+article summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 15px; min-height: 24px; }
+article details.info { border-top: 0; padding-top: 0; margin: .5rem 0 0; }
+article details.info summary { font-weight: 400; font-size: 14px; color: var(--muted); }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1.25rem; max-width: 760px; margin: 1rem 0; font-size: 15px; }
+.in-short { margin: 1.25rem 0 0; padding: 1rem 1.25rem; max-width: 760px; background: var(--wash); border-left: 3px solid var(--accent); }
+.in-short-title { margin: 0; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--ink); }
+.in-short ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+.in-short li { margin: .35rem 0; font-size: 15px; }
+.facts dt { font-weight: 600; color: var(--ink); }
+.facts dd { margin: 0; }
+
+.nowrap { white-space: nowrap; }
+</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="masthead">
+      <div class="row">
+        <a class="brand" href="/trade/">PlaudeAPI Trade</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <label for="nav-toggle" class="nav-btn">Menu</label>
+        <nav aria-label="Trade navigation">
+          <a class="nav-primary" href="/trade/#diagnostic">Trade diagnostic</a>
+          <a href="/trade/ieepa-refund/">IEEPA refunds</a>
+          <a href="/trade/foreign-ior/">Foreign IOR</a>
+          <a href="/trade/">Free check</a>
+          <a href="/trade/regimes/">Regime notes</a>
+          <a href="/trade/about-data/">About the data</a>
+          <a href="/trade/guides/">Guides</a>
+          <a href="/trade/agent/">Agent</a>
+          <a href="/trade/team/">Team</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <p class="eyebrow">IEEPA refunds · Verified 2026-11-14</p>
+      <h1>IEEPA duty refunds: CAPE or the CIT</h1>
+      <aside class="in-short" aria-labelledby="in-short-title">
+        <p class="in-short-title" id="in-short-title">In short</p>
+        <ul><li>By default, CBP pays a refund to the importer of record (19 CFR 24.36(b)).</li><li>CAPE: CBP's refund declaration in ACE. Only the importer of record, or the broker that filed the entry, can submit it (CSMS #68340863).</li><li>CAPE declaration on a liquidated entry · Within 80 days after liquidation, counted to the date the CAPE declaration is filed (CBP acceptance rule)</li><li>protest · 180 days after liquidation or reliquidation · 19 U.S.C. 1514(c)(3)</li><li>This page computes no date for your entries. Whether any window is open depends on each entry's liquidation date, which only your ACE report shows.</li></ul>
+      </aside>
+      <p class="byline"><span>By <b>Di Ban, Esq.</b>, Bandi &amp; Associates PLLC</span><span>Published <time datetime="2026-11-14">2026-11-14</time></span><span>Updated <time datetime="2026-11-14">2026-11-14</time></span></p>
+      <p class="publisher" data-firm-attribution>Published by <b>Bandi &amp; Associates PLLC</b> · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101</p>
+      <p class="translation-note" role="note">Also available in Chinese: <a href="/trade/ieepa-refund/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a>. The English page governs.</p>
+      <article>
+<h2>Key dates</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Event</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="nowrap">2026-02-20</span></td>
+<td>Supreme Court: IEEPA does not authorize the President to impose tariffs (<em>Learning Resources, Inc. v. Trump</em>, No. 24-1287)</td>
+<td><a href="https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf">Opinion</a></td>
+</tr>
+<tr>
+<td><span class="nowrap">2026-02-24</span></td>
+<td>CBP stopped collecting IEEPA duties on goods entered, or withdrawn from warehouse, for consumption from 12:00 a.m. ET</td>
+<td><a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/40b11c9">CSMS #67834313</a></td>
+</tr>
+<tr>
+<td><span class="nowrap">2026-04-20</span></td>
+<td>CAPE opened (Phase 1)</td>
+<td><a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/4126a9c">CSMS #68315804</a>, <a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/412cc7f">CSMS #68340863</a></td>
+</tr>
+<tr>
+<td><span class="nowrap">2026-10-08</span></td>
+<td>The CIT certified a class (<em>Freestyle World, Inc. v. CBP</em>, No. 26-01088)</td>
+<td><a href="https://www.cit.uscourts.gov/sites/cit/files/26-123.pdf">Slip Op. 26-123</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2>Who receives the refund</h2>
+<p>By default, CBP pays a refund to the importer of record (19 CFR 24.36(b)). The importer of record can use CBP Form 4811 to have it paid to another party (19 CFR 24.36(a)). Other rules apply where an owner's declaration was filed or a surety paid.</p>
+<p>If your courier, customs broker or U.S. buyer was the importer of record, CBP pays that party unless one of these rules applies. Whether you can recover from that party is a separate question.</p>
+<h2>Two routes</h2>
+<div class="doors">
+<section class="door">
+<h3>CAPE</h3>
+<p>CAPE: CBP's refund declaration in ACE. Only the importer of record, or the broker that filed the entry, can submit it (CSMS #68340863). Bandi & Associates PLLC does not file CAPE declarations.</p>
+<details class="info"><summary>CAPE phases</summary>
+<p>2026-04-20: CAPE opened for certain entries not yet liquidated and certain entries within 80 days of liquidation (CSMS #68315804).</p>
+<p>2026-06-29: CAPE began taking certain entries flagged for reconciliation (CSMS #69066837).</p>
+<p>In a 2026-09-15 court declaration, CBP said Phase 3 would deploy on 2026-10-06 for finally liquidated entries of CIT plaintiffs where the court ordered reliquidation; Phase 3 is open only to CIT plaintiffs (Lord Decl. ¶8).</p>
+</details>
+</section>
+<section class="door">
+<h3>A protest, then the CIT</h3>
+<p>For entries CAPE does not take. A protest is filed with CBP (19 U.S.C. 1514) and, where needed, an action is brought at the CIT. Whether the class the CIT certified on 2026-10-08 covers an entry is assessed entry by entry.</p>
+<details class="info"><summary>Who may file a protest; the class</summary>
+<p>The importer of record or consignee, or an authorized agent such as a customs broker or an attorney, may file a protest (19 CFR 174.12(a), 174.3).</p>
+<p>The class in <em>Freestyle World, Inc. v. CBP</em> (No. 26-01088, Slip Op. 26-123, certified 2026-10-08): each importer of record that paid IEEPA duties between 2025-02-01 and 2026-02-19, except any that filed its own action to recover IEEPA duties. The order directs no refund. The government's appeal of the CIT's reliquidation order was docketed at the Federal Circuit on 2026-06-03 (No. 26-1895).</p>
+</details>
+</section>
+</div>
+<details>
+<summary>What decides the route</summary>
+<ol>
+<li>Whether each entry is not yet liquidated, was liquidated within the last 80 days, or was liquidated earlier (CSMS #68340863).</li>
+<li>Whether a protest was filed within 180 days after liquidation (19 U.S.C. 1514(c)(3)).</li>
+<li>Who was the importer of record, and whether it has ACE access or a filing broker (CSMS #68315804).</li>
+<li>Whether the entry type is one CAPE accepts in its current phase (CSMS #68340863, #69066837).</li>
+<li>Whether you are already a plaintiff at the CIT, or a member of the class the CIT certified.</li>
+</ol>
+</details>
+<h2>Periods that may apply</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Clock</th>
+<th>Potential window</th>
+<th>Basis</th>
+<th>On this page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAPE declaration on a liquidated entry</td>
+<td>Within 80 days after liquidation, counted to the date the CAPE declaration is filed (CBP acceptance rule)</td>
+<td>CBP CSMS #68340863 (2026-04-13), #69066837 (2026-06-29); CBP cites no statute for this period</td>
+<td>POTENTIAL · liquidation date UNKNOWN</td>
+</tr>
+<tr>
+<td>protest</td>
+<td>180 days after liquidation or reliquidation</td>
+<td>19 U.S.C. 1514(c)(3)</td>
+<td>POTENTIAL · liquidation date UNKNOWN</td>
+</tr>
+<tr>
+<td>CIT action after a denied protest</td>
+<td>180 days after notice of the denial is mailed, or 180 days after a denial by operation of law</td>
+<td>28 U.S.C. 2636(a)(1)–(2)</td>
+<td>POTENTIAL</td>
+</tr>
+<tr>
+<td>CIT action under 28 U.S.C. 1581(i)</td>
+<td>2 years after the cause of action first accrues</td>
+<td>28 U.S.C. 2636(i)</td>
+<td>UNKNOWN · accrual date not determined by any rule this page cites</td>
+</tr>
+</tbody>
+</table></div>
+<p>This page computes no date for your entries. Whether any window is open depends on each entry's liquidation date, which only your ACE report shows.</p>
+<p>If a CAPE window on any of your entries may close soon, do not wait for this report: the importer of record, or the broker that filed the entry, can declare it in CAPE now. Nothing in this engagement stops or extends any period.</p>
+<details>
+<summary>What to gather</summary>
+<ul>
+<li>Your ACE entry report, with entry numbers, entry dates, liquidation dates or status, IEEPA duties deposited and the date each was paid.</li>
+<li>Your broker's CAPE acceptance reports and refund records, or "none".</li>
+<li>Whether you were the importer of record on those entries, and whether an owner's declaration was filed.</li>
+<li>Whether you have filed any protest or court action.</li>
+</ul>
+<p>Do not send any of this yet. The conflict check comes first and needs names only.</p>
+</details>
+<h2>Trade diagnostic</h2>
+<p>Trade diagnostic, $495: which of your entries CAPE can still take, and which need a protest or the CIT.</p>
+<dl class="facts">
+<dt>Fee</dt>
+<dd>$495. Flat fee; each engagement covers one scope. Refund scope: one importer of record, up to 50 entries; larger files are quoted before we start. IOR status scope: one entity. The full $495 is credited toward the fee if you engage Bandi & Associates PLLC.</dd>
+<dt>What you get</dt>
+<dd>An entry-by-entry table from your ACE entry report, with the route for each entry. <a href="/trade/diagnostic/sample/">See a sample report (fictional data)</a></dd>
+<dt>Who does it</dt>
+<dd>A New York-licensed attorney of Bandi & Associates PLLC</dd>
+<dt>How long</dt>
+<dd>Within 5 business days after we receive the complete inputs</dd>
+</dl>
+<p class="cta"><a class="btn-primary" href="https://portal.plaudeapi.com/diagnostic?lang=en">Start with a conflict check</a></p>
+<p>Nothing is charged at this step. You pay $495 only after Bandi &#x26; Associates PLLC clears the conflict check and you accept the engagement terms. The intake and the report are in English. The $495 fixed fee is paid by card at checkout, processed by Stripe. PlaudeAPI never sees or stores your card or bank details.</p>
+<p>The sample uses invented entries and amounts to show the format and depth of the written analysis. It is not a client matter and not a statement of results. The diagnostic is a fixed-fee legal analysis, not a guarantee of any refund; outcomes depend on your entries, your importer-of-record status and pending court proceedings.</p>
+<h2>The foreign IOR rule</h2>
+<p>From 2027-01-05 a foreign IOR needs CTPAT validation or a CTPAT-validated licensed customs broker (19 CFR 141.21(b), FR 2026-22735). <a href="/trade/foreign-ior/">See the rule</a>.</p>
+<h2>Primary authorities</h2>
+<ul>
+<li><em>Learning Resources, Inc. v. Trump</em>, No. 24-1287 (U.S. Feb. 20, 2026) — IEEPA does not authorize the President to impose tariffs — <a href="https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf">https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf</a></li>
+<li>CBP CSMS #67834313 (2026-02-22) — ending collection of IEEPA duties from 12:00 a.m. ET on 2026-02-24 — <a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/40b11c9">https://content.govdelivery.com/accounts/USDHSCBP/bulletins/40b11c9</a></li>
+<li>CBP CSMS #68315804 (2026-04-10) and #68340863 (2026-04-13) — CAPE Phase 1: who may submit a declaration, entries within 80 days of liquidation, entries Phase 1 does not accept — <a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/4126a9c">https://content.govdelivery.com/accounts/USDHSCBP/bulletins/4126a9c</a>, <a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/412cc7f">https://content.govdelivery.com/accounts/USDHSCBP/bulletins/412cc7f</a></li>
+<li>CBP CSMS #69066837 (2026-06-29) — CAPE takes certain entries flagged for reconciliation — <a href="https://content.govdelivery.com/accounts/USDHSCBP/bulletins/41de055">https://content.govdelivery.com/accounts/USDHSCBP/bulletins/41de055</a></li>
+<li>Declaration of Brandon Lord (CBP), ECF No. 50, <em>Freestyle World, Inc. v. CBP</em>, CIT No. 26-01088 (2026-09-15), ¶8 — CAPE Phase 3, CIT plaintiffs only — <a href="https://storage.courtlistener.com/recap/gov.uscourts.cit.19175/gov.uscourts.cit.19175.50.0.pdf">https://storage.courtlistener.com/recap/gov.uscourts.cit.19175/gov.uscourts.cit.19175.50.0.pdf</a></li>
+<li><em>Freestyle World, Inc. v. CBP</em>, CIT No. 26-01088, Slip Op. 26-123 (2026-10-08) — class certification; the government's appeal of the reliquidation order, Fed. Cir. No. 26-1895, docketed 2026-06-03 — <a href="https://www.cit.uscourts.gov/sites/cit/files/26-123.pdf">https://www.cit.uscourts.gov/sites/cit/files/26-123.pdf</a></li>
+<li>19 CFR 24.36 — refunds paid to the importer of record; CBP Form 4811 — <a href="https://www.ecfr.gov/current/title-19/chapter-I/part-24/section-24.36">https://www.ecfr.gov/current/title-19/chapter-I/part-24/section-24.36</a></li>
+<li>19 U.S.C. 1514(a), (c)(3) — a protest within 180 days after liquidation or reliquidation — <a href="https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title19-section1514&#x26;num=0&#x26;edition=prelim">https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title19-section1514&#x26;num=0&#x26;edition=prelim</a></li>
+<li>19 CFR 174.3, 174.12(a) — who may file a protest, and agents — <a href="https://www.ecfr.gov/current/title-19/chapter-I/part-174">https://www.ecfr.gov/current/title-19/chapter-I/part-174</a></li>
+<li>28 U.S.C. 2636(a), (i) — a CIT action 180 days after a protest is denied; 2 years after accrual — <a href="https://www.govinfo.gov/content/pkg/USCODE-2023-title28/html/USCODE-2023-title28-partVI-chap169-sec2636.htm">https://www.govinfo.gov/content/pkg/USCODE-2023-title28/html/USCODE-2023-title28-partVI-chap169-sec2636.htm</a></li>
+<li>19 CFR 141.21(b), as amended by FR 2026-22735 (91 FR 69977, 2026-11-06) — foreign IOR entry requirements from 2027-01-05 — <a href="https://www.federalregister.gov/documents/2026/11/06/2026-22735/heightened-requirements-for-foreign-importers-of-record">https://www.federalregister.gov/documents/2026/11/06/2026-22735/heightened-requirements-for-foreign-importers-of-record</a></li>
+</ul>
+<p>Authorities were read on 2026-11-14 from the sources linked, except FR 2026-22735, read on 2026-11-13 from the Federal Register text. Rules and CBP procedures change; check the current text before relying on any date or period stated here.</p>
+
+      </article>
+      <section class="disclosure" aria-label="About this page">
+        <p>This page is published by Bandi &amp; Associates PLLC. The free screening is general information for preliminary U.S. trade screening; it is not legal advice and does not create an attorney-client relationship. If legal services are requested, Bandi &amp; Associates PLLC provides them only after conflicts clearance and a separate written engagement. PlaudeAPI, the regulation tool provided by Bandi &amp; Associates PLLC for the free screening, charges no fee of its own; any fee for legal services is the Firm's, and the Firm's terms say what happens to it.</p>
+        <p data-us-law-only>Bandi &amp; Associates PLLC advises on United States law only. Its attorneys are admitted in the State of New York and are not admitted to practice in Germany, France or any other European jurisdiction.</p>
+        <p>This page is general information about U.S. customs refund procedures, not legal advice, not customs brokerage, and not a determination about any entry. Using this page or the free check does not create an attorney-client relationship, and the protections of the client-lawyer relationship do not apply to the free screening.</p>
+        <p data-firm-attribution>Responsible for this content: Di Ban, Esq. · Bandi &amp; Associates PLLC · Tel. 925-375-2570 · 4322 Queens Street, Ste 1201, Long Island City, New York 11101 · eclbk_legal@ahs.us.com</p>
+        <address>Bandi &amp; Associates PLLC · 4322 Queens Street, Ste 1201 · Long Island City, New York 11101 · ban.di@bandilaw.com</address>
+      </section>
+    </main>
+    <footer>
+      <div class="row">
+        <span>Published by Bandi &amp; Associates PLLC</span>
+        <span><a href="/legal/">Legal</a> &middot; <a href="/trade/">plaudeapi.com/trade</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

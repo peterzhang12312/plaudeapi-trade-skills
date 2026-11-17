@@ -33,7 +33,7 @@ git -C plaudeapi-trade-skills checkout <release tag or commit>
 cp -r plaudeapi-trade-skills/skills/us-import-risk-screen ~/.claude/skills/
 ```
 
-**Claude plugin, local trial** — `claude --plugin-dir ./plaudeapi-trade-skills`. The plugin (`.claude-plugin/plugin.json`, name `plaudeapi-trade`, MIT) loads no code, no MCP server and no hook, and collects nothing itself (your AI tool's provider handles what you type there under its own terms). `scripts/gen_evals.py` is a maintainer tool that Claude Code never runs.
+**Claude plugin, local trial** — `claude --plugin-dir ./plaudeapi-trade-skills`. The plugin (`.claude-plugin/plugin.json`, name `plaudeapi-trade`, MIT) loads no code, registers no MCP server and no hook, and collects nothing itself (your AI tool's provider handles what you type there under its own terms). `scripts/gen_evals.py` is a maintainer tool never run by Claude Code. An optional, separately installed public-facts server lives in `mcp/` and is not loaded by the plugin.
 
 **Codex and other agents that read Agent Skills** — the skill is a standard Agent Skills folder (`SKILL.md` with `name` and `description`, optional `references/`); copy `skills/us-import-risk-screen` into `.agents/skills/` (project) or `$HOME/.agents/skills/` (user). `skills/us-import-risk-screen/agents/openai.yaml` is optional display metadata for Codex. For any other framework, load `SKILL.md` as a system instruction or tool description.
 
