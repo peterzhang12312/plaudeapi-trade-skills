@@ -7,7 +7,7 @@ What the pin means and does not mean is stated in the `limitation` field below: 
 ```yaml
 skill: us-import-risk-screen
 version: 0.5.0                            # see CHANGELOG.md for the history; bump on every rule or pin change
-last_primary_source_review: 2026-11-16   # 2026-11-16 = alignment review against production a430447 and the two guide pages, read from their own front matter (verified 2026-11-13 / 2026-11-14); the statutes, regulations and the CBP Form 28 instructions under "Key facts" were last read from the primary sources on 2026-09-19 and were not re-read in this pass (the guides' own authority lists carry their 2026-11-13/14 reads)
+last_primary_source_review: 2026-11-16   # 2026-11-16 = alignment review against production (pinned at knowledge-pop c3549895) and the two guide pages, read from their own front matter (verified 2026-11-13 / 2026-11-14); this date records that alignment review only, not a primary-source re-read; the statutes, regulations and the CBP Form 28 instructions under "Key facts" were last read from the primary sources on 2026-09-19 and were not re-read in this pass (the guides' own authority lists carry their 2026-11-13/14 reads)
 revalidate_by: 2027-05-15                # ceiling = last_primary_source_review + 180 days; past this date treat the skill as STALE until re-reviewed
 revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
 aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code

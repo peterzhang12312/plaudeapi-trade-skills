@@ -205,7 +205,7 @@ def build(fetch_fn=fetch, today: str | None = None, ack: str | None = None) -> d
         "firm": FIRM,
         "disclaimer": DISCLAIMER,
         "free_check_url": FREE_CHECK_URL,
-        "diagnostic": {"label": f"US${fee} attorney-signed diagnostic", "url": DIAGNOSTIC_URL},
+        "diagnostic": {"label": f"US${fee} Trade diagnostic", "url": DIAGNOSTIC_URL},
         "guides": guides,
     }
     if override:

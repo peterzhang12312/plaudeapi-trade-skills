@@ -72,7 +72,7 @@ def test_descriptions_have_no_price_or_checkout():
         ("list_guides", {}),
         ("get_rule_dates", {"guide": "foreign-ior"}),
         ("get_rule_dates", {"guide": "ieepa-refund"}),
-        ("get_sources", {"guide": "cf28"}),
+        ("get_sources", {"guide": "foreign-ior"}),
     ],
 )
 def test_every_result_carries_disclaimer_firm_date_and_next_step(tool, args):
@@ -91,6 +91,12 @@ def test_every_result_carries_disclaimer_firm_date_and_next_step(tool, args):
     assert "US$495" in ns["attorney_diagnostic_label"]
     # text content mirrors the structured result (spec: also return serialized JSON)
     assert json.loads(r.content[0].text) == s
+
+
+def test_guide_with_only_an_updated_date_ages_from_that_date():
+    s = run(lambda c: c.call_tool("get_sources", {"guide": "cf28"})).structured_content
+    assert s["verified"] is None and s["updated"] == "2026-09-20"
+    assert s["age_days"] == 57 and s["stale"] is True  # 2026-09-20 to the frozen 2026-11-16
 
 
 def test_foreign_ior_rule_date_and_citation():

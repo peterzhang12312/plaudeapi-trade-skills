@@ -73,7 +73,7 @@ def test_build_with_real_fixtures_only_reads_public_site():
     assert snap["generated"] == "2026-11-16"
     assert all(u.startswith("https://plaudeapi.com/trade/") for u in seen)
     assert snap["firm"] == "Bandi & Associates PLLC"
-    assert snap["diagnostic"]["label"] == "US$495 attorney-signed diagnostic"
+    assert snap["diagnostic"]["label"] == "US$495 Trade diagnostic"
     by = {g["slug"]: g for g in snap["guides"]}
     assert len(by["cf28"]["authorities"]) == 11 and by["cf28"]["reading_note"]
     assert by["eu"]["authorities"] == []

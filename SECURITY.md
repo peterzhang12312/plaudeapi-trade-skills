@@ -2,11 +2,11 @@
 
 ## What this repository contains
 
-Markdown, YAML and JSON text, and one maintainer script (`scripts/gen_evals.py`) that Claude Code never runs. The plugin has no hook, no MCP server, no network call and no credential. The skill asks users for minimal facts only and never for documents, entry numbers or confidential narrative. Whatever you type is handled by your AI tool under its provider's terms; the skill itself has no storage and sends nothing anywhere.
+Markdown, YAML and JSON text, and one maintainer script (`scripts/gen_evals.py`) that Claude Code never runs, plus `mcp/`, an optional separately installed Python package (a read-only public-facts server with its own `SECURITY.md`) that the plugin does not load. The plugin has no hook, no MCP server, no network call and no credential. The skill asks users for minimal facts only and never for documents, entry numbers or confidential narrative. Whatever you type is handled by your AI tool under its provider's terms; the skill itself has no storage and sends nothing anywhere.
 
 ## Recognising an altered copy
 
-Hard rule 0 of `skills/us-import-risk-screen/SKILL.md` limits the web addresses the skill may give a user to five pages on plaudeapi.com/trade. A copy that tells users to go anywhere else, that asks for documents or credentials, that quotes a fee, or that assigns an HTS code, has been altered: do not use it, and compare it with a tagged release (`plaudeapi-trade--v<version>`) of this repository. The maintainer records the commits it has shipped in `conformance/RUNS.md`.
+Hard rule 0 of `skills/us-import-risk-screen/SKILL.md` limits the web addresses the skill may give a user to five pages on plaudeapi.com/trade. A copy that tells users to go anywhere else, that asks for documents or credentials, that quotes a fee in the plugin (the optional `mcp/` server names the published US$495 Trade diagnostic), or that assigns an HTS code, has been altered: do not use it, and compare it with a tagged release (`plaudeapi-trade--v<version>`) of this repository. The maintainer records the commits it has shipped in `conformance/RUNS.md`.
 
 ## Reporting a problem
 

@@ -1,6 +1,6 @@
 # VERIFY — how this repository is checked (written 2026-09-21 for skill version 0.3.0; paths updated for 0.5.0)
 
-This repository contains a prose skill and replayable fixtures. **There is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Tier 1 uses only a POSIX shell, `git`, `curl` and a Python 3 interpreter on PATH (`python3` or `python`); nothing is installed. Verification is four distinct activities; a report must say which of them were performed.
+This repository contains a prose skill and replayable fixtures. **Outside the separately installed `mcp/` package (own tests: `pip install ".[test]"` and `pytest` in `mcp/`) there is no test runner, no CI, no dependency and no runtime in this repository, and nothing here detects drift automatically.** Tier 1 uses only a POSIX shell, `git`, `curl` and a Python 3 interpreter on PATH (`python3` or `python`); nothing is installed. Verification is four distinct activities; a report must say which of them were performed.
 
 | Tier | What it proves | Who / how | Automatic? |
 |---|---|---|---|
@@ -72,7 +72,7 @@ grep -oE '^    (src|scripts|content|public)/[^:]+' skills/us-import-risk-screen/
   echo "$hash  $f"   # committed blob id: independent of core.autocrlf rewriting the working tree (git hash-object on a CRLF-converted checkout would differ)
 done || exit 1
 ```
-Compare each hash with `aligned_with_production` in `references/ALIGNMENT.md`. Any mismatch = **DRIFT CANDIDATE**: the skill is not wrong yet, but it is no longer aligned at a known baseline. Action: read the diff of the changed file(s), replay Tier 3, then either re-pin (update the hashes, bump `version` in all four places Tier 1f compares, add a `conformance/RUNS.md` entry) or mark the skill `STALE — DO NOT RELY` in SKILL.md (Currency section) and `references/ALIGNMENT.md` until fixed. A new `public/data/trade/latest.json` vintage is a `revalidate_on_event` trigger even if the compiled files are unchanged.
+Compare each hash with `aligned_with_production` in `references/ALIGNMENT.md`. Any mismatch = **DRIFT CANDIDATE**: the skill is not wrong yet, but it is no longer aligned at a known baseline. Action: read the diff of the changed file(s), replay Tier 3, then either re-pin (update the hashes, bump `version` in all five places Tier 1f compares, add a `conformance/RUNS.md` entry) or mark the skill `STALE — DO NOT RELY` in SKILL.md (Currency section) and `references/ALIGNMENT.md` until fixed. A new `public/data/trade/latest.json` vintage is a `revalidate_on_event` trigger even if the compiled files are unchanged.
 
 ## Tier 3 — replay protocol for `conformance/cases.yaml`
 - Operator: a person, or a model. Record the model name and version (e.g. `claude-opus-5`), the sampling setting where controllable (temperature 0 preferred; if the host does not expose it, record "host default"), the date, and the skill `version`.

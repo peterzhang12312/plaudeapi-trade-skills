@@ -10,7 +10,7 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
 authors = [{ name = "Bandi & Associates PLLC" }]
-dependencies = ["mcp>=2.3.0,<3"]
+dependencies = ["mcp>=2.3.0,<3", "pydantic>=2"]
 
 [project.optional-dependencies]
 test = ["pytest>=8"]

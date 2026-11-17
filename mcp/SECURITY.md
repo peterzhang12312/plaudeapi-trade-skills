@@ -7,13 +7,13 @@ Scope: this server serves public facts only. It is general information, not lega
 - No state. No session, no handle, no database, no files written, no cookies, no accounts, no authentication. The 2026-07-28 MCP revision has no protocol session.
 - No outbound calls. It reads one bundled `snapshot.json` and makes no network request at run time. It never calls a model, the Firm App, or any private system.
 - No write tools. All tools carry `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false`. No resources, no prompts, no sampling, no elicitation.
-- No selling. Tool descriptions contain no price and no checkout wording. Each result's `next_step` points to the public free check and the public page that describes the attorney diagnostic; nothing else.
+- No selling action. Tool descriptions contain no price and no checkout wording. Each result's `next_step` names the published US$495 Trade diagnostic and links to the free check and to the public page that describes it; there is no checkout, payment or engagement action.
 
 ## Logging
 - The server code logs nothing about requests and installs no middleware. SDK log level is set to WARNING. A test asserts that a tool argument is not present in captured logs.
 - Known behaviour: when a client sends an invalid value, the SDK returns a validation error to that client that echoes the rejected value back to the same caller. It is not stored. If a host adds access logs in front of the server, configure them to drop request bodies and query strings.
 
-## If hosted over HTTP (founder decision; nothing is hosted today)
+## If hosted over HTTP (maintainer decision; nothing is hosted today)
 - Terminate TLS at the host; bind the app to localhost or a private port.
 - Rate-limit at the edge (suggested start: 60 requests per minute per IP, burst 20) and cap request body size (for example 4 KiB; legitimate calls are under 200 bytes).
 - Validate the `Origin` header and keep the SDK's DNS-rebinding protection enabled when binding to anything other than localhost.

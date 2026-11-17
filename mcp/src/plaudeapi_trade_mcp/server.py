@@ -20,7 +20,7 @@ SNAPSHOT_PATH = Path(__file__).with_name("snapshot.json")
 INSTRUCTIONS = (
     "Public facts about U.S. import rules from the free guides at https://plaudeapi.com/trade/guides/. "
     "Tools take no free text and keep nothing. General information only, not legal advice; "
-    "no attorney-client relationship. Published by Bandi & Associates PLLC."
+    "no attorney-client relationship. The firm advises on United States law only. Published by Bandi & Associates PLLC."
 )
 
 # Guides whose page has a Primary authorities section (the eu guide has none yet).
@@ -104,7 +104,7 @@ def _today() -> date:
 
 
 def _age_days(snap: dict, g: dict) -> int:
-    ref = min(date.fromisoformat(d) for d in (snap["generated"], g.get("verified")) if d)
+    ref = min(date.fromisoformat(d) for d in (snap["generated"], g.get("verified") or g.get("updated")) if d)
     return max((_today() - ref).days, 0)
 
 

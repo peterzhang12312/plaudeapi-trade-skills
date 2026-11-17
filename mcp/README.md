@@ -3,7 +3,7 @@
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io/specification/2026-07-28) server (revision 2026-07-28, official Python SDK `mcp` 2.x). It serves dates, sources and guide links from the free guides at [plaudeapi.com/trade/guides](https://plaudeapi.com/trade/guides/). It accepts no user facts and stores nothing.
 
-General information only, not legal advice. Using it does not create an attorney-client relationship. Published by Bandi & Associates PLLC. Every answer points to the free check at <https://plaudeapi.com/trade/> or the US$495 attorney-signed diagnostic described on the public site.
+General information only, not legal advice. Using it does not create an attorney-client relationship. Published by Bandi & Associates PLLC. Every answer points to the free check at <https://plaudeapi.com/trade/> or the US$495 Trade diagnostic described on the public site.
 
 ## Tools
 
@@ -28,7 +28,7 @@ pip install .
 plaudeapi-trade-mcp          # stdio
 ```
 
-When published to PyPI (founder decision) the same server runs with `uvx plaudeapi-trade-mcp`.
+Once published to PyPI (not yet published) the same server runs with `uvx plaudeapi-trade-mcp`.
 
 **Claude Desktop** (`claude_desktop_config.json`):
 
@@ -52,7 +52,7 @@ Streamable HTTP for local testing: `plaudeapi-trade-mcp --http --port 8000` (see
 python scripts/build_snapshot.py     # reads https://plaudeapi.com/trade/guides/ and each listed guide
 ```
 
-No private data, no Firm App, no credentials. `plaudeapi.com/llms.txt` does not exist (404 on 2026-11-16); if the site later publishes one, the builder can read it. The builder reads the fee from the live `/trade/` page and stops if it is missing or not $495, and stops if a dated guide's verified date is over 14 days old (override: `MCP_FRESHNESS_ACK=<reason>`, recorded in the snapshot). Review the diff of the regenerated file before committing; bump the version when it changes.
+No private data, no Firm App, no credentials. The builder reads the fee from the live `/trade/` page and stops if it is missing or not $495, and stops if a dated guide's verified date is over 14 days old (override: `MCP_FRESHNESS_ACK=<reason>`, recorded in the snapshot). Review the diff of the regenerated file before committing; bump the version when it changes.
 
 ## Tests
 
@@ -64,19 +64,8 @@ No network: an in-memory MCP client runs against the bundled snapshot, and the b
 
 ## Registry metadata
 
-[`server.json`](server.json) is a draft for the official MCP Registry (preview). The namespace `io.github.peterzhang12312/...` needs GitHub-account verification, or use a DNS-verified `com.plaudeapi/...` namespace. Publishing needs a PyPI release first. Both are founder steps; nothing has been published or registered.
-
-## Hosting options (decision for the founder; nothing deployed, no account created)
-
-| Option | Fit | Approx. cost (check current pricing before deciding) |
-|---|---|---|
-| None: local stdio only, users install from PyPI or Git | Zero server, zero logs, nothing for the firm to disclose | US$0 |
-| Render web service (this Python app, `--http`) | Runs as is; free tier sleeps when idle (slow first call); paid tier stays up | free, or about US$7/month for an always-on small instance |
-| Cloudflare Worker (site already on Cloudflare) | Needs a small TypeScript port using the official TypeScript SDK reading the same `snapshot.json`; edge rate limiting built in | free tier covers low volume; paid plan about US$5/month |
-| Static file only (`snapshot.json` on the site) | Not an MCP endpoint; useful as a fallback source | US$0 |
-
-Prices are from general knowledge, not re-checked today. Hosted use needs a privacy statement matching SECURITY.md, a DNS name, and a decision on logs; see SECURITY.md.
+[`server.json`](server.json) is a draft for the official MCP Registry (preview). The namespace `io.github.peterzhang12312/...` needs GitHub-account verification, or use a DNS-verified `com.plaudeapi/...` namespace. Publishing needs a PyPI release first. Both are maintainer steps; nothing has been published or registered.
 
 ## Licence
 
-MIT. Legal authorities cited are public law; verify them before relying on them.
+MIT (see [LICENSE](LICENSE)). Test fixtures are copies of plaudeapi.com pages, see `tests/fixtures/NOTICE`. Legal authorities cited are public law; verify them before relying on them.
