@@ -7,12 +7,13 @@ so no client facts can reach this server. Nothing is stored; inputs are not logg
 from __future__ import annotations
 
 import json
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
 from mcp.server.mcpserver import MCPServer
-from mcp.types import ToolAnnotations
+from mcp.types import CallToolResult, TextContent, ToolAnnotations
 from pydantic import BaseModel
 
 SNAPSHOT_PATH = Path(__file__).with_name("snapshot.json")
@@ -22,8 +23,11 @@ INSTRUCTIONS = (
     "no attorney-client relationship. Published by Bandi & Associates PLLC."
 )
 
-GuideSlug = Literal["foreign-ior", "ieepa-refund", "cf28", "eu"]
+# Guides whose page has a Primary authorities section (the eu guide has none yet).
+GuideSlug = Literal["foreign-ior", "ieepa-refund", "cf28"]
 DatedGuideSlug = Literal["foreign-ior", "ieepa-refund"]  # guides that publish a Key dates table
+
+STALE_AFTER_DAYS = 14
 
 READ_ONLY = ToolAnnotations(
     readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False
@@ -42,6 +46,8 @@ class Provenance(BaseModel):
     verified: str | None  # date the page records as verified; None when the page records only an update date
     updated: str | None
     snapshot_generated: str
+    age_days: int  # days from the older of snapshot_generated and the guide's verified date to today
+    stale: bool  # age_days > STALE_AFTER_DAYS
     source: str
     next_step: NextStep
 
@@ -92,15 +98,28 @@ def load_snapshot(path: str | None = None) -> dict:
     return json.loads(Path(path or SNAPSHOT_PATH).read_text(encoding="utf-8"))
 
 
+def _today() -> date:
+    """Server-local date; tests replace this to freeze the clock."""
+    return date.today()
+
+
+def _age_days(snap: dict, g: dict) -> int:
+    ref = min(date.fromisoformat(d) for d in (snap["generated"], g.get("verified")) if d)
+    return max((_today() - ref).days, 0)
+
+
 def _prov(snap: dict, g: dict | None = None) -> dict:
     """Fields every result carries: disclaimer, firm, verification date, next step."""
     g = g or {}
+    age = _age_days(snap, g)
     return {
         "disclaimer": snap["disclaimer"],
         "attribution": snap["firm"],
         "verified": g.get("verified") if g else None,
         "updated": g.get("updated") if g else None,
         "snapshot_generated": snap["generated"],
+        "age_days": age,
+        "stale": age > STALE_AFTER_DAYS,
         "source": snap["origin"],
         "next_step": {
             "free_check": snap["free_check_url"],
@@ -108,6 +127,17 @@ def _prov(snap: dict, g: dict | None = None) -> dict:
             "attorney_diagnostic_label": snap["diagnostic"]["label"],
         },
     }
+
+
+def _result(model: Provenance) -> CallToolResult:
+    """Structured result plus its JSON text; a stale snapshot adds a first text line."""
+    structured = model.model_dump(mode="json")
+    content = [TextContent(type="text", text=json.dumps(structured, ensure_ascii=False))]
+    if model.stale:
+        field = "guide_url" if hasattr(model, "guide_url") else "source"
+        notice = f"This snapshot is {model.age_days} days old; open {field} for the current text."
+        content.insert(0, TextContent(type="text", text=notice))
+    return CallToolResult(content=content, structured_content=structured)
 
 
 def _guide(snap: dict, slug: str) -> dict:
@@ -138,13 +168,13 @@ def build_server(snapshot_path: str | None = None) -> MCPServer:
         annotations=READ_ONLY,
     )
     def list_guides() -> GuideList:
-        return GuideList(
+        return _result(GuideList(
             **_prov(snap),
             guides=[
                 GuideEntry(**{k: g[k] for k in GuideEntry.model_fields})
                 for g in snap["guides"]
             ],
-        )
+        ))
 
     @mcp.tool(
         name="get_rule_dates",
@@ -159,14 +189,14 @@ def build_server(snapshot_path: str | None = None) -> MCPServer:
     )
     def get_rule_dates(guide: DatedGuideSlug) -> RuleDates:
         g = _guide(snap, guide)
-        return RuleDates(
+        return _result(RuleDates(
             **_prov(snap, g),
             guide=g["slug"],
             guide_url=g["url"],
             title=g["title"],
             dates=[DateRow(**r) for r in g["key_dates"]],
             reading_note=g.get("reading_note"),
-        )
+        ))
 
     @mcp.tool(
         name="get_sources",
@@ -180,14 +210,18 @@ def build_server(snapshot_path: str | None = None) -> MCPServer:
     )
     def get_sources(guide: GuideSlug) -> Sources:
         g = _guide(snap, guide)
-        return Sources(
+        return _result(Sources(
             **_prov(snap, g),
             guide=g["slug"],
             guide_url=g["url"],
             title=g["title"],
             authorities=[Authority(**a) for a in g["authorities"]],
             reading_note=g.get("reading_note"),
-        )
+        ))
+
+    # Advertise a closed input object (the SDK's generated schema leaves extras open).
+    for tool in mcp._tool_manager.list_tools():
+        tool.parameters["additionalProperties"] = False
 
     return mcp
 

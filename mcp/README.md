@@ -1,3 +1,4 @@
+<!-- mcp-name: io.github.peterzhang12312/plaudeapi-trade-public-facts -->
 # PlaudeAPI Trade: public-facts MCP server
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io/specification/2026-07-28) server (revision 2026-07-28, official Python SDK `mcp` 2.x). It serves dates, sources and guide links from the free guides at [plaudeapi.com/trade/guides](https://plaudeapi.com/trade/guides/). It accepts no user facts and stores nothing.
@@ -10,9 +11,9 @@ General information only, not legal advice. Using it does not create an attorney
 |---|---|---|
 | `list_guides` | none | The public guides with page links and the date each records as verified or updated |
 | `get_rule_dates` | `guide`: `foreign-ior` or `ieepa-refund` | The dated milestones the guide publishes, each with its source citation (for example the foreign importer-of-record rule: effective 2027-01-05, FR Doc. 2026-22735) |
-| `get_sources` | `guide`: `foreign-ior`, `ieepa-refund`, `cf28` or `eu` | The primary authorities the guide cites, with links, and the date they were read |
+| `get_sources` | `guide`: `foreign-ior`, `ieepa-refund` or `cf28` (`eu` has no Primary authorities section yet) | The primary authorities the guide cites, with links, and the date they were read |
 
-Every result carries the disclaimer, `attribution` ("Bandi & Associates PLLC"), `verified` / `updated` dates, `snapshot_generated`, and `next_step` links. Results have an `outputSchema` and a matching text copy. All tools are annotated read-only, non-destructive, idempotent, closed-world. Inputs are enums only, so a client cannot submit facts about a matter. See [SECURITY.md](SECURITY.md).
+Every result carries the disclaimer, `attribution` ("Bandi & Associates PLLC"), `verified` / `updated` dates, `snapshot_generated`, `age_days` and `stale` (over 14 days; a stale result starts with a notice line), and `next_step` links. Results have an `outputSchema` and a matching text copy. All tools are annotated read-only, non-destructive, idempotent, closed-world. Inputs are enums only, so a client cannot submit facts about a matter. See [SECURITY.md](SECURITY.md).
 
 Dates are as the guides publish them; rules change. Check the primary source before relying on a date.
 
@@ -51,7 +52,7 @@ Streamable HTTP for local testing: `plaudeapi-trade-mcp --http --port 8000` (see
 python scripts/build_snapshot.py     # reads https://plaudeapi.com/trade/guides/ and each listed guide
 ```
 
-No private data, no Firm App, no credentials. `plaudeapi.com/llms.txt` does not exist (404 on 2026-11-16); if the site later publishes one, the builder can read it. Review the diff of the regenerated file before committing; bump the version when it changes.
+No private data, no Firm App, no credentials. `plaudeapi.com/llms.txt` does not exist (404 on 2026-11-16); if the site later publishes one, the builder can read it. The builder reads the fee from the live `/trade/` page and stops if it is missing or not $495, and stops if a dated guide's verified date is over 14 days old (override: `MCP_FRESHNESS_ACK=<reason>`, recorded in the snapshot). Review the diff of the regenerated file before committing; bump the version when it changes.
 
 ## Tests
 

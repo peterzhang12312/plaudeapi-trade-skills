@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import html as _html
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -25,7 +26,13 @@ DISCLAIMER = (
 )
 FREE_CHECK_URL = f"{BASE}/trade/"
 DIAGNOSTIC_URL = f"{BASE}/trade/#diagnostic"
-DIAGNOSTIC_LABEL = "US$495 attorney-signed diagnostic"
+EXPECTED_FEE = "495"
+STALE_AFTER_DAYS = 14
+ACK_ENV = "MCP_FRESHNESS_ACK"  # non-empty reason overrides the freshness gate; recorded in the snapshot
+
+
+class BuildError(RuntimeError):
+    pass
 
 
 def fetch(url: str) -> str:
@@ -137,10 +144,10 @@ def parse_guide(page: str) -> dict:
     ]
     authorities = []
     for text, links in p.lis.get("Primary authorities", []):
-        if links:
-            cite = re.sub(r"\s*(—\s*)?https?://\S+", "", text).strip(" —")
-            authorities.append({"citation": cite, "urls": links})
-    note = re.search(r"([^<>]*(?:was read on|were read on)[^<>]*)</p>\s*</article>", page)
+        cite = re.sub(r"\s*(—\s*)?https?://\S+", "", text).strip(" —")
+        authorities.append({"citation": cite, "urls": links})  # unlinked statutes keep urls: []
+    sec = re.search(r"<h2>Primary authorities</h2>(.*?)(?=<h2|</article>)", page, re.S)
+    note = re.search(r"<p[^>]*>([^<]*(?:was read on|were read on)[^<]*)</p>", sec.group(1)) if sec else None
     return {
         "published": meta.get("datePublished"),
         "modified": meta.get("dateModified"),
@@ -150,7 +157,19 @@ def parse_guide(page: str) -> dict:
     }
 
 
-def build(fetch_fn=fetch, today: str | None = None) -> dict:
+def parse_fee(page: str) -> str:
+    m = re.search(r"<strong>Fee</strong>\s*<span>\$([\d,]+)</span>", page)
+    if not m:
+        raise BuildError("fee not found on /trade/; refusing to build")
+    fee = m.group(1).replace(",", "")
+    if fee != EXPECTED_FEE:
+        raise BuildError(f"/trade/ shows ${fee}, expected ${EXPECTED_FEE}; update the builder deliberately")
+    return fee
+
+
+def build(fetch_fn=fetch, today: str | None = None, ack: str | None = None) -> dict:
+    today = today or date.today().isoformat()
+    fee = parse_fee(fetch_fn(f"{BASE}/trade/"))
     guides = []
     for g in parse_index(fetch_fn(f"{BASE}/trade/guides/")):
         page = parse_guide(fetch_fn(f"{BASE}/trade/{g['slug']}/"))
@@ -164,20 +183,40 @@ def build(fetch_fn=fetch, today: str | None = None) -> dict:
             "updated": g["date"] if g["date_label"] == "Updated" else None,
             **page,
         })
-    return {
+    stale = [
+        f"{g['slug']} verified {g['verified']}"
+        for g in guides
+        if g["verified"] and (date.fromisoformat(today) - date.fromisoformat(g["verified"])).days > STALE_AFTER_DAYS
+    ]
+    override = None
+    if stale:
+        if not (ack or "").strip():
+            raise BuildError(
+                f"verified date more than {STALE_AFTER_DAYS} days before {today}: {'; '.join(stale)}. "
+                f"Re-verify the guide, or set {ACK_ENV}=<reason> to override (recorded in the snapshot)."
+            )
+        override = {"reason": ack.strip(), "guides": stale}
+    snap = {
         "schema_version": 1,
-        "generated": today or date.today().isoformat(),
+        "generated": today,
         "origin": f"{BASE}/trade/guides/",
         "firm": FIRM,
         "disclaimer": DISCLAIMER,
         "free_check_url": FREE_CHECK_URL,
-        "diagnostic": {"label": DIAGNOSTIC_LABEL, "url": DIAGNOSTIC_URL},
+        "diagnostic": {"label": f"US${fee} attorney-signed diagnostic", "url": DIAGNOSTIC_URL},
         "guides": guides,
     }
+    if override:
+        snap["freshness_override"] = override
+    return snap
 
 
 def main() -> int:
-    snap = build()
+    try:
+        snap = build(ack=os.environ.get(ACK_ENV))
+    except BuildError as e:
+        print(f"build refused: {e}", file=sys.stderr)
+        return 1
     OUT.write_text(json.dumps(snap, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"wrote {OUT} ({len(snap['guides'])} guides)")
     return 0

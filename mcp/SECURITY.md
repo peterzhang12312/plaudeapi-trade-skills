@@ -3,7 +3,7 @@
 Scope: this server serves public facts only. It is general information, not legal advice, and using it creates no attorney-client relationship. Published by Bandi & Associates PLLC.
 
 ## What it cannot do, by construction
-- No free-text input. Every tool parameter is a JSON Schema `enum` (a guide slug) or absent. A test (`test_inputs_are_enums_only_no_free_text`) fails the build if a free-text parameter is added. A client therefore has no field in which to send facts about a matter.
+- No free-text input. Every tool parameter is a JSON Schema `enum` (a guide slug) or absent, and each input schema declares `additionalProperties: false`, so a conforming client has no field in which to send facts about a matter. The server does not itself reject undeclared extra arguments; it ignores them and never reads or stores them. A test (`test_inputs_are_enums_only_no_free_text`) fails the build if a free-text parameter is added.
 - No state. No session, no handle, no database, no files written, no cookies, no accounts, no authentication. The 2026-07-28 MCP revision has no protocol session.
 - No outbound calls. It reads one bundled `snapshot.json` and makes no network request at run time. It never calls a model, the Firm App, or any private system.
 - No write tools. All tools carry `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false`. No resources, no prompts, no sampling, no elicitation.
@@ -19,7 +19,7 @@ Scope: this server serves public facts only. It is general information, not lega
 - Validate the `Origin` header and keep the SDK's DNS-rebinding protection enabled when binding to anything other than localhost.
 - Disable platform request-body logging; keep only status, path, time and a truncated IP (or none). Say so on the privacy page before launch.
 - Publish a privacy statement for the endpoint that matches this note; the browser tool's "stores nothing on any server" wording covers the browser tool only and must not be reused for a hosted endpoint without checking the host's own logs.
-- Data freshness: rebuild and redeploy the snapshot whenever a guide changes (`python scripts/build_snapshot.py`, review the diff, bump version). Each result shows `verified`, `updated` and `snapshot_generated` so a stale snapshot is visible to the reader.
+- Data freshness: rebuild and redeploy the snapshot whenever a guide changes (`python scripts/build_snapshot.py`, review the diff, bump version). Each result shows `verified`, `updated` and `snapshot_generated` `age_days` and `stale` (older than 14 days, against the server's local date), and a stale result starts with a notice line, so a stale snapshot is visible to the reader. The builder refuses to run when a dated guide's verified date is over 14 days old unless `MCP_FRESHNESS_ACK=<reason>` is set; the override is recorded in the snapshot.
 
 ## Reporting
 Use the firm's responsible-disclosure page: https://plaudeapi.com/legal/responsible-disclosure/

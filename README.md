@@ -20,7 +20,7 @@ cp -r plaudeapi-trade-skills/skills/us-import-risk-screen ~/.claude/skills/
 
 Then ask, for example: *"We got a CF-29 dated 2026-09-02 on an entry from January — what may matter?"*
 
-**Claude plugin** — the repository root is also a Claude plugin (`.claude-plugin/plugin.json`, name `plaudeapi-trade`, MIT). To try it locally in Claude Code: `claude --plugin-dir ./plaudeapi-trade-skills`. The plugin bundles no code, no MCP server and no hook, and collects nothing itself (your AI tool's provider handles what you type there under its own terms); it contains the one skill below and the conformance files.
+**Claude plugin** — the repository root is also a Claude plugin (`.claude-plugin/plugin.json`, name `plaudeapi-trade`, MIT). To try it locally in Claude Code: `claude --plugin-dir ./plaudeapi-trade-skills`. The plugin registers no MCP server and no hook; an optional, separately installed public-facts server lives in `mcp/` and is not loaded by the plugin. The plugin collects nothing itself (your AI tool's provider handles what you type there under its own terms); it contains the one skill below and the conformance files.
 
 Other agent frameworks: the skill is a single Markdown file with YAML frontmatter (`name`, `description`); load it as a system instruction or tool description.
 
