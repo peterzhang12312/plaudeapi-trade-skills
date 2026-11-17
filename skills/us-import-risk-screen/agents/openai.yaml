@@ -1,0 +1,6 @@
+interface:
+  display_name: "U.S. import risk screen"
+  short_description: "A fail-closed preliminary screen of a U.S. import situation. General information, not legal advice."
+  default_prompt: "Screen my U.S. import situation: what may matter, which dates are POTENTIAL or UNKNOWN, and what facts are missing."
+policy:
+  allow_implicit_invocation: true
