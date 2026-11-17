@@ -12,7 +12,7 @@ revalidate_by: 2027-05-15                # ceiling = last_primary_source_review 
 revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
 aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code
   repo: knowledge-pop (private)
-  commit: a43044743ff0e095007e7f002a5769fc2c06222a
+  commit: c3549895b87cefa6e6a7623abaafdcfc59711084
   compiled_screen_files:                  # the exact file set check-trade-eventscreen.mjs compiles (its tsconfig include list)
     src/trade/eventscreen.ts: 53eba2ad8f401484bd5f53c68e7f20ea70c303a9
     src/trade/campaign.ts: 5401547db1c8090e4e557d4f45ab423fffa4a393
@@ -25,8 +25,8 @@ aligned_with_production:                  # "aligned with production at the reco
   guide:
     content/trade/articles/cf28.md: e62816318e03c413ffe9272fa15b3fde878fda57   # rendered at https://plaudeapi.com/trade/cf28/
     expected_title: "Received a CBP Form 28"  # VERIFY.md Tier 1d checks the live page for this string
-    content/trade/articles/ieepa-refund.md: a015be3b4cf641947605be866981ba8a74645cc5   # rendered at https://plaudeapi.com/trade/ieepa-refund/ ; front matter verified 2026-11-14
-    content/trade/articles/foreign-ior.md: 056e217a3e3418164beab33fc62c9478ed881109   # rendered at https://plaudeapi.com/trade/foreign-ior/ ; front matter verified 2026-11-13
+    content/trade/articles/ieepa-refund.md: 3e4c100e44f2fbfd74d913c8c5a766bcaa6c07c3   # rendered at https://plaudeapi.com/trade/ieepa-refund/ ; front matter verified 2026-11-14
+    content/trade/articles/foreign-ior.md: 9c985646d94e05c7d25049409276e7348b1efa50   # rendered at https://plaudeapi.com/trade/foreign-ior/ ; front matter verified 2026-11-13
   storage_wording_source: "CF-28 guide section 9 / site disclosure: the browser-side check 'asks for no documents, uploads nothing, and stores nothing on any server'"
   runtime_data_bundle:
     public/data/trade/latest.json: d69b2f79cb8b984edd0481026c5db10995a9a518   # as_of 2026-11-10; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
