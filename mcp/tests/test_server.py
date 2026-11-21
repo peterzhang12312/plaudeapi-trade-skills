@@ -104,7 +104,7 @@ def test_foreign_ior_rule_date_and_citation():
     eff = [d for d in s["dates"] if d["date"] == "2027-01-05" and "effective" in d["event"]]
     assert eff and "69977" in eff[0]["source"]
     assert any("2026-22735" in d["event"] for d in s["dates"])
-    assert s["verified"] == "2026-11-13"
+    assert s["verified"] == "2026-11-17"
 
 
 def test_sources_have_urls_and_unlinked_authorities_are_kept():
@@ -149,17 +149,17 @@ def test_tool_description_example_is_in_the_snapshot():
 
 
 def test_stale_snapshot_adds_age_flag_and_first_line(monkeypatch):
-    monkeypatch.setattr(srv, "_today", lambda: date(2026, 12, 1))  # 15 days after 2026-11-16
+    monkeypatch.setattr(srv, "_today", lambda: date(2026, 12, 6))  # 19 days after 2026-11-17, 15 after the 2026-11-21 snapshot
     r = run(lambda c: c.call_tool("get_rule_dates", {"guide": "foreign-ior"}))
     s = r.structured_content
-    assert s["age_days"] == 18 and s["stale"] is True  # verified 2026-11-13
-    assert r.content[0].text == "This snapshot is 18 days old; open guide_url for the current text."
+    assert s["age_days"] == 19 and s["stale"] is True  # verified 2026-11-17
+    assert r.content[0].text == "This snapshot is 19 days old; open guide_url for the current text."
     assert json.loads(r.content[1].text) == s
     assert run(lambda c: c.call_tool("list_guides", {})).structured_content["stale"] is True
 
 
 def test_fresh_boundary_is_14_days(monkeypatch):
-    monkeypatch.setattr(srv, "_today", lambda: date(2026, 11, 27))  # 14 days after verified 11-13
+    monkeypatch.setattr(srv, "_today", lambda: date(2026, 12, 1))  # 14 days after verified 11-17
     r = run(lambda c: c.call_tool("get_rule_dates", {"guide": "foreign-ior"}))
     assert r.structured_content["age_days"] == 14 and r.structured_content["stale"] is False
     assert len(r.content) == 1

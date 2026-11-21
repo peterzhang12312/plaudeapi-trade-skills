@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-16",
+  "generated": "2026-11-21",
   "origin": "https://plaudeapi.com/trade/guides/",
   "firm": "Bandi & Associates PLLC",
   "disclaimer": "General information only, not legal advice. Using this server does not create an attorney-client relationship. Published by Bandi & Associates PLLC.",
@@ -16,10 +16,10 @@
       "url": "https://plaudeapi.com/trade/foreign-ior/",
       "zh_url": "https://plaudeapi.com/trade/foreign-ior/zh/",
       "description": "From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer.",
-      "verified": "2026-11-13",
+      "verified": "2026-11-17",
       "updated": null,
       "published": "2026-11-14",
-      "modified": "2026-11-14",
+      "modified": "2026-11-17",
       "key_dates": [
         {
           "date": "2026-11-06",
@@ -61,7 +61,7 @@
           ]
         }
       ],
-      "reading_note": "The rule was read on 2026-11-13 against the Federal Register full text, obtained from the Federal Register website on 2026-11-10 (URL above); 19 CFR 24.36 was read on 2026-11-14. Rules change; check the current text before relying on any date stated here."
+      "reading_note": "The rule was read on 2026-11-13 against the Federal Register full text, obtained from the Federal Register website on 2026-11-10 (URL above); 19 CFR 24.36 was read on 2026-11-14. Re-checked 2026-11-17. Rules change; check the current text before relying on any date stated here."
     },
     {
       "slug": "ieepa-refund",
@@ -69,10 +69,10 @@
       "url": "https://plaudeapi.com/trade/ieepa-refund/",
       "zh_url": "https://plaudeapi.com/trade/ieepa-refund/zh/",
       "description": "Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather.",
-      "verified": "2026-11-14",
+      "verified": "2026-11-17",
       "updated": null,
       "published": "2026-11-14",
-      "modified": "2026-11-14",
+      "modified": "2026-11-17",
       "key_dates": [
         {
           "date": "2026-02-20",
@@ -164,7 +164,7 @@
           ]
         }
       ],
-      "reading_note": "Authorities were read on 2026-11-14 from the sources linked, except FR 2026-22735, read on 2026-11-13 from the Federal Register text. Rules and CBP procedures change; check the current text before relying on any date or period stated here."
+      "reading_note": "Authorities were read on 2026-11-14 from the sources linked, except FR 2026-22735, read on 2026-11-13 from the Federal Register text. Re-checked 2026-11-17. Rules and CBP procedures change; check the current text before relying on any date or period stated here."
     },
     {
       "slug": "eu",

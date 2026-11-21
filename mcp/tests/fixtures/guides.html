@@ -14,15 +14,21 @@
     <meta property="og:title" content="Guides" />
     <meta property="og:description" content="Guides on U.S. customs rules, CBP notices and EU market access, with the date each was last updated." />
     <meta property="og:url" content="https://plaudeapi.com/trade/guides/" />
-    <meta property="article:modified_time" content="2026-11-14" />
+    <meta property="article:modified_time" content="2026-11-17" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-300.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-400.woff2" crossorigin />
     <style>
 @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inter-300.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inter-400.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 300; src: local('Arial'), local('ArialMT'), local('Helvetica'), local('Liberation Sans'), local('Arimo'); size-adjust: 104.45%; ascent-override: 92.75%; descent-override: 23.09%; line-gap-override: 0%; }
+@font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 400 500; src: local('Arial'), local('ArialMT'), local('Helvetica'), local('Liberation Sans'), local('Arimo'); size-adjust: 106.39%; ascent-override: 91.06%; descent-override: 22.67%; line-gap-override: 0%; }
+@font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Bold'), local('Liberation Sans Bold'), local('Arimo Bold'); size-adjust: 100.85%; ascent-override: 96.06%; descent-override: 23.92%; line-gap-override: 0%; }
+@font-face { font-family: 'Playfair Fallback'; font-style: normal; font-weight: 400; src: local('Georgia'), local('Gelasio'); size-adjust: 101.19%; ascent-override: 106.92%; descent-override: 24.81%; line-gap-override: 0%; }
 /* --muted was #7C7C7C (round-1 QA GLOBAL-4, 2026-09-26): 4.17:1 on white, below
    the 4.5:1 WCAG AA minimum for the eyebrow/byline/disclosure text this
    variable colors. Darkened to #6B6B6B (5.33:1 on white), matching the same
@@ -30,11 +36,11 @@
 :root { color-scheme: light; --ink:#1C1C1C; --text:#3F3F3F; --muted:#6B6B6B; --rule:#E3E3E3; --wash:#F4F4F4; --accent:#E2553C; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: #fff; color: var(--text); font-family: Inter, system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
+body { margin: 0; background: #fff; color: var(--text); font-family: Inter, 'Inter Fallback', system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
 .masthead { background: var(--ink); color: #fff; }
 .masthead .row { margin: 0 auto; max-width: 900px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: 1rem 1.25rem; }
 .masthead a { color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
-.masthead .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; letter-spacing: 0; text-transform: none; }
+.masthead .brand { font-family: 'Playfair Display', 'Playfair Fallback', Georgia, serif; font-size: 1.1rem; letter-spacing: 0; text-transform: none; }
 .masthead nav a { margin-left: 1.25rem; color: #B5B5B5; display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; letter-spacing: .1em; }
 .masthead a:focus-visible, article a:focus-visible, footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .masthead nav a:hover { color: #fff; }
@@ -54,15 +60,17 @@ body { margin: 0; background: #fff; color: var(--text); font-family: Inter, syst
 main { margin: 0 auto; max-width: 900px; padding: 3rem 1.25rem 4rem; }
 @media (min-width: 640px) { main { padding: 3.5rem 2rem 5rem; } }
 .eyebrow { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
-h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.12; color: var(--ink); margin: 1rem 0 0; max-width: 760px; }
+h1 { font-family: 'Playfair Display', 'Playfair Fallback', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.12; color: var(--ink); margin: 1rem 0 0; max-width: 760px; }
 .byline { margin: 1.25rem 0 0; padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
 .byline b { font-weight: 600; color: var(--ink); }
 .publisher { margin: .75rem 0 0; font-size: 14px; color: var(--muted); }
 .publisher b { font-weight: 600; color: var(--ink); }
 .lede { font-size: 17px; line-height: 1.65; color: var(--text); max-width: 760px; margin: 1.75rem 0 0; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
-article h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.6rem; line-height: 1.25; color: var(--ink); margin: 2.75rem 0 .75rem; }
+article h2 { font-family: 'Playfair Display', 'Playfair Fallback', Georgia, serif; font-weight: 400; font-size: 1.6rem; line-height: 1.25; color: var(--ink); margin: 2.75rem 0 .75rem; }
 article p, article li { font-size: 15px; max-width: 760px; }
 article p { margin: .9rem 0; }
+h1, h2, h3 { text-wrap: balance; }
+article p { text-wrap: pretty; }
 article ul, article ol { padding-left: 1.4rem; margin: .75rem 0; }
 article li { margin: .45rem 0; }
 article li p { margin: 0; }
@@ -96,14 +104,16 @@ main[tabindex="-1"]:focus { outline: none; }
 article table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
 article th, article td { border: 1px solid var(--rule); padding: .5rem .65rem; text-align: left; vertical-align: top; }
 article th { background: var(--wash); font-weight: 600; color: var(--ink); }
-html[lang="zh"] body { font-family: Inter, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', system-ui, sans-serif; font-weight: 400; }
-html[lang="zh"] h1, html[lang="zh"] article h2, html[lang="zh"] .masthead .brand { font-family: 'Playfair Display', 'Noto Serif CJK SC', 'Songti SC', SimSun, Georgia, serif; }
+article tbody th[scope="row"] { background: none; font-weight: inherit; color: inherit; }
+.table-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+html[lang="zh"] body { font-family: Inter, 'Inter Fallback', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', system-ui, sans-serif; font-weight: 400; }
+html[lang="zh"] h1, html[lang="zh"] article h2, html[lang="zh"] .masthead .brand { font-family: 'Playfair Display', 'Playfair Fallback', 'Noto Serif CJK SC', 'Songti SC', SimSun, Georgia, serif; }
 html[lang="zh"] .masthead a, html[lang="zh"] .eyebrow, html[lang="zh"] .draft { letter-spacing: .08em; }
 
 .guide-list { list-style: none; padding: 0; margin: 1rem 0 0; max-width: 760px; }
 .guide-list li { margin: 0; padding: 1.1rem 0; border-top: 1px solid var(--rule); }
 .guide-list li:first-child { border-top: 0; padding-top: 0; }
-article .guide-list a.guide-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; line-height: 1.3; text-decoration: none; display: inline-block; }
+article .guide-list a.guide-title { font-family: 'Playfair Display', 'Playfair Fallback', Georgia, serif; font-size: 1.2rem; line-height: 1.3; text-decoration: none; display: inline-block; }
 article .guide-list a.guide-title:hover { color: var(--accent); }
 .guide-meta { margin: .35rem 0 0; font-size: 14px; color: var(--muted); }
 .guide-desc { margin: .35rem 0 0; font-size: 14px; }
@@ -140,12 +150,12 @@ article .guide-list a.guide-title:hover { color: var(--accent); }
 <ul class="guide-list">
 <li>
 <a class="guide-title" href="/trade/foreign-ior/">CBP rule: a foreign importer of record must use CTPAT validation or a CTPAT-validated licensed customs broker (FR 2026-22735, effective 2027-01-05)</a>
-<p class="guide-meta">Verified <time datetime="2026-11-13">2026-11-13</time> · <a href="/trade/foreign-ior/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
+<p class="guide-meta">Verified <time datetime="2026-11-17">2026-11-17</time> · <a href="/trade/foreign-ior/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
 <p class="guide-desc">From 2027-01-05 a foreign IOR must be CTPAT-validated or use a CTPAT-validated licensed customs broker, and a U.S. IOR declares its status on each entry. Key dates, who is affected, the options, and what the rule text does not answer.</p>
 </li>
 <li>
 <a class="guide-title" href="/trade/ieepa-refund/">IEEPA duty refunds: CAPE or the CIT</a>
-<p class="guide-meta">Verified <time datetime="2026-11-14">2026-11-14</time> · <a href="/trade/ieepa-refund/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
+<p class="guide-meta">Verified <time datetime="2026-11-17">2026-11-17</time> · <a href="/trade/ieepa-refund/zh/" hreflang="zh" lang="zh" rel="alternate">中文</a></p>
 <p class="guide-desc">Two routes for IEEPA duty refunds: a CAPE declaration in ACE, or a protest and then the CIT. Who receives the refund, the key dates, the periods that may apply, and what to gather.</p>
 </li>
 <li>

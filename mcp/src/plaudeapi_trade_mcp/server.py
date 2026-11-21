@@ -154,7 +154,7 @@ def build_server(snapshot_path: str | None = None) -> MCPServer:
         title="PlaudeAPI Trade public facts",
         instructions=INSTRUCTIONS,
         website_url="https://plaudeapi.com/trade/agent/",
-        version="0.1.1",
+        version="0.1.2",
         log_level="WARNING",
     )
 
