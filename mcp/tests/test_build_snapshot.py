@@ -22,7 +22,7 @@ def fake_fetch(url):
 def test_parse_index():
     idx = b.parse_index(read("guides"))
     by = {g["slug"]: g for g in idx}
-    assert by["foreign-ior"]["date_label"] == "Verified" and by["foreign-ior"]["date"] == "2026-11-13"
+    assert by["foreign-ior"]["date_label"] == "Verified" and by["foreign-ior"]["date"] == "2026-11-17"
     assert by["cf28"]["date_label"] == "Updated"
 
 
@@ -89,10 +89,10 @@ def test_build_refuses_a_fee_that_is_not_495():
 
 
 def test_build_fails_when_verified_date_is_over_14_days_old():
-    # foreign-ior verified 2026-11-13: 14 days is allowed, 15 is not.
-    assert b.build(fake_fetch, today="2026-11-27")["generated"] == "2026-11-27"
+    # foreign-ior verified 2026-11-17: 14 days is allowed, 15 is not.
+    assert b.build(fake_fetch, today="2026-12-01")["generated"] == "2026-12-01"
     with pytest.raises(b.BuildError, match="foreign-ior"):
-        b.build(fake_fetch, today="2026-11-28")
+        b.build(fake_fetch, today="2026-12-02")
 
 
 def test_freshness_override_is_recorded_in_the_snapshot():

@@ -6,13 +6,13 @@ What the pin means and does not mean is stated in the `limitation` field below: 
 
 ```yaml
 skill: us-import-risk-screen
-version: 0.5.1                            # see CHANGELOG.md for the history; bump on every rule or pin change
-last_primary_source_review: 2026-11-16   # 2026-11-16 = alignment review against production (pinned at knowledge-pop 4f8c94d) and the two guide pages, read from their own front matter (verified 2026-11-13 / 2026-11-14); this date records that alignment review only, not a primary-source re-read; the statutes, regulations and the CBP Form 28 instructions under "Key facts" were last read from the primary sources on 2026-09-19 and were not re-read in this pass (the guides' own authority lists carry their 2026-11-13/14 reads)
+version: 0.5.2                            # see CHANGELOG.md for the history; bump on every rule or pin change
+last_primary_source_review: 2026-11-16   # 2026-11-16 = alignment review against production (then pinned at knowledge-pop 4f8c94d) and the two guide pages, read from their own front matter (then verified 2026-11-13 / 2026-11-14); 0.5.2 re-pinned to knowledge-pop c1ff8bb on 2026-11-21 after reading the diff of the two changed guides (both now verified 2026-11-17 with an updated date and a "Re-checked 2026-11-17" line, and on ieepa-refund a Source Note; no date, authority or rule changed) -- the review date is deliberately NOT moved, it is a founder-attorney call whether the 2026-11-17 re-check counts as a primary-source review; this date records that alignment review only, not a primary-source re-read; the statutes, regulations and the CBP Form 28 instructions under "Key facts" were last read from the primary sources on 2026-09-19 and were not re-read in this pass (the guides' own authority lists carry their 2026-11-13/14 reads)
 revalidate_by: 2027-05-15                # ceiling = last_primary_source_review + 180 days; past this date treat the skill as STALE until re-reviewed
 revalidate_on_event: any change to a tariff regime, IEEPA/CAPE refund rule, or CBP form referenced here (the site's regime timeline at https://plaudeapi.com/trade/timeline/ is the trigger); an event review supersedes the ceiling
 aligned_with_production:                  # "aligned with production at the recorded baseline" -- a content-hash pin, NOT a claim that this prose continuously mirrors the browser code
   repo: knowledge-pop (private)
-  commit: 4f8c94dc7f9600930595e9e4ec70e3e89dcedcc8
+  commit: c1ff8bb0dd9b41261902e962a50dfb77f8466483
   compiled_screen_files:                  # the exact file set check-trade-eventscreen.mjs compiles (its tsconfig include list)
     src/trade/eventscreen.ts: 53eba2ad8f401484bd5f53c68e7f20ea70c303a9
     src/trade/campaign.ts: 5401547db1c8090e4e557d4f45ab423fffa4a393
@@ -25,8 +25,8 @@ aligned_with_production:                  # "aligned with production at the reco
   guide:
     content/trade/articles/cf28.md: 5fe7d990929dafca91d6eab676292cb18daf6a2a   # rendered at https://plaudeapi.com/trade/cf28/
     expected_title: "Received a CBP Form 28"  # VERIFY.md Tier 1d checks the live page for this string
-    content/trade/articles/ieepa-refund.md: 729e17c8e32dcbe08e7e3b7dec05d68ab12fb4c4   # rendered at https://plaudeapi.com/trade/ieepa-refund/ ; front matter verified 2026-11-14
-    content/trade/articles/foreign-ior.md: 9c985646d94e05c7d25049409276e7348b1efa50   # rendered at https://plaudeapi.com/trade/foreign-ior/ ; front matter verified 2026-11-13
+    content/trade/articles/ieepa-refund.md: 1f944b10b23daecd8957399ee3528b241538a59a   # rendered at https://plaudeapi.com/trade/ieepa-refund/ ; front matter verified 2026-11-17 (re-pinned 0.5.2; was 2026-11-14)
+    content/trade/articles/foreign-ior.md: 38743876624a4fd54d4fb5424ef5061a2ff9b926   # rendered at https://plaudeapi.com/trade/foreign-ior/ ; front matter verified 2026-11-17 (re-pinned 0.5.2; was 2026-11-13)
   storage_wording_source: "CF-28 guide section 9 / site disclosure: the browser-side check 'asks for no documents, uploads nothing, and stores nothing on any server'"
   runtime_data_bundle:
     public/data/trade/latest.json: d69b2f79cb8b984edd0481026c5db10995a9a518   # as_of 2026-11-10; regime windows come from this bundle, which is NOT covered by the compiled_screen_files hashes -- a new vintage is a revalidate_on_event trigger
